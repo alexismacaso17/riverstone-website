@@ -1,0 +1,565 @@
+/* ============================================================
+   The Riverstone Group — Website
+   Consumes tokens from colors_and_type.css
+   Editorial rhythm · hairline depth · the cairn signature
+   ============================================================ */
+
+* { box-sizing: border-box; }
+/* Entrance reveals travel less — the motion should be felt, not seen. */
+:root { --reveal-shift: 12px; }
+html { scroll-behavior: smooth; scroll-padding-top: 96px; }
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--fg-1);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  overflow-x: hidden;
+}
+
+/* --- Parchment texture ---------------------------------------------------
+   An almost-imperceptible fine grain — the tooth of museum cotton / drawing
+   paper — laid across the whole canvas so the interface feels tactile rather
+   than digitally flat. Fixed (doesn't scroll), monochrome, ~5% multiply:
+   felt, not seen. No stains, no distress, no vintage. Collapses to nothing
+   if the browser can't render the inline SVG.                              */
+body::before {
+  content: ""; position: fixed; inset: 0; z-index: 500; pointer-events: none;
+  mix-blend-mode: multiply; opacity: 0.018;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='p'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23p)'/%3E%3C/svg%3E");
+  background-size: 180px 180px;
+}
+img { max-width: 100%; }
+
+.rs-container { max-width: 1240px; margin: 0 auto; padding: 0 var(--gutter); }
+.rs-skip { position: absolute; left: -9999px; top: 0; background: var(--action); color: var(--action-fg); padding: 12px 20px; z-index: 200; }
+.rs-skip:focus { left: 16px; top: 16px; }
+
+/* ---- Cairn signature mark ------------------------------------------- */
+.rs-cairn-mark { display: flex; flex-direction: column; gap: 5px; }
+.rs-cairn-mark span { display: block; height: 2px; border-radius: 2px; background: var(--support); }
+.rs-cairn-mark span:nth-child(1) { width: 44px; }
+.rs-cairn-mark span:nth-child(2) { width: 30px; }
+.rs-cairn-mark span:nth-child(3) { width: 18px; }
+.rs-cairn-mark--center { align-items: center; }
+.rs-cairn-mark--warm span { background: var(--hairline-on-warm); }
+
+/* ---- Index eyebrow -------------------------------------------------- */
+.rs-idx { display: inline-flex; align-items: center; gap: 14px; font-size: 12px; letter-spacing: 0.28em; text-transform: uppercase; color: var(--fg-2); }
+.rs-idx__n { color: var(--emphasis); font-variant-numeric: tabular-nums; }
+.rs-idx::after { content: ""; width: 44px; height: 1px; background: var(--hairline); }
+
+/* ---- Reveal --------------------------------------------------------- */
+.rs-reveal { opacity: 0; transform: translateY(var(--reveal-shift)); transition: opacity var(--dur-reveal) var(--ease-editorial), transform var(--dur-reveal) var(--ease-editorial); }
+.rs-reveal.is-in { opacity: 1; transform: none; }
+.rs-reveal[data-delay="1"] { transition-delay: 90ms; }
+.rs-reveal[data-delay="2"] { transition-delay: 180ms; }
+.rs-reveal[data-delay="3"] { transition-delay: 270ms; }
+
+/* ============================================================
+   Buttons / links
+   ============================================================ */
+.rs-btn {
+  display: inline-flex; align-items: center; gap: 10px;
+  font-family: var(--font-sans); font-weight: 500;
+  font-size: 13px; letter-spacing: 0.18em; text-transform: uppercase;
+  padding: 16px 30px; border-radius: 999px;
+  border: 1px solid transparent; cursor: pointer; text-decoration: none;
+  transition: background var(--dur-base) var(--ease-out), color var(--dur-base) var(--ease-out), border-color var(--dur-base) var(--ease-out), transform var(--dur-fast) var(--ease-out);
+}
+.rs-btn:active { transform: translateY(1px); }
+.rs-btn--sm { padding: 11px 20px; font-size: 12px; }
+/* Default: charcoal fill, cream text. On hover the button inverts — the cream
+   surfaces and a 1px charcoal keyline defines it against the parchment, as if it
+   were revealing itself from the page. No scaling, just a calm 220ms cross-fade. */
+.rs-btn--primary {
+  background: var(--action); color: var(--action-fg); border-color: var(--action);
+  transition: background 220ms var(--ease-out), color 220ms var(--ease-out), border-color 220ms var(--ease-out), transform var(--dur-fast) var(--ease-out);
+}
+.rs-btn--primary:hover { background: var(--action-fg); color: var(--action); border-color: var(--action); }
+.rs-btn--outline { background: transparent; color: var(--action-line); border-color: var(--action-line); }
+.rs-btn--outline:hover { background: var(--action-line); color: var(--action-fg); }
+.rs-btn--on-warm { background: var(--rs-cream); color: var(--emphasis); border-color: var(--rs-cream); }
+.rs-btn--on-warm:hover { background: transparent; color: var(--rs-cream); border-color: var(--rs-cream); }
+.rs-btn [data-lucide] { width: 16px; height: 16px; stroke-width: 1.8; }
+
+.rs-link--ghost { display: inline-flex; align-items: center; gap: 8px; border: 0; font-size: 12px; font-weight: 500; letter-spacing: 0.18em; text-transform: uppercase; color: var(--fg-1); text-decoration: none; transition: color var(--dur-fast), gap var(--dur-base) var(--ease-out); }
+.rs-link--ghost [data-lucide] { width: 16px; height: 16px; stroke-width: 1.8; }
+.rs-link--ghost:hover { color: var(--emphasis); gap: 12px; }
+
+/* ============================================================
+   Eyebrow + section heads
+   ============================================================ */
+.rs-eyebrow { font-size: 12px; font-weight: 500; letter-spacing: 0.28em; text-transform: uppercase; color: var(--fg-2); }
+
+/* ============================================================
+   Chapter marker — the recurring "Shaped Over Time" device.
+   An understated editorial chapter title, not a section header:
+   quiet, widely tracked, with generous air beneath it. Reusable to
+   introduce major chapters (philosophy, projects, people) throughout.
+   ============================================================ */
+/* The single chapter-heading treatment for EVERY section — Shaped Over Time,
+   The Work We Do, Selected Work, Our People — identical size, weight, tracking.
+   The Mission's serif statement is the only large voice on the page. */
+.rs-chapter {
+  font-family: var(--font-sans); font-weight: 500;
+  font-size: 13px; letter-spacing: 0.31em; text-transform: uppercase;
+  color: #4c4c48; margin: 0;
+  /* Eyebrow labels are not body copy: never inherit the paragraph measure cap,
+     which would shrink the box and push centered text off the page axis. */
+  max-width: none;
+}
+/* The mission's chapter marker: airier, lighter, a hair smaller than the others,
+   with a small gap down to its serif statement. */
+.rs-purpose__inner .rs-chapter { font-size: 13px; font-weight: 400; letter-spacing: 0.38em; color: #40403c; margin-bottom: clamp(24px, 2.8vw, 36px); }
+/* Identical spacing from each section heading to its content. */
+.rs-section__head { max-width: 820px; margin: 0 auto clamp(52px, 6.5vw, 84px); text-align: center; display: flex; flex-direction: column; align-items: center; gap: 20px; }
+.rs-section__title {
+  font-family: var(--font-sans); font-weight: 500;
+  font-size: clamp(34px, 4.6vw, 60px);
+  line-height: 1.06; letter-spacing: 0; text-transform: none;
+  color: var(--fg-1); margin: 0;
+}
+
+/* ============================================================
+   HEADER
+   ============================================================ */
+.rs-header {
+  position: sticky; top: 0; z-index: 40;
+  display: grid; grid-template-columns: auto 1fr auto; align-items: center; gap: 40px;
+  /* Blur bar spans full width, but content locks to the hero's max-width grid
+     (1320) so the logo sits over the headline and the nav over the video. */
+  /* Vertical padding reduced as the logo grows so the bar height stays constant. */
+  padding: 16px max(var(--gutter), calc(50% - 660px + var(--gutter)));
+  background: rgba(248, 241, 222, 0.72);
+  backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
+  transition: box-shadow var(--dur-base) var(--ease-out), background var(--dur-base);
+}
+.rs-header.is-scrolled { box-shadow: 0 1px 0 var(--hairline); background: rgba(248, 241, 222, 0.92); }
+.rs-header__brand { justify-self: start; display: flex; border: 0; }
+/* High-res source (5499×1585) rendered on whole-pixel dimensions to avoid the
+   fractional-width blur; contain preserves the native aspect ratio, no stretch. */
+.rs-header__brand img { display: block; width: 166px; height: 48px; object-fit: contain; object-position: left center; }
+.rs-header__nav { display: flex; gap: 34px; justify-content: center; }
+.rs-header__nav-link { font-size: 12px; font-weight: 500; letter-spacing: 0.2em; text-transform: uppercase; color: var(--fg-1); border: 0; text-decoration: none; position: relative; transition: color var(--dur-fast); }
+.rs-header__nav-link::after { content: ""; position: absolute; left: 0; bottom: -6px; width: 0; height: 1px; background: var(--emphasis); transition: width var(--dur-base) var(--ease-out); }
+.rs-header__nav-link.is-active { color: var(--emphasis); }
+.rs-header__nav-link.is-active::after,
+.rs-header__nav-link:hover::after { width: 100%; }
+.rs-header__nav-link:hover { color: var(--emphasis); }
+.rs-header__cta { justify-self: end; }
+
+/* Mobile menu button + panel */
+.rs-header__toggle { display: none; justify-self: end; background: transparent; border: 0; padding: 8px; cursor: pointer; color: var(--fg-1); }
+.rs-header__toggle [data-lucide] { width: 26px; height: 26px; stroke-width: 1.6; }
+.rs-mobile-nav { display: none; }
+@media (max-width: 860px) {
+  .rs-header { grid-template-columns: auto 1fr; }
+  .rs-header__nav, .rs-header__cta { display: none; }
+  .rs-header__toggle { display: flex; }
+  .rs-mobile-nav {
+    display: flex; flex-direction: column; gap: 4px;
+    position: fixed; inset: 0 0 0 auto; width: min(340px, 84vw); z-index: 60;
+    background: var(--bg); box-shadow: var(--elev-lift);
+    padding: 96px 32px 32px; transform: translateX(100%);
+    transition: transform var(--dur-slow) var(--ease-editorial);
+  }
+  .rs-mobile-nav.is-open { transform: none; }
+  .rs-mobile-nav a { border: 0; text-decoration: none; padding: 16px 0; font-size: 15px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--fg-1); border-bottom: 1px solid var(--border-soft); }
+  .rs-mobile-nav a:last-of-type { border-bottom: 0; }
+  .rs-mobile-nav .rs-btn { margin-top: 24px; justify-content: center; }
+  .rs-scrim { display: none; position: fixed; inset: 0; z-index: 50; background: rgba(40,28,20,0.4); backdrop-filter: blur(3px); }
+  .rs-scrim.is-open { display: block; }
+}
+
+/* ============================================================
+   HERO — Text over video (Option B)
+   A contained cinematic band on the cream canvas; typography layered over
+   a directional scrim. The page stays cream — the video is the moment,
+   not the whole surface.
+   ============================================================ */
+.rs-hero {
+  max-width: 1320px; margin: 0 auto;
+  /* generous top breath on the cream; bottom trimmed so the mission continues (Act I) */
+  padding: clamp(48px, 6vw, 104px) var(--gutter) clamp(24px, 3vw, 52px);
+  position: relative; z-index: 2;
+}
+/* The stage is a parchment mat — a band of the page's own paper around the print,
+   the way an archival photograph is mounted in an architecture monograph. */
+/* The image is given less width than the page — the negative space around it
+   is what makes it feel considered. Continuous parchment; the river within it. */
+.rs-hero__stage {
+  /* Height floor raised so short browser windows still get a tall hero rather
+     than a letterboxed strip; vh keeps it responsive without going short. */
+  --hero-h: clamp(580px, 62vh, 600px);
+  position: relative;
+  max-width: 1100px; margin: 0 auto;
+  padding: 14px;
+  background: var(--bg);
+  animation: rs-hero-fade var(--dur-reveal) var(--ease-editorial) 120ms both;
+}
+/* A clean rectangular window — no transform, no mask, no clip tricks. object-fit
+   crops internally, so the perimeter is crisp and perfectly motionless. */
+.rs-hero__plate {
+  position: relative; overflow: hidden;
+  min-height: var(--hero-h);
+  display: flex; flex-direction: column; justify-content: flex-end;
+}
+/* No CSS transform — the video renders at its native scale via object-fit only,
+   so the perimeter stays crisp and perfectly motionless while it plays.
+   object-position biases the crop toward the foreground stone and water. */
+.rs-hero__video {
+  position: absolute; inset: 0; width: 100%; height: 100%;
+  display: block; object-fit: cover; object-position: 50% 78%;
+  background: #4b3826;
+  /* A warm print grade — brightness deepens the blacks, contrast draws out the
+     texture in the rocks, sepia + hue warm the highlights toward earth, and
+     saturate keeps the water alive without tipping into HDR. Not a moving effect. */
+  filter: brightness(0.96) contrast(1.09) saturate(1.09) sepia(0.2) hue-rotate(-8deg);
+}
+/* Directional gradient — warm, not black; heavier at the lower-left where the
+   type sits, fading to clear so the water keeps its vibrancy. Purely for
+   legibility, and completely static. */
+.rs-hero__scrim {
+  position: absolute; inset: 0; pointer-events: none; z-index: 1;
+  background:
+    linear-gradient(97deg, rgba(22,15,9,0.86) 0%, rgba(22,15,9,0.70) 22%, rgba(24,17,11,0.44) 42%, rgba(26,19,13,0.20) 58%, rgba(26,19,13,0.05) 72%, rgba(26,19,13,0) 82%),
+    linear-gradient(0deg, rgba(20,14,8,0.52) 0%, rgba(20,14,8,0) 42%);
+}
+.rs-hero__inner {
+  position: relative; z-index: 3;
+  max-width: 900px;
+  /* Seated lower and slightly right — anchored into the rock and water rather than
+     the tree canopy, while keeping generous margins (never into the corner). */
+  padding: clamp(32px, 5vw, 76px) clamp(32px, 5vw, 76px) clamp(44px, 4.6vw, 74px) clamp(58px, 7.5vw, 118px);
+}
+/* Three-word philosophy, not a headline: CREATING / enduring / VALUE. Generous
+   line spacing lets the words breathe; the italic serif "enduring" is the
+   sculptural centre between two upright caps. */
+.rs-hero__title {
+  font-family: var(--font-sans); font-weight: 500;
+  font-size: clamp(40px, 5.8vw, 88px);
+  line-height: 1.16; letter-spacing: -0.008em; text-transform: uppercase;
+  /* soft warm ivory — harmonises with the cream button and warm stone, never a cold white */
+  color: #f1e6cd; margin: 0;
+}
+/* Two lines: CREATING introduces, then "enduring value" as one phrase. "enduring"
+   is inline so it shares a baseline with VALUE; a comfortable gap sets it off.
+   Set a hair larger so the italic reads level with the upright caps beside it. */
+/* On the video, "enduring" carries a richer, one-step-heavier italic than the
+   parchment accents — a touch more contrast and confidence against the footage. */
+/* "enduring" on the moving video — a sun-warmed terracotta: lighter and a touch
+   richer than the parchment clay so it reads through the footage, still earthy and
+   restrained (never orange or bright). Presence comes from weight, not size. */
+.rs-hero__title em { font-family: var(--font-display); font-style: italic; font-weight: 600; font-size: 0.98em; text-transform: lowercase; letter-spacing: -0.005em; color: var(--emphasis-italic); margin-right: 0.2em; }
+.rs-hero__l1 { display: block; }
+.rs-hero__l2 { display: block; }
+/* VALUE is the eye's landing point — a hair larger than CREATING. */
+.rs-hero__l2-word { font-size: 1.04em; }
+/* Signature positioning line — upright display serif, quiet presence beneath the
+   headline. "enduring value" carries the burnt clay italic, echoing thrive. */
+.rs-hero__statement {
+  font-family: var(--font-display); font-weight: 400; font-style: normal;
+  font-size: clamp(20px, 2.1vw, 27px); line-height: 1.32; letter-spacing: 0.005em;
+  color: #f1e6cd; opacity: 0.9; margin: 0; max-width: 30ch;
+}
+.rs-hero__statement em { font-style: italic; color: var(--emphasis); }
+.rs-hero__cta { display: flex; gap: 20px; align-items: center; flex-wrap: wrap; }
+
+@keyframes rs-hero-fade { from { opacity: 0; } to { opacity: 1; } }
+@media (prefers-reduced-motion: reduce) {
+  .rs-hero__stage { animation: none; }
+}
+@media (max-width: 760px) {
+  .rs-hero { padding: 40px var(--gutter) var(--section-y-tight); }
+  /* Shorter, width-appropriate frame on phones — not the tall desktop floor. */
+  .rs-hero__stage { --hero-h: clamp(320px, 46vh, 380px); min-height: auto; }
+  /* Crop the top third of the moving image on phones: anchor the video to the
+     bottom of the window and make it taller than the window, so the plate's
+     overflow clips the treetops and keeps the rocks-and-water foreground. */
+  .rs-hero__video { top: auto; bottom: 0; height: 150%; object-position: 50% 100%; }
+  .rs-hero__inner { padding: 26px 22px; max-width: none; }
+  /* Scale the headline down so "enduring value" fits the narrow frame without clipping. */
+  .rs-hero__title { font-size: clamp(26px, 8vw, 34px); }
+  .rs-hero__statement { font-size: 19px; }
+}
+
+/* ============================================================
+   PURPOSE (mission band, rust ground)
+   ============================================================ */
+/* Cream editorial section — separation comes from composition, a centred
+   measure, hairline rules and generous air, not a field of colour. */
+/* Act I: mission sits close under the hero (small top pad); the full bottom
+   rhythm becomes the deliberate chapter break into Act II (Three Ways We Serve). */
+.rs-purpose { background: var(--bg); color: var(--fg-1); padding: clamp(12px, 1.6vw, 32px) var(--gutter) clamp(40px, 5vw, 84px); }
+.rs-purpose__inner { max-width: 1000px; margin: 0 auto; text-align: center; display: flex; flex-direction: column; align-items: center; }
+/* Roman (upright) mission for a timeless, architectural read; "thrive" stays
+   italic so the single expressive gesture — the accent word — lands harder. */
+.rs-purpose__quote {
+  font-family: var(--font-display); font-style: normal;
+  font-size: clamp(26px, 3.9vw, 48px); line-height: 1.3; margin: 0;
+  color: var(--fg-1); max-width: 940px;
+}
+.rs-purpose__quote em { color: var(--emphasis-italic); font-style: italic; }
+/* Essay — a single, quiet reading column, discovered beneath the mission rather
+   than announced. Generous whitespace above sets it apart; the mission is the
+   only visual climax. One column, one entry point. */
+.rs-purpose__essay { max-width: 680px; margin: clamp(24px, 3vw, 44px) auto 0; text-align: left; display: flex; flex-direction: column; gap: 28px; }
+.rs-purpose__essay p { color: var(--fg-2); font-size: 20px; line-height: 1.8; margin: 0; max-width: none; }
+
+/* ============================================================
+   CAPABILITIES — an editorial table of contents, not feature cards.
+   No borders, boxes, numbers, or hover fills; parchment runs uninterrupted.
+   Typography and whitespace carry the section; the disciplines are the focus.
+   ============================================================ */
+/* Top padding trimmed ~100px so the transition from the Mission reads as one
+   continuous move rather than a fresh section. */
+/* No heading — the animated values bridge straight into the work. Tight top so
+   the columns sit just beneath the values, with no gap where a title once was. */
+.rs-services { padding: clamp(12px, 1.4vw, 24px) var(--gutter) clamp(64px, 8vw, 120px); max-width: 1240px; margin: 0 auto; }
+.rs-services__cols { display: grid; grid-template-columns: repeat(3, 1fr); gap: clamp(48px, 6.5vw, 104px); }
+/* Each discipline is a quiet editorial column — clickable, but never a button. */
+.rs-discipline {
+  display: block; text-decoration: none; border: 0; background: none;
+  transition: transform var(--dur-base) var(--ease-out);
+}
+/* Roman display serif, Title Case — editorial headings that carry the section
+   on their own; no numerals, dividers, or icons. */
+.rs-discipline__title {
+  font-family: var(--font-display); font-weight: 500; font-style: normal;
+  font-size: clamp(28px, 2.95vw, 39px); letter-spacing: 0; text-transform: none;
+  line-height: 1.16; color: var(--fg-1); margin: 0 0 16px;
+  transition: color var(--dur-base) var(--ease-out);
+}
+.rs-discipline__body { margin: 0; max-width: none; font-size: 16px; line-height: 1.75; color: #4e4e47; transition: color var(--dur-base) var(--ease-out); }
+/* Almost-invisible hover: heading darkens, body gains contrast, a 2px lift.
+   No background, no arrow, no button. */
+.rs-discipline:hover { transform: translateY(-2px); }
+.rs-discipline:hover .rs-discipline__title { color: #2a2a27; }
+.rs-discipline:hover .rs-discipline__body { color: var(--fg-1); }
+/* Tablet keeps the three disciplines side by side (tighter gap); phones stack. */
+@media (max-width: 860px) { .rs-services__cols { gap: clamp(28px, 4vw, 48px); } }
+@media (max-width: 600px) { .rs-services__cols { grid-template-columns: 1fr; gap: 44px; } }
+
+/* ============================================================
+   PROJECTS (editorial grid)
+   ============================================================ */
+/* No band and no label — the same continuous cream, the gallery introducing
+   itself. A generous, deliberate breath of whitespace separates the services
+   from the work, so the projects read as the proof of what came before. */
+.rs-projects { padding: clamp(64px, 7.5vw, 112px) var(--gutter) clamp(64px, 8vw, 128px); }
+.rs-projects__grid { max-width: calc(1240px - 2 * var(--gutter)); margin: 0 auto; display: grid; grid-template-columns: repeat(4, 1fr); column-gap: clamp(20px, 2vw, 28px); row-gap: clamp(14px, 1.6vw, 22px); }
+.rs-project { position: relative; display: flex; flex-direction: column; text-decoration: none; border: 0; cursor: pointer; }
+/* No frame — the image floats on the cream, lifted by only the faintest shadow.
+   The shadow deepens a touch on hover, like a print being drawn forward. */
+.rs-project__cover {
+  position: relative; aspect-ratio: 4 / 5; overflow: hidden; background: var(--placeholder);
+  box-shadow: 0 6px 22px rgba(56, 40, 28, 0.06);
+  transition: box-shadow 600ms var(--ease-out);
+}
+.rs-project:hover .rs-project__cover { box-shadow: 0 16px 44px rgba(56, 40, 28, 0.13); }
+/* Real project imagery fills the frame; if the file is missing it removes itself
+   (see onerror) and the gray placeholder shows through. On hover it drifts and
+   zooms almost imperceptibly (a slow Ken Burns) and gains a touch of clarity,
+   then returns quickly when the cursor leaves. No overlay; always visible. */
+.rs-project__photo {
+  position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: center; display: block;
+  transform: scale(1); transform-origin: 55% 45%;
+  transition: transform 650ms var(--ease-out), filter 650ms var(--ease-out);
+  will-change: transform;
+}
+.rs-project:hover .rs-project__photo {
+  transform: scale(1.035) translate(-1.2%, -1%);
+  filter: contrast(1.04) saturate(1.03);
+  transition: transform 7s ease-out, filter 900ms var(--ease-out);
+}
+/* Photo placeholders — light warm gray for now; swap --placeholder (or set
+   a per-item background-image) when real photography is ready. */
+.rs-project__body { padding: 22px 0 0; display: flex; flex-direction: column; }
+.rs-project__name { font-family: var(--font-sans); font-weight: 500; font-size: 18px; letter-spacing: 0.05em; text-transform: uppercase; color: var(--fg-1); margin: 0; line-height: 1.32; transition: transform 500ms var(--ease-out); }
+.rs-project:hover .rs-project__name { transform: translateY(-3px); }
+/* Location — metadata, not a subtitle: small serif caps, widely tracked, dimmed
+   to ~70% and lifting to full only on hover. */
+.rs-project__location { display: block; font-family: var(--font-display); font-size: 9px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--fg-2); opacity: 0.7; margin-top: 8px; line-height: 1.2; transition: opacity 500ms var(--ease-out); }
+.rs-project:hover .rs-project__location { opacity: 1; }
+@media (prefers-reduced-motion: reduce) {
+  .rs-project__photo, .rs-project:hover .rs-project__photo,
+  .rs-project__name, .rs-project:hover .rs-project__name { transition: none; transform: none; }
+}
+@media (max-width: 980px) { .rs-projects__grid { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 520px) { .rs-projects__grid { grid-template-columns: 1fr; } }
+
+/* Show four projects; the rest are held back behind a quiet "See more" until asked. */
+.rs-project--more { display: none; }
+.rs-projects__grid.is-expanded .rs-project--more { display: flex; animation: rs-project-in 0.6s var(--ease-editorial) both; }
+@keyframes rs-project-in { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: none; } }
+.rs-projects__more { display: flex; justify-content: center; margin-top: clamp(44px, 5.5vw, 80px); }
+.rs-projects__more-btn {
+  font-family: var(--font-sans); font-weight: 500; font-size: 12px;
+  letter-spacing: 0.22em; text-transform: uppercase; color: var(--fg-1);
+  background: transparent; border: 1px solid var(--border); border-radius: 999px;
+  padding: 14px 34px; cursor: pointer;
+  transition: background 220ms var(--ease-out), color 220ms var(--ease-out), border-color 220ms var(--ease-out);
+}
+.rs-projects__more-btn:hover { background: var(--action); color: var(--action-fg); border-color: var(--action); }
+@media (prefers-reduced-motion: reduce) { .rs-projects__grid.is-expanded .rs-project--more { animation: none; } }
+
+/* ============================================================
+   PEOPLE
+   ============================================================ */
+.rs-people { padding: clamp(56px, 7vw, 116px) var(--gutter) var(--section-y); max-width: 1240px; margin: 0 auto; }
+.rs-people__grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: clamp(24px, 3vw, 44px); }
+.rs-person { display: flex; flex-direction: column; }
+.rs-person__portrait { position: relative; aspect-ratio: 3 / 4; border: 1px solid var(--hairline); overflow: hidden; background: var(--placeholder); margin-bottom: 20px; }
+.rs-person__portrait span.rs-person__initials { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; font-family: var(--font-display); font-style: italic; font-size: 46px; color: rgba(56,56,56,0.42); }
+.rs-person__name { font-family: var(--font-sans); font-weight: 500; font-size: 17px; letter-spacing: 0.06em; text-transform: uppercase; color: var(--fg-1); margin: 0 0 6px; }
+.rs-person__role { font-family: var(--font-display); font-style: italic; font-size: 16px; color: var(--fg-2); }
+@media (max-width: 900px) { .rs-people__grid { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 460px) { .rs-people__grid { grid-template-columns: 1fr 1fr; gap: 20px; } }
+
+/* ============================================================
+   CONTACT
+   ============================================================ */
+.rs-contact { display: grid; grid-template-columns: 0.9fr 1.1fr; gap: clamp(44px, 6vw, 80px); max-width: 1180px; margin: 0 auto; padding: var(--section-y) var(--gutter) clamp(60px, 7vw, 116px); align-items: center; }
+/* Optical: lift the headline so its top converses with the upper portion of the
+   form rather than sitting centred and noticeably lower. Purely visual. */
+.rs-contact__intro { transform: translateY(-35px); }
+.rs-contact__statement { font-family: var(--font-display); font-weight: 400; font-style: normal; font-size: clamp(47px, 6.4vw, 78px); line-height: 1.0; letter-spacing: -0.01em; color: var(--fg-1); margin: 0; max-width: 13ch; }
+.rs-contact__statement em { color: var(--emphasis); font-style: italic; }
+/* The headline composes itself once as the section enters view: each word-group
+   fades and rises gently in sequence, "endures" landing last and a touch slower,
+   then the whole line settles up a few px and holds. Not a website effect. */
+.rs-cs__w { display: inline-block; opacity: 0; transform: translateY(10px); will-change: opacity, transform; }
+.rs-contact__statement.is-composed { animation: cs-settle 1.7s cubic-bezier(0.22, 1, 0.36, 1) forwards; }
+.rs-contact__statement.is-composed .rs-cs__w { animation: cs-rise 0.62s cubic-bezier(0.22, 1, 0.36, 1) forwards; }
+.rs-contact__statement.is-composed .rs-cs__w:nth-child(2) { animation-delay: 0.15s; }
+.rs-contact__statement.is-composed .rs-cs__w:nth-child(3) { animation-delay: 0.30s; }
+.rs-contact__statement.is-composed .rs-cs__w--last { animation-duration: 0.85s; animation-delay: 0.45s; }
+@keyframes cs-rise {
+  from { opacity: 0; transform: translateY(10px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes cs-settle {
+  0%, 70% { transform: translateY(0); }
+  100%    { transform: translateY(-5px); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .rs-cs__w { opacity: 1; transform: none; }
+  .rs-contact__statement.is-composed,
+  .rs-contact__statement.is-composed .rs-cs__w { animation: none; }
+}
+/* Form directly on the parchment — no card. Understated underline fields, an
+   architect's notebook rather than an app. Burnt clay only on focus. */
+.rs-contact__form { display: flex; flex-direction: column; gap: 30px; }
+.rs-field { display: flex; flex-direction: column; gap: 16px; }
+.rs-field__label { font-size: 11px; font-weight: 500; letter-spacing: 0.22em; text-transform: uppercase; color: #6b6b64; }
+.rs-input { font-family: var(--font-sans); font-size: 16px; padding: 8px 0; background: transparent; border: 0; border-bottom: 1px solid var(--border); border-radius: 0; color: var(--fg-1); outline: none; width: 100%; transition: border-color var(--dur-base) var(--ease-out); }
+.rs-input::placeholder { color: var(--fg-3); }
+.rs-input:focus { border-bottom-color: var(--emphasis); }
+.rs-input--area { resize: vertical; min-height: 88px; }
+.rs-choice { display: flex; gap: 30px; flex-wrap: wrap; padding-top: 2px; }
+.rs-choice label { display: inline-flex; align-items: center; gap: 10px; font-size: 15px; color: var(--fg-1); cursor: pointer; }
+.rs-choice input { accent-color: var(--emphasis); }
+/* Match the nav CONNECT pill proportions (0.18em, full radius, primary fill),
+   scaled from its 12px to the form's 13px text. */
+.rs-contact__form .rs-btn { align-self: start; margin-top: 20px; padding: 12px 22px; font-size: 13px; }
+@media (max-width: 800px) { .rs-contact { grid-template-columns: 1fr; gap: 44px; padding: var(--section-y-tight) var(--gutter); } .rs-contact__intro { transform: none; } }
+
+/* ============================================================
+   FOOTER (rust ground)
+   ============================================================ */
+/* Values sequence — a quiet bridge between the mission and the work, not a
+   destination. Each word emerges from a soft blur, holds, and dissolves again —
+   like a river stone revealed by moving water. Atmospheric, never announced. */
+.rs-values { padding: clamp(8px, 1vw, 18px) var(--gutter) clamp(26px, 2.8vw, 44px); }
+.rs-values__track { position: relative; height: 2em; font-size: clamp(21px, 2.75vw, 32px); }
+.rs-values__word {
+  position: absolute; inset: 0;
+  display: flex; align-items: center; justify-content: center;
+  font-family: var(--font-display); font-weight: 700;
+  letter-spacing: 0.28em; text-transform: uppercase;
+  padding-left: 0.28em; /* balance the trailing tracking so the word stays optically centred */
+  color: var(--emphasis); /* full burnt clay — a confident declaration, not washed out */
+  opacity: 0; will-change: opacity;
+  animation: rs-value-cycle 32.2s linear infinite;
+}
+.rs-values__word:nth-child(1) { animation-delay:  0s; }
+.rs-values__word:nth-child(2) { animation-delay:  4.6s; }
+.rs-values__word:nth-child(3) { animation-delay:  9.2s; }
+.rs-values__word:nth-child(4) { animation-delay: 13.8s; }
+.rs-values__word:nth-child(5) { animation-delay: 18.4s; }
+.rs-values__word:nth-child(6) { animation-delay: 23s; }
+.rs-values__word:nth-child(7) { animation-delay: 27.6s; }
+/* Gallery-title timing: each word fades in (~0.9s), holds fully opaque (~2.8s),
+   then fades completely out (~0.9s) — and stays gone for a short beat before the
+   next word begins. No two words are ever on screen at once. 5s per word. */
+@keyframes rs-value-cycle {
+  0%    { opacity: 0; }
+  2.5%  { opacity: 1; }   /* fade in ~0.9s */
+  10.5% { opacity: 1; }   /* hold ~2.8s */
+  13%   { opacity: 0; }   /* fade out ~0.9s, fully gone by 4.55s */
+  100%  { opacity: 0; }   /* dark beat until this word's next turn */
+}
+@media (prefers-reduced-motion: reduce) {
+  .rs-values__word { animation: none; }
+  .rs-values__word:first-child { opacity: 1; }
+}
+
+/* The closing page — continuous parchment, no band, no border, no labels.
+   Two elements only: the closing statement and the wordmark signature. */
+.rs-footer { color: var(--fg-1); padding: clamp(36px, 4.5vw, 76px) var(--gutter) clamp(80px, 9vw, 128px); text-align: center; }
+.rs-footer__statement {
+  font-family: var(--font-display); font-weight: 400; font-style: normal;
+  font-size: clamp(27px, 3.75vw, 46px); line-height: 1.3; color: var(--fg-1);
+  margin: 0 auto clamp(26px, 4vw, 54px); max-width: 18ch; text-wrap: balance;
+}
+.rs-footer__statement em { font-style: italic; color: var(--emphasis-italic); }
+.rs-footer__mark { display: block; height: clamp(107px, 10.4vw, 139px); width: auto; margin: 0 auto; }
+
+/* ============================================================
+   TOAST
+   ============================================================ */
+.rs-toast { position: fixed; bottom: 28px; left: 50%; transform: translateX(-50%) translateY(20px); background: var(--rs-charcoal); color: var(--rs-cream); font-size: 13px; letter-spacing: 0.04em; padding: 15px 28px; border-radius: 999px; box-shadow: var(--elev-lift); z-index: 300; opacity: 0; pointer-events: none; transition: opacity var(--dur-base) var(--ease-out), transform var(--dur-base) var(--ease-out); }
+.rs-toast.is-visible { opacity: 1; transform: translateX(-50%) translateY(0); }
+
+/* ============================================================
+   MOBILE REFINEMENT — alignment & balance only (phones).
+   Every rule lives inside a max-width query, so desktop and
+   tablet remain pixel-for-pixel identical. Goal: center the
+   editorial copy for a calmer single-column read, and let the
+   project imagery breathe wider. Typography, color, and the
+   spacing scale are untouched. (Section labels / values are
+   already centre-justified, so they need no override here.)
+   ============================================================ */
+@media (max-width: 600px) {
+  /* Mission — centre the introductory essay (the quote is already centred),
+     and bring its type down to the service-column body size (was 20px). */
+  .rs-purpose__essay { text-align: center; }
+  .rs-purpose__essay p { font-size: 16px; line-height: 1.75; }
+
+  /* Capabilities — centre each discipline heading and its supporting copy */
+  .rs-discipline { text-align: center; }
+
+  /* Projects — centre the title and location beneath each image */
+  .rs-project__body { text-align: center; align-items: center; }
+
+  /* Contact — centre the heading above the form; inputs stay left-aligned */
+  .rs-contact__intro { text-align: center; }
+  .rs-contact__statement { margin-left: auto; margin-right: auto; }
+  /* ...but centre the submit button */
+  .rs-contact__form .rs-btn { align-self: center; }
+
+  /* Tighten two over-large vertical gaps on phones: hero→mission,
+     and services→projects. (Desktop rhythm is untouched.) */
+  .rs-hero { padding-bottom: clamp(18px, 4vw, 30px); }
+  .rs-services { padding-bottom: clamp(34px, 7vw, 52px); }
+  .rs-projects { padding-top: clamp(34px, 7vw, 52px); padding-bottom: clamp(40px, 8vw, 60px); }
+  .rs-contact { padding-top: clamp(28px, 7vw, 48px); }
+}
+
+/* Projects — widen the single-column image to ~91% of the viewport,
+   preserving the 4:5 aspect ratio and the generous vertical rhythm. */
+@media (max-width: 520px) {
+  .rs-projects { padding-left: 4.5vw; padding-right: 4.5vw; }
+}

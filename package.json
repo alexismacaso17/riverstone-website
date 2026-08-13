@@ -1,0 +1,7 @@
+{
+  "private": true,
+  "name": "riverstone-website",
+  "description": "The Riverstone Group — static marketing site (HTML/CSS/JS) with one Vercel serverless function for the contact form.",
+  "type": "module",
+  "license": "UNLICENSED"
+}

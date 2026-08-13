@@ -1,0 +1,442 @@
+/* ============================================================
+   The Riverstone Group — Foundations
+   Colors and Typography tokens
+   Source: TheRiverstoneGroup-Brand Guide_072524
+   ============================================================ */
+
+/* -------- Webfonts --------------------------------------------------------
+   Fjalla One   — wordmark display only (matches the logo)
+   Halcom       — Headings + body. PAID FONT (Latinotype). NOT included.
+                  Substituted with Mulish on the web (similar geometric
+                  humanist sans). Flag substitution to user.
+   Abril Display — Accent / quote serif. PAID FONT (TypeTogether).
+                  Substituted with Playfair Display on the web (similar
+                  high-contrast didone display, slim italic). Flag.
+   --------------------------------------------------------------------------*/
+@import url("https://fonts.googleapis.com/css2?family=Fjalla+One&family=Mulish:ital,wght@0,300..900;1,300..900&family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap");
+
+:root {
+  /* ---------- BRAND COLORS (from brand guide p. 8) -------------------- */
+  --rs-rust:        #8a523e;   /* warm rust — primary warm background     */
+  --rs-stone:       #a5a497;   /* warm stone grey — neutral accent        */
+  --rs-sage:        #919b77;   /* sage green — PRIMARY accent             */
+  --rs-fog:         #bdc2c7;   /* cool grey — secondary neutral           */
+  --rs-cream:       #f8f1de;   /* cream — primary background option       */
+  --rs-black:       #000000;
+  --rs-charcoal:    #383838;   /* logo / body text dark                   */
+
+  /* ---------- COLOR SHADES (brand guide p. 9, 100/75/50/25%) ---------
+     Tints are mixed against white; mathematically derived from the
+     full-strength brand colors. Use for UI states, dividers, hovers.   */
+
+  --rs-rust-100:     #8a523e;
+  --rs-rust-75:      #a77d6e;
+  --rs-rust-50:      #c5a99e;
+  --rs-rust-25:      #e2d4cf;
+
+  --rs-stone-100:    #a5a497;
+  --rs-stone-75:     #bbbab1;
+  --rs-stone-50:     #d2d2cb;
+  --rs-stone-25:     #e8e9e5;
+
+  --rs-sage-100:     #6f7958;
+  --rs-sage-75:      #919b77;
+  --rs-sage-50:      #b0b59b;
+  --rs-sage-25:      #d3d4c6;
+
+  --rs-fog-100:      #bdc2c7;
+  --rs-fog-75:       #ccd1d5;
+  --rs-fog-50:       #dee0e3;
+  --rs-fog-25:       #eff0f1;
+
+  --rs-cream-100:    #f8f1de;
+  --rs-cream-75:     #faf4e6;
+  --rs-cream-50:     #fcf8ee;
+  --rs-cream-25:     #fdfbf6;
+
+  --rs-charcoal-100: #383838;
+  --rs-charcoal-75:  #6a6a6a;
+  --rs-charcoal-50:  #9b9b9b;
+  --rs-charcoal-25:  #cdcdcd;
+
+  /* ---------- SEMANTIC SURFACES --------------------------------------- */
+  --bg:              var(--rs-cream);          /* default page bg        */
+  --bg-alt:          #fdfbf6;                  /* off-cream — cards      */
+  --bg-inverse:      var(--rs-charcoal);       /* dark surface           */
+  --bg-warm:         var(--rs-rust);           /* hero / footer warm     */
+  --bg-rust:         var(--rs-rust);
+  --surface:         #ffffff;
+  --surface-sunk:    #f3ecd9;                  /* slightly deeper cream  */
+
+  /* ---------- SEMANTIC FOREGROUNDS ------------------------------------ */
+  --fg-1:            var(--rs-charcoal);       /* primary body text      */
+  --fg-2:            #5a5a55;                  /* secondary body         */
+  --fg-3:            #8a8a82;                  /* tertiary / captions    */
+  --fg-on-warm:      var(--rs-cream);          /* on brown/rust          */
+  --fg-on-warm-2:    #d6c9a9;                  /* secondary on warm      */
+  --fg-on-dark:      #f6f4ee;                  /* on charcoal/black      */
+
+  /* ---------- SEMANTIC ACTION / EMPHASIS / SUPPORT -------------------
+     Colour now carries a clear job. Charcoal ACTS. Rust EMPHASISES,
+     rarely. Sage SUPPORTS — it is never an interactive fill.          */
+  --action:            var(--rs-charcoal);     /* primary CTA fill       */
+  --action-hover:      #565656;                /* rgb(86,86,86)          */
+  --action-fg:         var(--rs-cream);
+  --action-line:       var(--rs-charcoal);     /* secondary outline      */
+
+  --emphasis:          var(--rs-rust);         /* featured / occasional  */
+  --emphasis-hover:    #6f4231;
+  --emphasis-soft:     var(--rs-rust-25);
+  /* Sun-warmed terracotta — the shared accent for the recurring italic
+     philosophical phrases: "enduring", "thrive.", "shaped over time." */
+  --emphasis-italic:   #9c563a;
+  /* Same burnt-clay hue as --emphasis, lifted in lightness for legibility on
+     dark grounds (e.g. the hero video). One accent, two calibrated values. */
+  --emphasis-on-dark:  #c67253;
+
+  --support:           var(--rs-sage);         /* maps, badges, icons,   */
+  --support-strong:    #6f7958;                /* landscape, backgrounds */
+  --support-soft:      var(--rs-sage-25);      /* — NON-interactive only */
+
+  /* Back-compat aliases (older components read these). --accent now
+     means the SUPPORT colour, never an action colour.                 */
+  --accent:          var(--support);
+  --accent-strong:   var(--support-strong);
+  --accent-soft:     var(--support-soft);
+  --accent-warm:     var(--emphasis);
+  --accent-warm-strong: var(--emphasis-hover);
+
+  /* ---------- MEDIA -------------------------------------------------- */
+  --placeholder:     #c4c0b7;                  /* photo placeholder fill (temporary) — light warm gray */
+
+  /* ---------- BORDERS / DIVIDERS -------------------------------------- */
+  --hairline:        rgba(60, 45, 32, 0.12);   /* the editorial keyline  */
+  --border-soft:     #e6dec8;                  /* on cream               */
+  --border:          #d4cbb1;
+  --border-strong:   var(--rs-stone);
+  --border-on-warm:  rgba(248, 241, 222, 0.18);
+  --hairline-on-warm: rgba(248, 241, 222, 0.22);
+
+  /* ---------- DEPTH / ELEVATION --------------------------------------
+     Depth comes from hairlines and layering first, shadow last. Every
+     shadow is warm, wide, and low-opacity — felt, not seen.            */
+  --elev-hairline:   inset 0 0 0 1px var(--hairline);
+  --elev-1:          0 1px 2px rgba(60, 45, 32, 0.05);
+  --elev-2:          0 12px 34px -22px rgba(60, 45, 32, 0.30);
+  --elev-lift:       0 30px 70px -40px rgba(60, 45, 32, 0.34);
+  /* legacy names, remapped onto the quieter scale */
+  --shadow-xs:       var(--elev-1);
+  --shadow-sm:       var(--elev-1);
+  --shadow-md:       var(--elev-2);
+  --shadow-lg:       var(--elev-lift);
+  --shadow-inset:    inset 0 1px 0 rgba(255, 255, 255, 0.5);
+
+  /* ---------- RADII (pebble-rounded, generous) ------------------------ */
+  --radius-xs:       4px;
+  --radius-sm:       8px;
+  --radius-md:       14px;     /* default card / input                   */
+  --radius-lg:       22px;
+  --radius-xl:       36px;
+  --radius-pebble:   999px;    /* pill / capsule, like the logo bezel    */
+
+  /* ---------- SPACING (8-point system; 4 is the only half-step) ------
+     Everything — type leading, card padding, section rhythm — resolves
+     to a multiple of 8. Section rhythm runs generous by design.        */
+  --sp-1:  4px;    /* half-step, hairline gaps only            */
+  --sp-2:  8px;
+  --sp-3:  16px;   /* was 12 — normalised onto 8pt             */
+  --sp-4:  24px;
+  --sp-5:  32px;
+  --sp-6:  48px;
+  --sp-7:  64px;
+  --sp-8:  96px;
+  --sp-9:  128px;
+  --sp-10: 160px;  /* the big cinematic gap                     */
+
+  /* Section vertical rhythm — ~18% more air than before.        */
+  --section-y:       clamp(96px, 11vw, 168px);  /* @kind spacing */
+  --section-y-tight: clamp(64px, 7vw, 104px);   /* @kind spacing */
+  --gutter:          clamp(24px, 5vw, 64px);    /* @kind spacing */
+  --measure:         66ch;   /* @kind spacing */
+  --measure-narrow:  46ch;   /* @kind spacing */
+
+  /* ---------- TYPE FAMILIES ------------------------------------------- */
+  /* Logo / wordmark only — never use Fjalla One inside product UI.      */
+  --font-logo:    "Fjalla One", "Oswald", "Impact", sans-serif;
+  /* Headings + body — Halcom substitute.                                */
+  --font-sans:    "Mulish", "Halcom", -apple-system, "Segoe UI", system-ui, sans-serif;
+  /* Display / accent / pull-quotes — Abril Display substitute.          */
+  --font-display: "Playfair Display", "Abril Display", "Bodoni Moda",
+                  Didot, "Times New Roman", serif;
+
+  /* ---------- TYPE SIZES & WEIGHTS ------------------------------------ */
+  --fs-12: 12px;  --fs-14: 14px;  --fs-15: 15px;  --fs-16: 16px;
+  --fs-18: 18px;  --fs-20: 20px;  --fs-24: 24px;  --fs-28: 28px;
+  --fs-32: 32px;  --fs-40: 40px;  --fs-48: 48px;  --fs-56: 56px;
+  --fs-64: 64px;  --fs-80: 80px;  --fs-96: 96px;
+  --fs-112: 112px; /* @kind font */ --fs-128: 128px; /* @kind font */
+
+  --fw-light:    300;          /* @kind font */
+  --fw-book:     400;          /* @kind font */
+  --fw-medium:   500;          /* @kind font */
+  --fw-semibold: 600;          /* @kind font */
+  --fw-bold:     700;          /* @kind font */
+
+  --lh-tight:  1.04;           /* @kind font */
+  --lh-snug:   1.16;           /* @kind font */
+  --lh-normal: 1.45;           /* @kind font */
+  --lh-relaxed: 1.65;          /* @kind font */
+  --lh-luxe:   1.78;           /* @kind font */
+
+  --ls-tightest: -0.02em;      /* @kind font */
+  --ls-tight:  -0.01em;        /* @kind font */
+  --ls-normal:  0;             /* @kind font */
+  --ls-loose:   0.04em;        /* @kind font */
+  --ls-caps:    0.18em;        /* @kind font */
+  --ls-caps-tight: 0.08em;     /* @kind font */
+  --ls-caps-wide:  0.28em;     /* @kind font */
+
+  /* ---------- MOTION -------------------------------------------------
+     Calm and deliberate. Things settle; they never spring. Reveals are
+     slow and short-travelled. Use --ease-editorial for entrances.      */
+  --ease-out:       cubic-bezier(0.22, 0.61, 0.36, 1);   /* @kind other */
+  --ease-in-out:    cubic-bezier(0.65, 0, 0.35, 1);      /* @kind other */
+  --ease-editorial: cubic-bezier(0.16, 1, 0.30, 1);      /* @kind other */
+  --dur-fast:      140ms;      /* @kind other */
+  --dur-base:      280ms;      /* @kind other */
+  --dur-slow:      480ms;      /* @kind other */
+  --dur-reveal:    760ms;      /* @kind other */
+  --reveal-shift:  22px;       /* @kind other */
+}
+
+/* ==========================================================================
+   SEMANTIC TYPE STYLES
+   ==========================================================================
+   Use these classes (or matching custom rules) directly. Heading levels are
+   set up so default <h1>–<h6> work, but the .rs-eyebrow + .rs-display
+   patterns are first-class brand voices.
+   --------------------------------------------------------------------------*/
+
+.rs-eyebrow,
+.rs-overline {
+  font-family: var(--font-sans);
+  font-weight: var(--fw-medium);
+  font-size: var(--fs-12);
+  letter-spacing: var(--ls-caps-wide);
+  text-transform: uppercase;
+  color: var(--fg-2);
+}
+
+.rs-display,
+h1.rs-display {
+  font-family: var(--font-sans);
+  font-weight: var(--fw-medium);
+  font-size: clamp(52px, 8vw, 128px);
+  letter-spacing: var(--ls-tightest);
+  line-height: var(--lh-tight);
+  text-transform: uppercase;
+  color: var(--fg-1);
+}
+
+h1, .rs-h1 {
+  font-family: var(--font-sans);
+  font-weight: var(--fw-medium);
+  font-size: var(--fs-56);
+  letter-spacing: var(--ls-caps-tight);
+  line-height: var(--lh-tight);
+  text-transform: uppercase;
+  color: var(--fg-1);
+}
+
+h2, .rs-h2 {
+  font-family: var(--font-sans);
+  font-weight: var(--fw-medium);
+  font-size: var(--fs-40);
+  letter-spacing: var(--ls-caps-tight);
+  line-height: var(--lh-snug);
+  text-transform: uppercase;
+  color: var(--fg-1);
+}
+
+h3, .rs-h3 {
+  font-family: var(--font-sans);
+  font-weight: var(--fw-medium);
+  font-size: var(--fs-24);
+  letter-spacing: var(--ls-caps-tight);
+  line-height: var(--lh-snug);
+  text-transform: uppercase;
+  color: var(--fg-1);
+}
+
+h4, .rs-h4,
+.rs-subhead {
+  font-family: var(--font-sans);
+  font-weight: var(--fw-medium);
+  font-size: var(--fs-18);
+  letter-spacing: var(--ls-caps);
+  line-height: var(--lh-snug);
+  text-transform: uppercase;
+  color: var(--fg-1);
+}
+
+.rs-accent,
+.rs-quote {
+  font-family: var(--font-display);
+  font-weight: var(--fw-book);
+  font-size: var(--fs-32);
+  font-style: italic;
+  line-height: var(--lh-snug);
+  letter-spacing: 0;
+  color: var(--fg-1);
+}
+
+.rs-accent-upright {
+  font-family: var(--font-display);
+  font-weight: var(--fw-book);
+  font-size: var(--fs-32);
+  line-height: var(--lh-snug);
+  color: var(--fg-1);
+}
+
+p, .rs-body {
+  font-family: var(--font-sans);
+  font-weight: var(--fw-book);
+  font-size: var(--fs-16);
+  line-height: var(--lh-relaxed);
+  color: var(--fg-1);
+  text-wrap: pretty;
+  max-width: var(--measure);
+}
+
+.rs-body-lg {
+  font-size: var(--fs-20);
+  line-height: var(--lh-luxe);
+  color: var(--fg-2);
+}
+
+.rs-body-sm,
+small {
+  font-family: var(--font-sans);
+  font-size: var(--fs-14);
+  line-height: var(--lh-normal);
+  color: var(--fg-2);
+}
+
+.rs-caption {
+  font-family: var(--font-sans);
+  font-size: var(--fs-12);
+  line-height: var(--lh-normal);
+  color: var(--fg-3);
+  letter-spacing: 0.02em;
+}
+
+code, .rs-mono {
+  font-family: ui-monospace, "SF Mono", "JetBrains Mono", Menlo, Consolas, monospace;
+  font-size: var(--fs-14);
+  background: var(--surface-sunk);
+  padding: 2px 6px;
+  border-radius: var(--radius-xs);
+}
+
+a {
+  color: var(--fg-1);
+  text-decoration: none;
+  border-bottom: 1px solid var(--hairline);
+  transition: color var(--dur-fast) var(--ease-out), border-color var(--dur-fast) var(--ease-out);
+}
+a:hover { color: var(--emphasis); border-bottom-color: currentColor; }
+
+/* ---------- ACCESSIBLE FOCUS — one ring, everywhere ----------------- */
+:where(a, button, input, textarea, select, [tabindex]):focus-visible {
+  outline: 2px solid var(--action);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.001ms !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* ==========================================================================
+   THE RIVERSTONE SIGNATURE
+   ==========================================================================
+   Four recurring devices that make a page unmistakably Riverstone even with
+   the logo removed. Use them deliberately and sparingly.
+
+   1. CAIRN RULE   — three graduated strokes echoing the stacked-stone mark.
+                     A section marker / divider / quiet accent.
+   2. KEYLINE      — a warm 1px hairline frame with generous inset. Wraps
+                     featured imagery and editorial modules.
+   3. INDEX EYEBROW— "No. 01 — Label", numeral + hairline + tracked label.
+   4. FIGURE       — image in a keyline with a small-caps caption beneath.
+   --------------------------------------------------------------------------*/
+
+/* 1 · Cairn rule -------------------------------------------------------- */
+.rs-cairn {
+  display: flex; flex-direction: column; gap: 5px; align-items: flex-start;
+}
+.rs-cairn::before, .rs-cairn::after, .rs-cairn > i {
+  content: ""; display: block; height: 2px; border-radius: 2px;
+  background: var(--support);
+}
+.rs-cairn::before { width: 44px; }
+.rs-cairn > i    { width: 30px; }
+.rs-cairn::after  { width: 18px; }
+.rs-cairn--center { align-items: center; }
+.rs-cairn--charcoal::before, .rs-cairn--charcoal > i, .rs-cairn--charcoal::after { background: var(--fg-1); }
+.rs-cairn--on-warm::before, .rs-cairn--on-warm > i, .rs-cairn--on-warm::after { background: var(--hairline-on-warm); }
+
+/* 2 · Keyline frame ---------------------------------------------------- */
+.rs-keyline {
+  border: 1px solid var(--hairline);
+  padding: clamp(20px, 3vw, 40px);
+}
+.rs-keyline--warm { border-color: var(--hairline-on-warm); }
+
+/* 3 · Index eyebrow ---------------------------------------------------- */
+.rs-index {
+  display: inline-flex; align-items: center; gap: 14px;
+  font-family: var(--font-sans); font-size: var(--fs-12);
+  letter-spacing: var(--ls-caps-wide); text-transform: uppercase;
+  color: var(--fg-2);
+}
+.rs-index__num { font-variant-numeric: tabular-nums; color: var(--emphasis); }
+.rs-index::after {
+  content: ""; width: 40px; height: 1px; background: var(--hairline);
+}
+
+/* 4 · Figure ----------------------------------------------------------- */
+.rs-figure { margin: 0; }
+.rs-figure__frame {
+  position: relative; overflow: hidden;
+  border: 1px solid var(--hairline);
+}
+.rs-figure__frame img { display: block; width: 100%; height: 100%; object-fit: cover; }
+.rs-figure figcaption {
+  margin-top: 12px;
+  font-family: var(--font-sans); font-size: var(--fs-12);
+  letter-spacing: var(--ls-caps); text-transform: uppercase; color: var(--fg-3);
+}
+
+/* Editorial photography treatment — warm, quiet, architectural.
+   Apply .rs-photo to any <img> or cover element for a consistent tone.  */
+.rs-photo {
+  filter: saturate(0.88) contrast(1.02) brightness(1.02) sepia(0.06);
+}
+
+/* Reveal — calm, short-travel entrance. Add .rs-reveal; toggle
+   .is-in when the element enters the viewport (IntersectionObserver).   */
+.rs-reveal {
+  opacity: 0; transform: translateY(var(--reveal-shift));
+  transition: opacity var(--dur-reveal) var(--ease-editorial),
+              transform var(--dur-reveal) var(--ease-editorial);
+  will-change: opacity, transform;
+}
+.rs-reveal.is-in { opacity: 1; transform: none; }
+
+/* Column widths -------------------------------------------------------- */
+.rs-measure { max-width: var(--measure); }
+.rs-measure-narrow { max-width: var(--measure-narrow); }
