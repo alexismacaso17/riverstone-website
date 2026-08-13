@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>TBCH &times; Eastman&rsquo;s Preserve — Coming Soon | The Riverstone Group</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="TBCH × Eastman's Preserve — a new Riverstone Group development in Brentwood, Tennessee. Coming soon.">
+<meta property="og:title" content="TBCH × Eastman's Preserve — Coming Soon">
+<meta property="og:description" content="A new Riverstone Group development in Brentwood, Tennessee. Coming soon.">
+<meta property="og:type" content="website">
+<meta property="og:image" content="assets/projects/eastmans-preserve-tbch.jpg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="colors_and_type.css?v=2">
+<link rel="stylesheet" href="styles.css?v=2">
+<link rel="icon" href="assets/favicon.png">
+<!-- Plausible Analytics (privacy-friendly) — matches the rest of the site. -->
+<script defer data-domain="theriverstonegroup.com" src="https://plausible.io/js/script.js"></script>
+<style>
+  /* ============================================================
+     TBCH × Eastman's Preserve — Coming Soon landing page.
+     Charcoal ground, cream type — echoes the brand's dark slides.
+     Self-contained; uses the shared design tokens only.
+     ============================================================ */
+  body { background: var(--rs-charcoal); }
+  body::before { display: none !important; }   /* no parchment texture on the dark ground */
+
+  .tbch {
+    min-height: 100vh;
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    text-align: center; color: var(--rs-cream);
+    padding: clamp(56px, 10vh, 140px) clamp(24px, 6vw, 96px);
+  }
+  /* Quiet way back to the main site */
+  .tbch__home {
+    position: fixed; top: clamp(20px, 3.4vh, 40px); left: clamp(20px, 3.4vw, 46px); z-index: 5;
+    font-family: var(--font-sans); font-weight: 500; font-size: 12px; letter-spacing: 0.18em;
+    text-transform: uppercase; color: rgba(248,241,222,0.7); text-decoration: none; border: 0;
+    transition: color 200ms ease;
+  }
+  .tbch__home:hover { color: var(--rs-cream); }
+
+  .tbch__brand { display: block; width: clamp(180px, 18vw, 258px); height: auto;
+    margin: 0 0 clamp(44px, 8vh, 96px); }
+
+  .tbch__eyebrow { font-family: var(--font-sans); font-weight: 600;
+    font-size: clamp(12px, 1.05vw, 15px); letter-spacing: 0.34em; text-transform: uppercase;
+    color: rgba(248,241,222,0.66); margin: 0 0 clamp(24px, 3.6vh, 44px); }
+
+  /* The headline — the site's signature uppercase statement treatment, scaled up. */
+  .tbch__soon { font-family: var(--font-sans); font-weight: 500;
+    font-size: clamp(58px, 12.5vw, 184px); line-height: 0.96; letter-spacing: -0.01em;
+    text-transform: uppercase; color: var(--rs-cream); margin: 0; }
+
+  /* Cairn rule — the three graduated strokes from the brand's signature. */
+  .tbch__rule { display: flex; flex-direction: column; gap: 6px; align-items: center;
+    margin: clamp(38px, 5.5vh, 66px) auto clamp(32px, 5vh, 58px); }
+  .tbch__rule span { display: block; height: 3px; border-radius: 2px; background: var(--emphasis-on-dark); }
+  .tbch__rule span:nth-child(1) { width: 48px; }
+  .tbch__rule span:nth-child(2) { width: 31px; }
+  .tbch__rule span:nth-child(3) { width: 16px; }
+
+  .tbch__project { font-family: var(--font-display); font-weight: 400; font-style: italic;
+    font-size: clamp(27px, 3.7vw, 54px); line-height: 1.12; color: var(--rs-cream); margin: 0; }
+  .tbch__project .amp { font-style: normal; color: var(--emphasis-on-dark); padding: 0 0.12em; }
+
+  .tbch__loc { font-family: var(--font-sans); font-weight: 500; font-size: clamp(13px, 1.2vw, 16px);
+    letter-spacing: 0.24em; text-transform: uppercase; color: rgba(248,241,222,0.68);
+    margin: clamp(18px, 2.6vh, 30px) 0 0; }
+</style>
+</head>
+<body>
+<a class="tbch__home" href="index.html">&larr;&nbsp; The Riverstone Group</a>
+
+<main class="tbch">
+  <img class="tbch__brand" src="assets/logo-reverse-wordmark.png" alt="The Riverstone Group">
+  <p class="tbch__eyebrow">A New Riverstone Development</p>
+  <h1 class="tbch__soon">Coming Soon</h1>
+  <div class="tbch__rule" aria-hidden="true"><span></span><span></span><span></span></div>
+  <p class="tbch__project">TBCH<span class="amp">&times;</span>Eastman&rsquo;s Preserve</p>
+  <p class="tbch__loc">Brentwood, Tennessee</p>
+</main>
+</body>
+</html>
