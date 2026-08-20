@@ -2,11 +2,11 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<title>TBCH &times; Eastman&rsquo;s Preserve — Coming Soon | The Riverstone Group</title>
+<title>A Place That Feels Like Home — Tennessee Baptist Children&rsquo;s Homes | The Riverstone Group</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="description" content="TBCH × Eastman's Preserve — a new Riverstone Group development in Brentwood, Tennessee. Coming soon.">
-<meta property="og:title" content="TBCH × Eastman's Preserve — Coming Soon">
-<meta property="og:description" content="A new Riverstone Group development in Brentwood, Tennessee. Coming soon.">
+<meta name="description" content="Tennessee Baptist Children's Homes had called its Brentwood campus home for more than a century. Riverstone began not with plans, but with a question — and built a campus where buildings become homes.">
+<meta property="og:title" content="A Place That Feels Like Home — Tennessee Baptist Children's Homes">
+<meta property="og:description" content="Honoring a century of history while creating a place worthy of the work happening inside. Brentwood, Tennessee.">
 <meta property="og:type" content="website">
 <meta property="og:image" content="assets/projects/eastmans-preserve-tbch.jpg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -14,68 +14,143 @@
 <link rel="stylesheet" href="colors_and_type.css?v=2">
 <link rel="stylesheet" href="styles.css?v=2">
 <link rel="icon" href="assets/favicon.png">
-<!-- Plausible Analytics (privacy-friendly) — matches the rest of the site. -->
+<!-- Plausible Analytics (privacy-friendly). -->
 <script defer data-domain="theriverstonegroup.com" src="https://plausible.io/js/script.js"></script>
 <style>
   /* ============================================================
-     TBCH × Eastman's Preserve — Coming Soon landing page.
-     Charcoal ground, cream type — echoes the brand's dark slides.
-     Self-contained; uses the shared design tokens only.
+     TENNESSEE BAPTIST CHILDREN'S HOMES — a story page (scoped).
+     Cream ground, editorial rhythm; a single quiet reading column.
      ============================================================ */
-  body { background: var(--rs-charcoal); }
-  body::before { display: none !important; }   /* no parchment texture on the dark ground */
+  body.tp { background: var(--bg); }
 
-  .tbch {
-    min-height: 100vh;
-    display: flex; flex-direction: column; align-items: center; justify-content: center;
-    text-align: center; color: var(--rs-cream);
-    padding: clamp(56px, 10vh, 140px) clamp(24px, 6vw, 96px);
+  /* ---- Masthead ---------------------------------------------------- */
+  .tp-masthead { max-width: 1000px; margin: 0 auto; padding: clamp(64px,9vw,150px) clamp(24px,6vw,96px) 0; text-align: center; }
+  .tp-masthead .rs-chapter { margin: 0 0 clamp(22px,3vw,38px); color: var(--fg-2); }
+  .tp-masthead__title { font-family: var(--font-display); font-weight: 400; font-size: clamp(40px,6.6vw,96px); line-height: 1.0; letter-spacing: -0.015em; color: var(--fg-1); margin: 0; text-wrap: balance; }
+  .tp-masthead__title em { font-style: italic; color: var(--emphasis-italic); }
+  .tp-masthead__sub { font-family: var(--font-sans); font-weight: 600; font-size: clamp(12px,1.15vw,14px); letter-spacing: 0.24em; text-transform: uppercase; color: var(--fg-2); margin: clamp(26px,3.2vw,42px) auto 0; max-width: none; text-align: center; }
+
+  /* ---- Reading sections -------------------------------------------- */
+  .tp-sec { max-width: 700px; margin: 0 auto; padding: clamp(38px,5.5vw,80px) clamp(24px,6vw,96px) 0; }
+  .tp-p { font-family: var(--font-sans); font-weight: 400; font-size: clamp(18px,1.5vw,21px); line-height: 1.85; color: var(--fg-1); margin: 0; max-width: none; text-wrap: pretty; }
+  .tp-p + .tp-p { margin-top: clamp(20px,2.2vw,30px); }
+  .tp-p--lede { font-size: clamp(20px,1.85vw,25px); line-height: 1.72; }
+  .tp-lead-in { font-family: var(--font-display); font-style: italic; font-size: clamp(20px,2.2vw,29px); line-height: 1.4; color: var(--fg-2); margin: clamp(28px,3.4vw,44px) auto 0; max-width: none; text-align: center; }
+
+  /* ---- Pull statements --------------------------------------------- */
+  .tp-statement { max-width: 900px; margin: 0 auto; padding: clamp(52px,7.5vw,112px) clamp(24px,6vw,96px) 0; text-align: center; }
+  .tp-statement__line { font-family: var(--font-display); font-weight: 400; font-size: clamp(30px,4.8vw,62px); line-height: 1.14; letter-spacing: -0.01em; color: var(--fg-1); margin: 0; text-wrap: balance; }
+  .tp-statement__line em { font-style: italic; color: var(--emphasis-italic); }
+
+  /* ---- Values — the emotional centerpiece -------------------------- */
+  .tp-values { max-width: 1080px; margin: 0 auto; padding: clamp(52px,7.5vw,112px) clamp(24px,6vw,96px) 0; text-align: center; }
+  .tp-values__words { font-family: var(--font-display); font-weight: 400; font-size: clamp(36px,6vw,86px); line-height: 1.18; letter-spacing: -0.01em; color: var(--fg-1); margin: 0; text-wrap: balance; }
+  .tp-values__words em { font-style: italic; color: var(--emphasis-italic); }
+  .tp-values__note { font-family: var(--font-display); font-style: italic; font-size: clamp(20px,2.2vw,29px); line-height: 1.4; letter-spacing: 0; color: var(--fg-2); margin: clamp(30px,4vw,50px) auto 0; max-width: none; text-align: center; }
+
+  /* ---- Master plan figure ------------------------------------------ */
+  .tp-figure { max-width: 1080px; margin: clamp(52px,7vw,110px) auto 0; padding: 0 clamp(24px,6vw,96px); text-align: center; }
+  .tp-figure img { display: block; width: 100%; height: auto; box-shadow: 0 26px 64px rgba(56,40,28,0.16); }
+  .tp-figure__cap { font-family: var(--font-sans); font-size: 12px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--fg-3); margin: clamp(16px,2vw,22px) 0 0; text-align: left; }
+
+  /* ---- Closing ----------------------------------------------------- */
+  .tp-closing { text-align: center; margin-top: clamp(56px,8vw,120px); padding: clamp(56px,8vw,120px) clamp(24px,6vw,96px) clamp(80px,11vw,150px); }
+  .tp-back { display: inline-block; margin-top: clamp(26px,3.4vw,40px); font-family: var(--font-sans); font-weight: 500; font-size: 12px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--fg-2); text-decoration: none; border: 0; }
+  .tp-back:hover { color: var(--emphasis); }
+
+  @media print {
+    .rs-header__nav, .rs-header__cta, .rs-header__toggle, .rs-mobile-nav, .rs-scrim, .rs-toast, .tp-back { display: none !important; }
+    .rs-reveal { opacity: 1 !important; transform: none !important; }
   }
-  /* Quiet way back to the main site */
-  .tbch__home {
-    position: fixed; top: clamp(20px, 3.4vh, 40px); left: clamp(20px, 3.4vw, 46px); z-index: 5;
-    font-family: var(--font-sans); font-weight: 500; font-size: 12px; letter-spacing: 0.18em;
-    text-transform: uppercase; color: rgba(248,241,222,0.7); text-decoration: none; border: 0;
-    transition: color 200ms ease;
-  }
-  .tbch__home:hover { color: var(--rs-cream); }
-
-  .tbch__brand { display: block; width: clamp(180px, 18vw, 258px); height: auto;
-    margin: 0 0 clamp(44px, 8vh, 96px); }
-
-  .tbch__eyebrow { font-family: var(--font-sans); font-weight: 600;
-    font-size: clamp(12px, 1.05vw, 15px); letter-spacing: 0.34em; text-transform: uppercase;
-    color: rgba(248,241,222,0.66); margin: 0 0 clamp(24px, 3.6vh, 44px); }
-
-  /* The headline — the site's signature uppercase statement treatment, scaled up. */
-  .tbch__soon { font-family: var(--font-sans); font-weight: 500;
-    font-size: clamp(58px, 12.5vw, 184px); line-height: 0.96; letter-spacing: -0.01em;
-    text-transform: uppercase; color: var(--rs-cream); margin: 0; }
-
-  /* Cairn rule — the three graduated strokes from the brand's signature. */
-  .tbch__rule { display: flex; flex-direction: column; gap: 6px; align-items: center;
-    margin: clamp(38px, 5.5vh, 66px) auto clamp(32px, 5vh, 58px); }
-  .tbch__rule span { display: block; height: 3px; border-radius: 2px; background: var(--emphasis-on-dark); }
-  .tbch__rule span:nth-child(1) { width: 48px; }
-  .tbch__rule span:nth-child(2) { width: 31px; }
-  .tbch__rule span:nth-child(3) { width: 16px; }
-
-  .tbch__project { font-family: var(--font-display); font-weight: 400; font-style: italic;
-    font-size: clamp(27px, 3.7vw, 54px); line-height: 1.12; color: var(--rs-cream); margin: 0; }
-  .tbch__project .amp { font-style: normal; color: var(--emphasis-on-dark); padding: 0 0.12em; }
-
-  .tbch__loc { font-family: var(--font-sans); font-weight: 500; font-size: clamp(13px, 1.2vw, 16px);
-    letter-spacing: 0.24em; text-transform: uppercase; color: rgba(248,241,222,0.68);
-    margin: clamp(40px, 6.5vh, 78px) 0 0; }
 </style>
 </head>
-<body>
-<a class="tbch__home" href="index.html">&larr;&nbsp; The Riverstone Group</a>
+<body class="tp">
+<a class="rs-skip" href="#main">Skip to content</a>
 
-<main class="tbch">
-  <img class="tbch__brand" src="assets/logo-reverse-wordmark.png" alt="The Riverstone Group">
-  <h1 class="tbch__soon">Coming Soon</h1>
-  <p class="tbch__loc">Brentwood, Tennessee</p>
+<!-- ============================================================ HEADER -->
+<header class="rs-header" id="header">
+  <a class="rs-header__brand" href="index.html" aria-label="The Riverstone Group — home">
+    <img src="assets/logo-fullcolor-horizontal.svg" alt="The Riverstone Group">
+  </a>
+  <nav class="rs-header__nav" aria-label="Primary">
+    <a class="rs-header__nav-link" href="index.html#our-purpose">Purpose</a>
+    <a class="rs-header__nav-link is-active" href="index.html#our-projects">Projects</a>
+    <a class="rs-header__nav-link" href="people.html">People</a>
+  </nav>
+  <a class="rs-btn rs-btn--primary rs-btn--sm rs-header__cta" href="index.html#contact">Connect</a>
+  <button class="rs-header__toggle" id="menuToggle" aria-label="Open menu" aria-expanded="false" aria-controls="mobileNav">
+    <i data-lucide="menu"></i>
+  </button>
+</header>
+<div class="rs-scrim" id="scrim"></div>
+<nav class="rs-mobile-nav" id="mobileNav" aria-label="Mobile">
+  <a href="index.html#our-purpose">Purpose</a>
+  <a href="index.html#our-projects">Projects</a>
+  <a href="people.html">People</a>
+  <a class="rs-btn rs-btn--primary" href="index.html#contact">Connect</a>
+</nav>
+
+<main id="main">
+
+  <!-- ==================================================== MASTHEAD -->
+  <section class="tp-masthead rs-reveal">
+    <p class="rs-chapter">Tennessee Baptist Children&rsquo;s Homes</p>
+    <h1 class="tp-masthead__title">A Place That Feels Like <em>Home</em></h1>
+  </section>
+
+  <!-- ==================================================== CONTEXT -->
+  <section class="tp-sec rs-reveal">
+    <p class="tp-p">Tennessee Baptist Children&rsquo;s Homes had called its Brentwood campus home for more than a century. Redeveloping it came with a responsibility to honor that history while creating a place that could serve its mission for generations to come.</p>
+  </section>
+
+  <!-- ==================================================== THE QUESTION -->
+  <section class="tp-statement rs-reveal">
+    <p class="tp-statement__line">We began not with plans, but with a <em>question.</em></p>
+  </section>
+
+  <!-- ==================================================== THE GATHERING -->
+  <section class="tp-sec rs-reveal">
+    <p class="tp-p">Before an engineer or land planner drew a single line, we gathered with the house parents and staff and asked them to describe what they wanted the new campus to be.</p>
+    <p class="tp-lead-in">Their answers were entirely about the children.</p>
+  </section>
+
+  <!-- ==================================================== VALUES -->
+  <section class="tp-values rs-reveal">
+    <p class="tp-values__words">Safe. Loved. Nurtured. Stability. Belonging. <em>Home.</em></p>
+    <p class="tp-values__note">Those words became the vision for the project.</p>
+  </section>
+
+  <!-- ==================================================== THE GOAL -->
+  <section class="tp-sec rs-reveal">
+    <p class="tp-p">The goal was never simply to develop new buildings. It was to create an environment worthy of the work happening inside them&mdash;a campus where buildings become homes, green spaces become places to play, and gathering spaces become places where relationships are built and lives are changed.</p>
+  </section>
+
+  <!-- ==================================================== BECAME REALITY -->
+  <section class="tp-statement rs-reveal">
+    <p class="tp-statement__line">Five years later, that vision became a <em>reality.</em></p>
+  </section>
+
+  <!-- ==================================================== REFLECTION -->
+  <section class="tp-sec rs-reveal">
+    <p class="tp-p">And in many ways, the completion of the campus wasn&rsquo;t the end of the project. It was the beginning of what the place could make possible.</p>
+  </section>
+
+  <!-- ==================================================== MASTER PLAN -->
+  <div class="tp-figure rs-reveal">
+    <img src="assets/projects/eastmans-preserve-tbch.jpg" alt="Illustrated master plan of the redeveloped Tennessee Baptist Children's Homes campus in Brentwood, Tennessee">
+    <p class="tp-figure__cap">The realized campus master plan</p>
+  </div>
+
+  <!-- ==================================================== CLOSING -->
+  <section class="tp-closing rs-reveal">
+    <a class="tp-back" href="index.html#our-projects">&larr; All projects</a>
+  </section>
+
 </main>
+
+<div class="rs-toast" id="toast" role="status" aria-live="polite"></div>
+
+<script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+<script src="main.js"></script>
 </body>
 </html>
