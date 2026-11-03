@@ -50,9 +50,9 @@
     will-change: opacity, transform; }
   .lobby__panel.is-active { opacity: 1; transform: none; }
 
-  .lobby__eyebrow { font-family: var(--font-sans); font-weight: 600; font-size: clamp(17px, 1.9vw, 30px);
-    letter-spacing: 0.3em; text-transform: uppercase; color: var(--rs-cream);
-    margin: 0 0 clamp(32px, 4.8vh, 64px); text-shadow: 0 2px 22px rgba(0,0,0,0.5); }
+  .lobby__eyebrow { font-family: var(--font-display); font-style: italic; font-weight: 400;
+    font-size: clamp(24px, 2.6vw, 42px); letter-spacing: 0; text-transform: none; color: var(--rs-cream);
+    margin: 0 0 clamp(30px, 4.6vh, 60px); text-shadow: 0 2px 24px rgba(0,0,0,0.5); }
 
   /* 1 · Headline — the site's signature statement */
   .lobby__title { font-family: var(--font-sans); font-weight: 500; text-transform: uppercase;
@@ -67,7 +67,8 @@
   .lobby__mission { font-family: var(--font-display); font-weight: 400;
     font-size: clamp(46px, 6.6vw, 120px); line-height: 1.1; letter-spacing: -0.01em;
     color: var(--rs-cream); margin: 0; max-width: 20ch; text-wrap: balance; text-shadow: 0 2px 34px rgba(0,0,0,0.42); }
-  .lobby__mission em { font-style: italic; color: var(--emphasis-on-dark); }
+  .lobby__mission em { font-style: italic; color: #d9825d;
+    text-shadow: 0 2px 26px rgba(205,100,56,0.6), 0 2px 34px rgba(0,0,0,0.4); }
 
   /* 3 · Values */
   .lobby__values { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: clamp(8px, 1.4vh, 20px); }
