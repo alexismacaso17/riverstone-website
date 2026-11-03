@@ -52,11 +52,29 @@
     transition: opacity 1.5s var(--ease-editorial), transform 1.5s var(--ease-editorial);
     will-change: opacity, transform; }
   .lobby__panel.is-active { opacity: 1; transform: none; }
+  /* Lift the mission composition up slightly so it reads over the upper greenery
+     rather than the high-contrast rock lower in the frame. */
+  .lobby__panel--up { padding-top: clamp(90px, 13vh, 170px); padding-bottom: clamp(150px, 20vh, 260px); }
 
-  /* 2 · "Shaped over time" — solid serif italic, fades in cleanly with the segment. */
-  .lobby__eyebrow { font-family: var(--font-display); font-style: italic; font-weight: 400;
+  /* 2 · "Shaped over time" — SOLID serif italic. Each letter materialises in
+     (fade + rise + blur-to-sharp), left to right, replaying every time the
+     segment appears. Letters are always solid glyphs — never hollow outlines. */
+  .lobby__eyebrow { font-family: var(--font-display); font-style: italic; font-weight: 500;
     font-size: clamp(24px, 2.6vw, 42px); letter-spacing: 0; text-transform: none; color: var(--rs-cream);
-    margin: 0 0 clamp(30px, 4.6vh, 60px); text-shadow: 0 2px 24px rgba(0,0,0,0.5); }
+    margin: 0 0 clamp(30px, 4.6vh, 60px); text-shadow: 0 2px 24px rgba(0,0,0,0.5); white-space: nowrap; }
+  .lobby__eyebrow span { display: inline-block; }
+  .lobby__eyebrow span.sp { width: 0.3em; }
+  .lobby__eyebrow span:not(.sp) { opacity: 1; }            /* resting / reduced-motion / fade-out */
+  .lobby__eyebrow.reveal span:not(.sp) {
+    animation: ey-in 0.62s var(--ease-editorial) both;
+    animation-delay: calc(var(--i) * 0.075s + 0.12s); }
+  @keyframes ey-in {
+    from { opacity: 0; transform: translateY(0.3em); filter: blur(5px); }
+    to   { opacity: 1; transform: none;             filter: blur(0); }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .lobby__eyebrow.reveal span:not(.sp) { animation: none; opacity: 1; }
+  }
 
   /* 1 · Headline — the site's signature statement */
   .lobby__title { font-family: var(--font-sans); font-weight: 500; text-transform: uppercase;
@@ -108,13 +126,19 @@
       </h1>
     </section>
 
-    <!-- 2 · Mission -->
-    <section class="lobby__panel" aria-label="Our mission">
-      <p class="lobby__eyebrow">Shaped over time</p>
+    <!-- 2 · Mission (lifted up so it reads over the greenery, off the rock) -->
+    <section class="lobby__panel lobby__panel--up" aria-label="Our mission">
+      <p class="lobby__eyebrow" aria-label="Shaped over time"><span style="--i:0">S</span><span style="--i:1">h</span><span style="--i:2">a</span><span style="--i:3">p</span><span style="--i:4">e</span><span style="--i:5">d</span><span class="sp">&nbsp;</span><span style="--i:6">o</span><span style="--i:7">v</span><span style="--i:8">e</span><span style="--i:9">r</span><span class="sp">&nbsp;</span><span style="--i:10">t</span><span style="--i:11">i</span><span style="--i:12">m</span><span style="--i:13">e</span></p>
       <p class="lobby__mission">Places where businesses, communities, and individuals <em>thrive.</em></p>
     </section>
 
-    <!-- 3 · Values -->
+    <!-- 3 · Invitation — placed before Values so "enduring" (headline) and
+         "endures" (here) never land back-to-back across the loop seam. -->
+    <section class="lobby__panel" aria-label="Let's build something that endures">
+      <p class="lobby__mission">Let&rsquo;s build something that <em>endures.</em></p>
+    </section>
+
+    <!-- 4 · Values -->
     <section class="lobby__panel" aria-label="What guides us">
       <ul class="lobby__values">
         <li>Grateful</li>
@@ -125,11 +149,6 @@
         <li>Collaborative</li>
         <li>Generous</li>
       </ul>
-    </section>
-
-    <!-- 4 · Invitation -->
-    <section class="lobby__panel" aria-label="Let's build something that endures">
-      <p class="lobby__mission">Let&rsquo;s build something that <em>endures.</em></p>
     </section>
 
   </div>
@@ -177,12 +196,21 @@
   /* Cross-fade the panels forever. */
   var panels = [].slice.call(document.querySelectorAll(".lobby__panel"));
   var HOLD_MS = 6000;
+
+  /* Replay the "Shaped over time" letter reveal each time its segment appears. */
+  function revealEyebrow(panel) {
+    var e = panel.querySelector(".lobby__eyebrow");
+    if (e) { e.classList.remove("reveal"); void e.offsetWidth; e.classList.add("reveal"); }
+  }
+
   if (panels.length > 1) {
     var i = 0;
+    revealEyebrow(panels[0]);   /* in case the first panel ever carries it */
     setInterval(function () {
       panels[i].classList.remove("is-active");
       i = (i + 1) % panels.length;
       panels[i].classList.add("is-active");
+      revealEyebrow(panels[i]);
     }, HOLD_MS);
   }
 })();
