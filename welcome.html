@@ -24,11 +24,14 @@
 
   .lobby { position: fixed; inset: 0; overflow: hidden; }
 
-  /* ---- River video, full-bleed ---- */
-  .lobby__video { position: absolute; inset: 0; width: 100%; height: 100%; display: block;
+  /* ---- River video, full-bleed. Two stacked layers cross-dissolve at the loop
+     point so the one-directional pan never hard-cuts back to the start. ---- */
+  .lobby__video { position: absolute; inset: 0; width: 100%; height: 100%; display: block; z-index: 0;
     object-fit: cover; object-position: 50% 62%; background: #231a10;
     /* warm print grade to match the site's hero treatment */
-    filter: brightness(0.92) contrast(1.07) saturate(1.07) sepia(0.16) hue-rotate(-7deg); }
+    filter: brightness(0.92) contrast(1.07) saturate(1.07) sepia(0.16) hue-rotate(-7deg);
+    opacity: 1; transition: opacity 1.2s linear; will-change: opacity; }
+  .lobby__video--b { opacity: 0; }
   /* Legibility scrim — warm, soft vignette + top & bottom darkening */
   .lobby__scrim { position: absolute; inset: 0; z-index: 1; pointer-events: none;
     background:
@@ -100,7 +103,10 @@
 <body>
 <main class="lobby" aria-label="Welcome to The Riverstone Group">
 
-  <video class="lobby__video" autoplay muted loop playsinline preload="auto" aria-hidden="true">
+  <video class="lobby__video" data-vid="a" autoplay muted playsinline preload="auto" aria-hidden="true">
+    <source src="assets/hero.mp4#t=1.4" type="video/mp4">
+  </video>
+  <video class="lobby__video lobby__video--b" data-vid="b" muted playsinline preload="auto" aria-hidden="true">
     <source src="assets/hero.mp4#t=1.4" type="video/mp4">
   </video>
   <div class="lobby__scrim" aria-hidden="true"></div>
@@ -148,18 +154,39 @@
 (function () {
   "use strict";
 
-  /* River video: skip the brief opening angle and keep an unbroken loop. */
-  var v = document.querySelector(".lobby__video");
-  if (v) {
-    var IN = 1.4;
-    var seekIn = function () { try { v.currentTime = IN; } catch (e) {} };
-    if (v.readyState >= 1) seekIn();
-    v.addEventListener("loadedmetadata", seekIn);
-    v.addEventListener("timeupdate", function () {
-      if (v.duration && v.currentTime >= v.duration - 0.3) seekIn();
+  /* River video — crossfade loop.
+     hero.mp4 is a single ~15s one-directional pan, so it can't loop seamlessly.
+     Two stacked layers play the same clip; ~1.2s before the active layer reaches
+     the end, the other starts from the in-point and we cross-dissolve, hiding the
+     pan's hard reset. The idle layer stays paused except during the dissolve. */
+  var IN = 1.4;         /* skip the brief opening angle */
+  var XF = 1.2;         /* crossfade seconds — matches the CSS opacity transition */
+  var vids = [].slice.call(document.querySelectorAll(".lobby__video"));
+  if (vids.length >= 2) {
+    var active = 0, transitioning = false;
+    var seekIn = function (el) { try { el.currentTime = IN; } catch (e) {} };
+    vids.forEach(function (el) {
+      el.addEventListener("loadedmetadata", function () { seekIn(el); });
+      if (el.readyState >= 1) seekIn(el);
+      el.addEventListener("timeupdate", function () {
+        if (transitioning || el !== vids[active]) return;
+        if (el.duration && el.currentTime >= el.duration - XF) crossfade();
+      });
     });
-    v.addEventListener("ended", function () { seekIn(); v.play(); });
-    var pr = v.play(); if (pr && pr.catch) pr.catch(function () {});
+    function crossfade() {
+      transitioning = true;
+      var cur = vids[active], nxt = vids[1 - active];
+      seekIn(nxt);
+      var p = nxt.play(); if (p && p.catch) p.catch(function () {});
+      nxt.style.opacity = "1";
+      cur.style.opacity = "0";
+      setTimeout(function () {
+        cur.pause(); seekIn(cur);
+        active = 1 - active;
+        transitioning = false;
+      }, XF * 1000 + 80);
+    }
+    var pr = vids[0].play(); if (pr && pr.catch) pr.catch(function () {});
   }
 
   /* Cross-fade the panels forever. */
