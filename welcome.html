@@ -1,0 +1,162 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>The Riverstone Group</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- Internal lobby / welcome display. Deliberately unlisted and not indexed —
+     reachable only by typing the URL. Open full-screen on the entrance screen. -->
+<meta name="robots" content="noindex, nofollow">
+<meta name="description" content="Welcome to The Riverstone Group.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="colors_and_type.css?v=6">
+<link rel="icon" href="assets/favicon.png">
+<style>
+  /* ============================================================
+     LOBBY / WELCOME DISPLAY — ambient, full-screen, looping.
+     River video backdrop; headline → mission → values cross-fade.
+     Self-contained; no nav, no scroll, nothing to click.
+     ============================================================ */
+  * { box-sizing: border-box; }
+  html, body { margin: 0; height: 100%; background: var(--rs-charcoal); overflow: hidden; }
+  body { cursor: none; }   /* kiosk: hide the pointer on the display */
+
+  .lobby { position: fixed; inset: 0; overflow: hidden; }
+
+  /* ---- River video, full-bleed ---- */
+  .lobby__video { position: absolute; inset: 0; width: 100%; height: 100%; display: block;
+    object-fit: cover; object-position: 50% 62%; background: #231a10;
+    /* warm print grade to match the site's hero treatment */
+    filter: brightness(0.92) contrast(1.07) saturate(1.07) sepia(0.16) hue-rotate(-7deg); }
+  /* Legibility scrim — warm, soft vignette + top & bottom darkening */
+  .lobby__scrim { position: absolute; inset: 0; z-index: 1; pointer-events: none;
+    background:
+      radial-gradient(130% 100% at 50% 48%, rgba(16,11,6,0) 34%, rgba(16,11,6,0.5) 100%),
+      linear-gradient(180deg, rgba(16,11,6,0.5) 0%, rgba(16,11,6,0.2) 26%, rgba(16,11,6,0.22) 68%, rgba(16,11,6,0.56) 100%); }
+
+  /* ---- Persistent brand mark, top-center ---- */
+  .lobby__brand { position: absolute; top: clamp(34px, 6vh, 80px); left: 50%; transform: translateX(-50%); z-index: 4;
+    width: clamp(220px, 20vw, 360px); height: auto; filter: drop-shadow(0 2px 20px rgba(0,0,0,0.6)); }
+
+  /* ---- Cross-fading stage ---- */
+  .lobby__stage { position: absolute; inset: 0; z-index: 2; }
+  .lobby__panel { position: absolute; inset: 0; z-index: 2;
+    display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center;
+    padding: clamp(140px, 20vh, 240px) clamp(32px, 8vw, 150px) clamp(60px, 10vh, 130px);
+    color: var(--rs-cream);
+    opacity: 0; transform: translateY(16px) scale(0.994);
+    transition: opacity 1.5s var(--ease-editorial), transform 1.5s var(--ease-editorial);
+    will-change: opacity, transform; }
+  .lobby__panel.is-active { opacity: 1; transform: none; }
+
+  .lobby__eyebrow { font-family: var(--font-sans); font-weight: 600; font-size: clamp(17px, 1.9vw, 30px);
+    letter-spacing: 0.3em; text-transform: uppercase; color: var(--rs-cream);
+    margin: 0 0 clamp(32px, 4.8vh, 64px); text-shadow: 0 2px 22px rgba(0,0,0,0.5); }
+
+  /* 1 · Headline — the site's signature statement */
+  .lobby__title { font-family: var(--font-sans); font-weight: 500; text-transform: uppercase;
+    font-size: clamp(58px, 9.2vw, 158px); line-height: 1.0; letter-spacing: -0.01em;
+    color: var(--rs-cream); margin: 0; text-shadow: 0 2px 34px rgba(0,0,0,0.42); }
+  .lobby__title em { font-family: var(--font-display); font-style: italic; text-transform: lowercase;
+    font-weight: 500; font-size: 1.0em; color: var(--emphasis-on-dark); margin-right: 0.12em; }
+  .lobby__title .l1 { display: block; }
+  .lobby__title .l2 { display: block; }
+
+  /* 2 · Mission */
+  .lobby__mission { font-family: var(--font-display); font-weight: 400;
+    font-size: clamp(46px, 6.6vw, 120px); line-height: 1.1; letter-spacing: -0.01em;
+    color: var(--rs-cream); margin: 0; max-width: 20ch; text-wrap: balance; text-shadow: 0 2px 34px rgba(0,0,0,0.42); }
+  .lobby__mission em { font-style: italic; color: var(--emphasis-on-dark); }
+
+  /* 3 · Values */
+  .lobby__values { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: clamp(8px, 1.4vh, 20px); }
+  .lobby__values li { font-family: var(--font-display); font-weight: 400;
+    font-size: clamp(30px, 3.8vw, 66px); line-height: 1.12; color: var(--rs-cream);
+    text-shadow: 0 2px 30px rgba(0,0,0,0.4); }
+
+  @media (prefers-reduced-motion: reduce) {
+    .lobby__panel { transition: opacity 0.6s linear; transform: none; }
+  }
+</style>
+</head>
+<body>
+<main class="lobby" aria-label="Welcome to The Riverstone Group">
+
+  <video class="lobby__video" autoplay muted loop playsinline preload="auto" aria-hidden="true">
+    <source src="assets/hero.mp4#t=1.4" type="video/mp4">
+  </video>
+  <div class="lobby__scrim" aria-hidden="true"></div>
+
+  <img class="lobby__brand" src="assets/logo-reverse-wordmark.png" alt="The Riverstone Group">
+
+  <div class="lobby__stage">
+
+    <!-- 1 · Headline -->
+    <section class="lobby__panel is-active" aria-label="Creating enduring value">
+      <h1 class="lobby__title">
+        <span class="l1">Creating</span>
+        <span class="l2"><em>enduring</em> value</span>
+      </h1>
+    </section>
+
+    <!-- 2 · Mission -->
+    <section class="lobby__panel" aria-label="Our mission">
+      <p class="lobby__eyebrow">Shaped over time</p>
+      <p class="lobby__mission">Places where businesses, communities, and individuals <em>thrive.</em></p>
+    </section>
+
+    <!-- 3 · Values -->
+    <section class="lobby__panel" aria-label="What guides us">
+      <ul class="lobby__values">
+        <li>Grateful</li>
+        <li>Purposeful</li>
+        <li>Trustworthy</li>
+        <li>Excellence</li>
+        <li>Innovative</li>
+        <li>Collaborative</li>
+        <li>Generous</li>
+      </ul>
+    </section>
+
+    <!-- 4 · Invitation -->
+    <section class="lobby__panel" aria-label="Let's build something that endures">
+      <p class="lobby__mission">Let&rsquo;s build something that <em>endures.</em></p>
+    </section>
+
+  </div>
+</main>
+
+<script>
+(function () {
+  "use strict";
+
+  /* River video: skip the brief opening angle and keep an unbroken loop. */
+  var v = document.querySelector(".lobby__video");
+  if (v) {
+    var IN = 1.4;
+    var seekIn = function () { try { v.currentTime = IN; } catch (e) {} };
+    if (v.readyState >= 1) seekIn();
+    v.addEventListener("loadedmetadata", seekIn);
+    v.addEventListener("timeupdate", function () {
+      if (v.duration && v.currentTime >= v.duration - 0.3) seekIn();
+    });
+    v.addEventListener("ended", function () { seekIn(); v.play(); });
+    var pr = v.play(); if (pr && pr.catch) pr.catch(function () {});
+  }
+
+  /* Cross-fade the panels forever. */
+  var panels = [].slice.call(document.querySelectorAll(".lobby__panel"));
+  var HOLD_MS = 8000;
+  if (panels.length > 1) {
+    var i = 0;
+    setInterval(function () {
+      panels[i].classList.remove("is-active");
+      i = (i + 1) % panels.length;
+      panels[i].classList.add("is-active");
+    }, HOLD_MS);
+  }
+})();
+</script>
+</body>
+</html>
