@@ -154,7 +154,7 @@
     font-family: var(--font-sans); font-weight: 700; text-transform: uppercase;
     letter-spacing: 0.24em; color: #D6C3E6; --g: rgba(214,195,230,0.24);
     font-size: clamp(20px, min(2.7vw, 4.5vh), 46px);
-    left: 29%; top: 80%; --depth: 3px; --fa: 3px; --fd: 9.2s; }
+    left: 26%; top: 80%; --depth: 3px; --fa: 3px; --fd: 9.2s; }
   .lobby__values li:nth-child(7) {                      /* Generous — hero */
     font-style: italic; color: #E8977E; --g: rgba(232,151,126,0.24);
     font-size: clamp(50px, min(7vw, 12.4vh), 140px);
@@ -163,11 +163,11 @@
   /* Entrance — each value materialises out of thin air, one at a time, so every
      word earns its own beat of emphasis. It fades up from a soft, slightly
      smaller, blurred state into a sharp, full-size word; generous spacing
-     between words makes the reveal feel deliberate (centre-out from Excellence).
-     Replays each time the segment appears. */
+     between words makes the reveal feel deliberate (Grateful leads, then
+     Excellence anchors, then outward). Replays each time the segment appears. */
   .lobby__values.reveal .w { animation: val-in 1.15s var(--ease-editorial) backwards; }
-  .lobby__values.reveal li:nth-child(4) .w { animation-delay: .10s; }   /* Excellence */
-  .lobby__values.reveal li:nth-child(1) .w { animation-delay: .72s; }   /* Grateful */
+  .lobby__values.reveal li:nth-child(1) .w { animation-delay: .10s; }   /* Grateful */
+  .lobby__values.reveal li:nth-child(4) .w { animation-delay: .72s; }   /* Excellence */
   .lobby__values.reveal li:nth-child(7) .w { animation-delay: 1.34s; }  /* Generous */
   .lobby__values.reveal li:nth-child(2) .w { animation-delay: 1.96s; }  /* Purposeful */
   .lobby__values.reveal li:nth-child(5) .w { animation-delay: 2.58s; }  /* Innovative */
