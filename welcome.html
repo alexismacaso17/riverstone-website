@@ -62,9 +62,6 @@
   .lobby__panel.is-active { opacity: 1; transform: none; }
   /* Mission sits a little higher over the greenery. */
   .lobby__panel--up { padding-top: clamp(80px, 11vh, 150px); padding-bottom: clamp(170px, 24vh, 320px); }
-  /* Values are seven lines — anchor them to begin just below the brand mark so
-     they always clear it (short laptop screens included), then flow down. */
-  .lobby__panel--list { justify-content: flex-start; padding-top: clamp(162px, 23.5vh, 288px); }
 
   /* ---- Shared accent: one terracotta for every italic emphasis, with a slow,
      almost-subliminal warm "breathing" glow to quietly draw the eye. ---- */
@@ -106,57 +103,84 @@
     font-size: clamp(40px, 5.7vw, 104px); line-height: 1.14; letter-spacing: -0.012em;
     color: var(--rs-cream); margin: 0; max-width: 19ch; text-wrap: balance; text-shadow: var(--ink); }
 
-  /* ---- 3 · Core values — organic editorial composition ----
-     Asymmetric placement, a nature-drawn colour per value, mixed serif/sans.
-     Staggered editorial entrance + an almost-imperceptible ambient "breathing";
-     refined desktop hover. Negative space keeps the landscape in play. */
-  .lobby__values { list-style: none; margin: 0 auto; padding: 0;
-    width: min(90vw, 1440px); display: flex; flex-direction: column; align-items: flex-start; }
-  .lobby__values li { margin: 0; line-height: 1.0; white-space: nowrap;
-    font-family: var(--font-display); font-weight: 400; color: var(--rs-cream);
-    text-shadow: 0 2px 22px rgba(0,0,0,0.5), 0 1px 4px rgba(0,0,0,0.4);
-    opacity: 1; transition: opacity .55s var(--ease-editorial), transform .55s var(--ease-editorial), filter .45s var(--ease-editorial); }
-  .lobby__values .w { display: inline-block; will-change: transform; }
+  /* ---- 3 · Core values — immersive editorial installation ----
+     The seven values are art-directed across the full canvas as an oversized
+     typographic composition: three tiers of scale, a confident nature palette,
+     serif italics played against tracked sans caps. Excellence anchors the
+     centre; the others orbit it with intentional, unequal spacing. Motion is
+     layered so nothing competes for `transform` — the li carries centring +
+     cursor parallax + hover, .w carries the staggered entrance, .f carries a
+     continuous ambient drift. Generous negative space keeps the river alive. */
+  .lobby__values { list-style: none; margin: 0; padding: 0;
+    position: absolute; inset: 0; z-index: 2; }
+  .lobby__values li { position: absolute; margin: 0; line-height: 0.96;
+    white-space: nowrap; font-family: var(--font-display); font-weight: 400;
+    --px: 0px; --py: 0px;
+    transform: translate(calc(-50% + var(--px)), calc(-50% + var(--py)));
+    transition: transform 0.5s cubic-bezier(0.22,0.61,0.36,1);
+    text-shadow: 0 2px 26px rgba(0,0,0,0.55), 0 1px 3px rgba(0,0,0,0.5), 0 0 40px var(--g, transparent); }
+  .lobby__values .w { display: inline-block; transition: opacity 0.5s var(--ease-editorial); }
+  .lobby__values .f { display: inline-block; will-change: transform;
+    animation: val-float var(--fd, 8s) ease-in-out infinite; }
 
-  /* hierarchy · colour · type · horizontal offset · vertical rhythm (per value) */
-  .lobby__values li:nth-child(1) { font-style: italic; color: #F4E8D0;                 /* Grateful */
-    font-size: clamp(40px, min(5vw, 8.8vh), 86px);  margin-left: 3vw; }
-  .lobby__values li:nth-child(2) { color: #C97958;                                     /* Purposeful */
-    font-size: clamp(25px, min(2.9vw, 5vh), 48px);  margin-left: 27vw; margin-top: clamp(4px,0.9vh,14px); }
-  .lobby__values li:nth-child(3) { font-family: var(--font-sans); font-weight: 600;    /* Trustworthy */
-    text-transform: uppercase; letter-spacing: 0.22em; color: #A7B89A;
-    font-size: clamp(13px, min(1.45vw, 2.5vh), 22px); margin-left: 11vw; margin-top: clamp(6px,1.2vh,16px); }
-  .lobby__values li:nth-child(4) { font-style: italic; color: #D8B878;                 /* Excellence */
-    font-size: clamp(44px, min(5.6vw, 9.8vh), 96px); margin-left: 15vw; margin-top: clamp(2px,0.5vh,10px); }
-  .lobby__values li:nth-child(5) { font-style: italic; color: #80BDB8;                 /* Innovative */
-    font-size: clamp(25px, min(2.9vw, 5vh), 48px);  margin-left: 42vw; margin-top: clamp(2px,0.4vh,8px); }
-  .lobby__values li:nth-child(6) { font-family: var(--font-sans); font-weight: 600;    /* Collaborative */
-    text-transform: uppercase; letter-spacing: 0.22em; color: #B9A6C9;
-    font-size: clamp(13px, min(1.45vw, 2.5vh), 22px); margin-left: 6vw; margin-top: clamp(8px,1.4vh,18px); }
-  .lobby__values li:nth-child(7) { font-style: italic; color: #E5A08B;                 /* Generous */
-    font-size: clamp(40px, min(5vw, 8.8vh), 86px);  margin-left: 29vw; margin-top: clamp(2px,0.5vh,10px); }
+  /* tier · colour · glow · scale · anchor (left/top) · parallax depth · drift */
+  .lobby__values li:nth-child(1) {                      /* Grateful — hero */
+    font-style: italic; color: #F7EBCF; --g: rgba(247,235,207,0.22);
+    font-size: clamp(50px, min(7vw, 12.4vh), 140px);
+    left: 20%; top: 28.5%; --depth: 8px; --fa: 6px; --fd: 8.2s; }
+  .lobby__values li:nth-child(2) {                      /* Purposeful — secondary */
+    color: #C56A42; --g: rgba(197,106,66,0.26);
+    font-size: clamp(34px, min(4.4vw, 7.8vh), 82px);
+    left: 78%; top: 31%; --depth: 5px; --fa: 4.5px; --fd: 7.6s; }
+  .lobby__values li:nth-child(3) {                      /* Trustworthy — accent */
+    font-family: var(--font-sans); font-weight: 600; text-transform: uppercase;
+    letter-spacing: 0.3em; color: #B4C3A2; --g: rgba(180,195,162,0.16);
+    font-size: clamp(18px, min(2.4vw, 4vh), 40px);
+    left: 14.5%; top: 63%; --depth: 3px; --fa: 3px; --fd: 7.2s; }
+  .lobby__values li:nth-child(4) {                      /* Excellence — anchor */
+    font-style: italic; color: #E3C07A; --g: rgba(227,192,122,0.26);
+    font-size: clamp(64px, min(9vw, 16vh), 172px);
+    left: 41%; top: 50%; --depth: 8px; --fa: 6px; --fd: 9s; }
+  .lobby__values li:nth-child(5) {                      /* Innovative — secondary */
+    font-style: italic; color: #6FC2BC; --g: rgba(111,194,188,0.24);
+    font-size: clamp(34px, min(4.4vw, 7.8vh), 82px);
+    left: 81.5%; top: 62%; --depth: 5px; --fa: 4.5px; --fd: 8.8s; }
+  .lobby__values li:nth-child(6) {                      /* Collaborative — accent */
+    font-family: var(--font-sans); font-weight: 600; text-transform: uppercase;
+    letter-spacing: 0.3em; color: #C2A9D6; --g: rgba(194,169,214,0.16);
+    font-size: clamp(18px, min(2.4vw, 4vh), 40px);
+    left: 32%; top: 85%; --depth: 3px; --fa: 3px; --fd: 9.2s; }
+  .lobby__values li:nth-child(7) {                      /* Generous — hero */
+    font-style: italic; color: #E8977E; --g: rgba(232,151,126,0.24);
+    font-size: clamp(50px, min(7vw, 12.4vh), 140px);
+    left: 61%; top: 78%; --depth: 8px; --fa: 6px; --fd: 9.6s; }
 
-  /* staggered editorial entrance — replays each time the segment appears */
-  .lobby__values.reveal li { animation: val-in 0.9s var(--ease-editorial) backwards; }
-  .lobby__values.reveal li:nth-child(1){animation-delay:.10s}
-  .lobby__values.reveal li:nth-child(2){animation-delay:.26s}
-  .lobby__values.reveal li:nth-child(3){animation-delay:.40s}
-  .lobby__values.reveal li:nth-child(4){animation-delay:.52s}
-  .lobby__values.reveal li:nth-child(5){animation-delay:.66s}
-  .lobby__values.reveal li:nth-child(6){animation-delay:.80s}
-  .lobby__values.reveal li:nth-child(7){animation-delay:.92s}
-  @keyframes val-in { from { opacity: 0; transform: translate(-10px, 16px); } to { opacity: 1; transform: none; } }
+  /* staggered editorial entrance — centre-out from Excellence, replays each loop */
+  .lobby__values.reveal .w { animation: val-in 1s var(--ease-editorial) backwards; }
+  .lobby__values.reveal li:nth-child(4) .w { animation-delay: .05s; }  /* Excellence */
+  .lobby__values.reveal li:nth-child(1) .w { animation-delay: .16s; }  /* Grateful */
+  .lobby__values.reveal li:nth-child(7) .w { animation-delay: .24s; }  /* Generous */
+  .lobby__values.reveal li:nth-child(2) .w { animation-delay: .34s; }  /* Purposeful */
+  .lobby__values.reveal li:nth-child(5) .w { animation-delay: .44s; }  /* Innovative */
+  .lobby__values.reveal li:nth-child(3) .w { animation-delay: .54s; }  /* Trustworthy */
+  .lobby__values.reveal li:nth-child(6) .w { animation-delay: .62s; }  /* Collaborative */
+  @keyframes val-in {
+    from { opacity: 0; transform: translateY(28px) scale(0.985); }
+    to   { opacity: 1; transform: none; }
+  }
 
-  /* ambient breathing on the inner span — ~4px, desynced per word */
-  .lobby__values .w { animation: val-breathe 7s ease-in-out infinite; }
-  .lobby__values li:nth-child(2n) .w { animation-duration: 8.4s; animation-delay: -2.1s; }
-  .lobby__values li:nth-child(3n) .w { animation-duration: 9.2s; animation-delay: -4.3s; }
-  @keyframes val-breathe { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-4px); } }
+  /* continuous ambient drift — amplitude + period per word, set above */
+  @keyframes val-float {
+    0%, 100% { transform: translateY(0); }
+    50%      { transform: translateY(calc(var(--fa, 4px) * -1)); }
+  }
 
-  /* desktop hover: lift the hovered word, quiet the others */
+  /* desktop hover: lift & enrich the hovered word, settle the rest back */
   @media (hover: hover) and (pointer: fine) {
-    .lobby__values li:hover { transform: scale(1.055); filter: brightness(1.12) saturate(1.1); }
-    .lobby__values:hover li:not(:hover) { opacity: 0.38; }
+    .lobby__values li:hover { z-index: 5;
+      transform: translate(calc(-50% + var(--px)), calc(-50% + var(--py))) scale(1.06);
+      filter: brightness(1.1) saturate(1.12); }
+    .lobby__values:hover li:not(:hover) .w { opacity: 0.4; }
   }
 
   /* ---- Reduced motion ---- */
@@ -164,8 +188,8 @@
     .lobby__panel { transition: opacity 0.6s linear; transform: none; }
     .lobby__eyebrow.reveal span:not(.sp) { animation: none; opacity: 1; }
     .lobby__title em, .lobby__mission em { animation: none; }
-    .lobby__values.reveal li { animation: none; opacity: 1; transform: none; }
-    .lobby__values .w { animation: none; }
+    .lobby__values.reveal .w { animation: none; opacity: 1; transform: none; }
+    .lobby__values .f { animation: none; transform: none; }
     .lobby__video { transition: opacity 0.4s linear; }
   }
 
@@ -177,14 +201,22 @@
     .lobby__eyebrow { font-size: clamp(18px, 4.6vw, 28px); margin-bottom: clamp(22px,3.4vh,42px); white-space: normal; }
     .lobby__title { font-size: clamp(46px, 13.2vw, 104px); letter-spacing: -0.01em; }
     .lobby__mission { font-size: clamp(33px, 8.6vw, 76px); max-width: 15ch; }
-    /* Values: controlled, centered arrangement on phones — keep the colour
-       personality and hierarchy, drop the horizontal scatter (no overlap/scroll). */
-    .lobby__values { width: min(94vw, 560px); align-items: center; }
-    .lobby__values li { margin-left: 0 !important; white-space: normal; text-align: center; }
-    .lobby__values li:nth-child(1), .lobby__values li:nth-child(7) { font-size: clamp(34px, 9.5vw, 58px); margin-top: clamp(6px,1.3vh,16px); }
-    .lobby__values li:nth-child(4) { font-size: clamp(38px, 10.5vw, 64px); margin-top: clamp(6px,1.3vh,16px); }
-    .lobby__values li:nth-child(2), .lobby__values li:nth-child(5) { font-size: clamp(25px, 6.6vw, 40px); margin-top: clamp(6px,1.3vh,16px); }
-    .lobby__values li:nth-child(3), .lobby__values li:nth-child(6) { font-size: clamp(15px, 4.2vw, 22px); margin-top: clamp(8px,1.6vh,18px); }
+    /* Values — a separately composed stack (not the desktop canvas shrunk):
+       one column with deliberate left/right shifts for rhythm, full colour +
+       tier hierarchy preserved, no overlap, clipping or horizontal scroll. */
+    .lobby__values { position: static; inset: auto; z-index: auto;
+      display: flex; flex-direction: column; justify-content: center;
+      align-items: stretch; width: min(92vw, 560px); height: 100%;
+      margin: 0 auto; padding-top: clamp(96px, 15vh, 150px); }
+    .lobby__values li { position: static; left: auto; top: auto;
+      transform: none; margin: clamp(1px,0.5vh,7px) 0; display: block; line-height: 1.02; }
+    .lobby__values li:nth-child(1) { font-size: clamp(42px,12vw,66px);  text-align: left;   padding-left: 3vw; }   /* Grateful */
+    .lobby__values li:nth-child(2) { font-size: clamp(27px,7.4vw,42px); text-align: right;  padding-right: 5vw; }  /* Purposeful */
+    .lobby__values li:nth-child(3) { font-size: clamp(16px,4.6vw,24px); text-align: left;   padding-left: 9vw; }   /* Trustworthy */
+    .lobby__values li:nth-child(4) { font-size: clamp(46px,13.4vw,78px);text-align: center; }                      /* Excellence */
+    .lobby__values li:nth-child(5) { font-size: clamp(27px,7.4vw,42px); text-align: right;  padding-right: 3vw; }  /* Innovative */
+    .lobby__values li:nth-child(6) { font-size: clamp(16px,4.6vw,24px); text-align: left;   padding-left: 6vw; }   /* Collaborative */
+    .lobby__values li:nth-child(7) { font-size: clamp(42px,12vw,66px);  text-align: right;  padding-right: 8vw; }  /* Generous */
   }
 </style>
 </head>
@@ -223,16 +255,17 @@
       <p class="lobby__mission">Let&rsquo;s build something that <em>endures.</em></p>
     </section>
 
-    <!-- 4 · Values -->
-    <section class="lobby__panel lobby__panel--list" aria-label="What guides us">
+    <!-- 4 · Values — art-directed across the canvas (positions/scale in CSS).
+         Each word: .w carries the entrance, .f the continuous ambient drift. -->
+    <section class="lobby__panel" aria-label="What guides us">
       <ul class="lobby__values">
-        <li><span class="w">Grateful</span></li>
-        <li><span class="w">Purposeful</span></li>
-        <li><span class="w">Trustworthy</span></li>
-        <li><span class="w">Excellence</span></li>
-        <li><span class="w">Innovative</span></li>
-        <li><span class="w">Collaborative</span></li>
-        <li><span class="w">Generous</span></li>
+        <li><span class="w"><span class="f">Grateful</span></span></li>
+        <li><span class="w"><span class="f">Purposeful</span></span></li>
+        <li><span class="w"><span class="f">Trustworthy</span></span></li>
+        <li><span class="w"><span class="f">Excellence</span></span></li>
+        <li><span class="w"><span class="f">Innovative</span></span></li>
+        <li><span class="w"><span class="f">Collaborative</span></span></li>
+        <li><span class="w"><span class="f">Generous</span></span></li>
       </ul>
     </section>
 
@@ -299,6 +332,30 @@
       panels[i].classList.add("is-active");
       animateIn(panels[i]);
     }, HOLD_MS);
+  }
+
+  /* Very restrained cursor parallax on the values — each word shifts by its own
+     depth (hero 8px → accent 3px) for a layered, integrated feel. Pointer-only
+     and off under reduced-motion; the kiosk has no mouse, so it simply rests. */
+  var fine = window.matchMedia("(hover: hover) and (pointer: fine)").matches;
+  var calm = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  if (fine && !calm) {
+    var vlis = [].slice.call(document.querySelectorAll(".lobby__values li")).map(function (el) {
+      return { el: el, d: parseFloat(getComputedStyle(el).getPropertyValue("--depth")) || 4 };
+    });
+    var nx = 0, ny = 0, raf = 0;
+    function apply() {
+      raf = 0;
+      vlis.forEach(function (o) {
+        o.el.style.setProperty("--px", (nx * o.d).toFixed(1) + "px");
+        o.el.style.setProperty("--py", (ny * o.d).toFixed(1) + "px");
+      });
+    }
+    window.addEventListener("pointermove", function (e) {
+      nx = (e.clientX / window.innerWidth  - 0.5) * 2;   /* -1 … 1 */
+      ny = (e.clientY / window.innerHeight - 0.5) * 2;
+      if (!raf) raf = requestAnimationFrame(apply);
+    }, { passive: true });
   }
 })();
 </script>
