@@ -1,0 +1,306 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>The Riverstone Group</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- Internal lobby / welcome display. Deliberately unlisted and not indexed —
+     reachable only by typing the URL. Open full-screen on the entrance screen. -->
+<meta name="robots" content="noindex, nofollow">
+<meta name="description" content="Welcome to The Riverstone Group.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="colors_and_type.css?v=6">
+<link rel="icon" href="assets/favicon.png">
+<style>
+  /* ============================================================
+     LOBBY / WELCOME DISPLAY — ambient, full-screen, looping.
+     River video backdrop; headline → mission → values cross-fade.
+     Self-contained; no nav, no scroll, nothing to click.
+     ============================================================ */
+  * { box-sizing: border-box; }
+  html, body { margin: 0; height: 100%; background: var(--rs-charcoal); overflow: hidden; }
+  body { cursor: none; }   /* kiosk: hide the pointer on the display */
+
+  .lobby { position: fixed; inset: 0; overflow: hidden;
+    --accent: #d6805a;                        /* ONE standardized terracotta (on dark) */
+    --ink: 0 2px 30px rgba(0,0,0,0.46);       /* ONE legibility shadow for cream type */
+    --glow: 0 2px 30px rgba(196,96,54,0.45);  /* ONE subtle warm glow for the accent */
+  }
+
+  /* ---- River video: two stacked layers cross-dissolve at the loop point ---- */
+  .lobby__video { position: absolute; inset: 0; width: 100%; height: 100%; display: block; z-index: 0;
+    object-fit: cover; object-position: 50% 60%; background: #231a10;
+    /* one consistent warm print grade across every segment */
+    filter: brightness(0.9) contrast(1.07) saturate(1.06) sepia(0.15) hue-rotate(-7deg);
+    opacity: 1; transition: opacity 1.2s linear; will-change: opacity; }
+  .lobby__video--b { opacity: 0; }
+
+  /* ---- Scrim: a soft central "pool" lifts the type off the moving water while
+     the foliage, stone and highlights keep their richness toward the edges. ---- */
+  .lobby__scrim { position: absolute; inset: 0; z-index: 1; pointer-events: none;
+    background:
+      radial-gradient(72% 62% at 50% 47%, rgba(12,8,5,0.52) 0%, rgba(12,8,5,0.26) 45%, rgba(12,8,5,0) 76%),
+      linear-gradient(180deg, rgba(12,8,5,0.32) 0%, rgba(12,8,5,0) 24%, rgba(12,8,5,0) 68%, rgba(12,8,5,0.44) 100%); }
+
+  /* ---- Brand mark, top-center. Persistent on every segment. ---- */
+  .lobby__brand { position: absolute; top: clamp(30px, 5.5vh, 76px); left: 50%; transform: translateX(-50%);
+    z-index: 4; width: clamp(210px, 19vw, 340px); height: auto;
+    filter: drop-shadow(0 2px 20px rgba(0,0,0,0.6)); }
+
+  /* ---- Cross-fading stage. One easing, one duration, opacity + a whisper of
+     rise (no scale/zoom) — a continuous cinematic composition. ---- */
+  .lobby__stage { position: absolute; inset: 0; z-index: 2; }
+  .lobby__panel { position: absolute; inset: 0; z-index: 2;
+    display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center;
+    /* optically centred: content rests a touch above true centre, balancing the top mark */
+    padding: clamp(96px, 15vh, 210px) clamp(40px, 8vw, 150px) clamp(130px, 19vh, 250px);
+    color: var(--rs-cream);
+    opacity: 0; transform: translateY(10px);
+    transition: opacity 1.4s var(--ease-editorial), transform 1.4s var(--ease-editorial);
+    will-change: opacity, transform; }
+  .lobby__panel.is-active { opacity: 1; transform: none; }
+  /* Mission sits a little higher over the greenery. */
+  .lobby__panel--up { padding-top: clamp(80px, 11vh, 150px); padding-bottom: clamp(170px, 24vh, 320px); }
+  /* Values are seven lines — anchor them to begin just below the brand mark so
+     they always clear it (short laptop screens included), then flow down. */
+  .lobby__panel--list { justify-content: flex-start; padding-top: clamp(162px, 23.5vh, 288px); }
+
+  /* ---- Shared accent: one terracotta for every italic emphasis, with a slow,
+     almost-subliminal warm "breathing" glow to quietly draw the eye. ---- */
+  .lobby__title em, .lobby__mission em { font-style: italic; color: var(--accent);
+    text-shadow: 0 2px 28px rgba(0,0,0,0.42), var(--glow);
+    animation: accent-breathe 5.5s ease-in-out infinite; }
+  @keyframes accent-breathe {
+    0%, 100% { text-shadow: 0 2px 28px rgba(0,0,0,0.42), 0 2px 22px rgba(196,96,54,0.30); }
+    50%      { text-shadow: 0 2px 28px rgba(0,0,0,0.42), 0 2px 44px rgba(216,114,64,0.62); }
+  }
+
+  /* ---- 2 · "Shaped over time" — solid serif italic; letters materialise in
+     (fade + rise + blur-to-sharp), left to right, replaying every loop. ---- */
+  .lobby__eyebrow { font-family: var(--font-display); font-style: italic; font-weight: 500;
+    font-size: clamp(22px, 2.4vw, 38px); letter-spacing: 0.01em; color: var(--rs-cream);
+    margin: 0 0 clamp(34px, 5vh, 68px); text-shadow: var(--ink); white-space: nowrap; }
+  .lobby__eyebrow span { display: inline-block; }
+  .lobby__eyebrow span.sp { width: 0.32em; }
+  .lobby__eyebrow span:not(.sp) { opacity: 1; }            /* resting / reduced-motion / fade-out */
+  .lobby__eyebrow.reveal span:not(.sp) {
+    animation: ey-in 0.62s var(--ease-editorial) both;
+    animation-delay: calc(var(--i) * 0.075s + 0.12s); }
+  @keyframes ey-in {
+    from { opacity: 0; transform: translateY(0.3em); filter: blur(5px); }
+    to   { opacity: 1; transform: none;             filter: blur(0); }
+  }
+
+  /* ---- 1 · Headline ---- */
+  .lobby__title { font-family: var(--font-sans); font-weight: 500; text-transform: uppercase;
+    font-size: clamp(56px, 8.8vw, 150px); line-height: 1.04; letter-spacing: -0.012em;
+    color: var(--rs-cream); margin: 0; text-shadow: var(--ink); }
+  .lobby__title em { font-family: var(--font-display); text-transform: lowercase;
+    font-weight: 500; font-size: 1.0em; letter-spacing: -0.005em; margin-right: 0.08em; }
+  .lobby__title .v { font-size: 0.88em; }                  /* "value" a touch smaller for balance */
+  .lobby__title .l1, .lobby__title .l2 { display: block; }
+
+  /* ---- 2 · Mission (−~13%, more air) ---- */
+  .lobby__mission { font-family: var(--font-display); font-weight: 400;
+    font-size: clamp(40px, 5.7vw, 104px); line-height: 1.14; letter-spacing: -0.012em;
+    color: var(--rs-cream); margin: 0; max-width: 19ch; text-wrap: balance; text-shadow: var(--ink); }
+
+  /* ---- 3 · Core values — organic editorial composition ----
+     Asymmetric placement, a nature-drawn colour per value, mixed serif/sans.
+     Staggered editorial entrance + an almost-imperceptible ambient "breathing";
+     refined desktop hover. Negative space keeps the landscape in play. */
+  .lobby__values { list-style: none; margin: 0 auto; padding: 0;
+    width: min(90vw, 1440px); display: flex; flex-direction: column; align-items: flex-start; }
+  .lobby__values li { margin: 0; line-height: 1.0; white-space: nowrap;
+    font-family: var(--font-display); font-weight: 400; color: var(--rs-cream);
+    text-shadow: 0 2px 22px rgba(0,0,0,0.5), 0 1px 4px rgba(0,0,0,0.4);
+    opacity: 1; transition: opacity .55s var(--ease-editorial), transform .55s var(--ease-editorial), filter .45s var(--ease-editorial); }
+  .lobby__values .w { display: inline-block; will-change: transform; }
+
+  /* hierarchy · colour · type · horizontal offset · vertical rhythm (per value) */
+  .lobby__values li:nth-child(1) { font-style: italic; color: #F4E8D0;                 /* Grateful */
+    font-size: clamp(40px, min(5vw, 8.8vh), 86px);  margin-left: 3vw; }
+  .lobby__values li:nth-child(2) { color: #C97958;                                     /* Purposeful */
+    font-size: clamp(25px, min(2.9vw, 5vh), 48px);  margin-left: 27vw; margin-top: clamp(4px,0.9vh,14px); }
+  .lobby__values li:nth-child(3) { font-family: var(--font-sans); font-weight: 600;    /* Trustworthy */
+    text-transform: uppercase; letter-spacing: 0.22em; color: #A7B89A;
+    font-size: clamp(13px, min(1.45vw, 2.5vh), 22px); margin-left: 11vw; margin-top: clamp(6px,1.2vh,16px); }
+  .lobby__values li:nth-child(4) { font-style: italic; color: #D8B878;                 /* Excellence */
+    font-size: clamp(44px, min(5.6vw, 9.8vh), 96px); margin-left: 15vw; margin-top: clamp(2px,0.5vh,10px); }
+  .lobby__values li:nth-child(5) { font-style: italic; color: #80BDB8;                 /* Innovative */
+    font-size: clamp(25px, min(2.9vw, 5vh), 48px);  margin-left: 42vw; margin-top: clamp(2px,0.4vh,8px); }
+  .lobby__values li:nth-child(6) { font-family: var(--font-sans); font-weight: 600;    /* Collaborative */
+    text-transform: uppercase; letter-spacing: 0.22em; color: #B9A6C9;
+    font-size: clamp(13px, min(1.45vw, 2.5vh), 22px); margin-left: 6vw; margin-top: clamp(8px,1.4vh,18px); }
+  .lobby__values li:nth-child(7) { font-style: italic; color: #E5A08B;                 /* Generous */
+    font-size: clamp(40px, min(5vw, 8.8vh), 86px);  margin-left: 29vw; margin-top: clamp(2px,0.5vh,10px); }
+
+  /* staggered editorial entrance — replays each time the segment appears */
+  .lobby__values.reveal li { animation: val-in 0.9s var(--ease-editorial) backwards; }
+  .lobby__values.reveal li:nth-child(1){animation-delay:.10s}
+  .lobby__values.reveal li:nth-child(2){animation-delay:.26s}
+  .lobby__values.reveal li:nth-child(3){animation-delay:.40s}
+  .lobby__values.reveal li:nth-child(4){animation-delay:.52s}
+  .lobby__values.reveal li:nth-child(5){animation-delay:.66s}
+  .lobby__values.reveal li:nth-child(6){animation-delay:.80s}
+  .lobby__values.reveal li:nth-child(7){animation-delay:.92s}
+  @keyframes val-in { from { opacity: 0; transform: translate(-10px, 16px); } to { opacity: 1; transform: none; } }
+
+  /* ambient breathing on the inner span — ~4px, desynced per word */
+  .lobby__values .w { animation: val-breathe 7s ease-in-out infinite; }
+  .lobby__values li:nth-child(2n) .w { animation-duration: 8.4s; animation-delay: -2.1s; }
+  .lobby__values li:nth-child(3n) .w { animation-duration: 9.2s; animation-delay: -4.3s; }
+  @keyframes val-breathe { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-4px); } }
+
+  /* desktop hover: lift the hovered word, quiet the others */
+  @media (hover: hover) and (pointer: fine) {
+    .lobby__values li:hover { transform: scale(1.055); filter: brightness(1.12) saturate(1.1); }
+    .lobby__values:hover li:not(:hover) { opacity: 0.38; }
+  }
+
+  /* ---- Reduced motion ---- */
+  @media (prefers-reduced-motion: reduce) {
+    .lobby__panel { transition: opacity 0.6s linear; transform: none; }
+    .lobby__eyebrow.reveal span:not(.sp) { animation: none; opacity: 1; }
+    .lobby__title em, .lobby__mission em { animation: none; }
+    .lobby__values.reveal li { animation: none; opacity: 1; transform: none; }
+    .lobby__values .w { animation: none; }
+    .lobby__video { transition: opacity 0.4s linear; }
+  }
+
+  /* ---- Responsive: phones / small tablets — recompose, don't just shrink ---- */
+  @media (max-width: 820px) {
+    .lobby__panel { padding: clamp(78px,12vh,150px) clamp(22px,7vw,64px) clamp(96px,16vh,180px); }
+    .lobby__panel--up { padding-top: clamp(60px,9vh,120px); padding-bottom: clamp(130px,21vh,250px); }
+    .lobby__brand { width: clamp(168px, 44vw, 250px); top: clamp(20px,3.6vh,46px); }
+    .lobby__eyebrow { font-size: clamp(18px, 4.6vw, 28px); margin-bottom: clamp(22px,3.4vh,42px); white-space: normal; }
+    .lobby__title { font-size: clamp(46px, 13.2vw, 104px); letter-spacing: -0.01em; }
+    .lobby__mission { font-size: clamp(33px, 8.6vw, 76px); max-width: 15ch; }
+    /* Values: controlled, centered arrangement on phones — keep the colour
+       personality and hierarchy, drop the horizontal scatter (no overlap/scroll). */
+    .lobby__values { width: min(94vw, 560px); align-items: center; }
+    .lobby__values li { margin-left: 0 !important; white-space: normal; text-align: center; }
+    .lobby__values li:nth-child(1), .lobby__values li:nth-child(7) { font-size: clamp(34px, 9.5vw, 58px); margin-top: clamp(6px,1.3vh,16px); }
+    .lobby__values li:nth-child(4) { font-size: clamp(38px, 10.5vw, 64px); margin-top: clamp(6px,1.3vh,16px); }
+    .lobby__values li:nth-child(2), .lobby__values li:nth-child(5) { font-size: clamp(25px, 6.6vw, 40px); margin-top: clamp(6px,1.3vh,16px); }
+    .lobby__values li:nth-child(3), .lobby__values li:nth-child(6) { font-size: clamp(15px, 4.2vw, 22px); margin-top: clamp(8px,1.6vh,18px); }
+  }
+</style>
+</head>
+<body>
+<main class="lobby" aria-label="Welcome to The Riverstone Group">
+
+  <video class="lobby__video" data-vid="a" autoplay muted playsinline preload="auto" aria-hidden="true">
+    <source src="assets/hero.mp4#t=1.4" type="video/mp4">
+  </video>
+  <video class="lobby__video lobby__video--b" data-vid="b" muted playsinline preload="auto" aria-hidden="true">
+    <source src="assets/hero.mp4#t=1.4" type="video/mp4">
+  </video>
+  <div class="lobby__scrim" aria-hidden="true"></div>
+
+  <img class="lobby__brand" src="assets/logo-reverse-wordmark.png" alt="The Riverstone Group">
+
+  <div class="lobby__stage">
+
+    <!-- 1 · Headline -->
+    <section class="lobby__panel is-active" aria-label="Creating enduring value">
+      <h1 class="lobby__title">
+        <span class="l1">Creating</span>
+        <span class="l2"><em>enduring</em> <span class="v">value</span></span>
+      </h1>
+    </section>
+
+    <!-- 2 · Mission (lifted up so it reads over the greenery, off the rock) -->
+    <section class="lobby__panel lobby__panel--up" aria-label="Our mission">
+      <p class="lobby__eyebrow" aria-label="Shaped over time"><span style="--i:0">S</span><span style="--i:1">h</span><span style="--i:2">a</span><span style="--i:3">p</span><span style="--i:4">e</span><span style="--i:5">d</span><span class="sp">&nbsp;</span><span style="--i:6">o</span><span style="--i:7">v</span><span style="--i:8">e</span><span style="--i:9">r</span><span class="sp">&nbsp;</span><span style="--i:10">t</span><span style="--i:11">i</span><span style="--i:12">m</span><span style="--i:13">e</span></p>
+      <p class="lobby__mission">Places where businesses, communities, and individuals <em>thrive.</em></p>
+    </section>
+
+    <!-- 3 · Invitation — placed before Values so "enduring" (headline) and
+         "endures" (here) never land back-to-back across the loop seam. -->
+    <section class="lobby__panel" aria-label="Let's build something that endures">
+      <p class="lobby__mission">Let&rsquo;s build something that <em>endures.</em></p>
+    </section>
+
+    <!-- 4 · Values -->
+    <section class="lobby__panel lobby__panel--list" aria-label="What guides us">
+      <ul class="lobby__values">
+        <li><span class="w">Grateful</span></li>
+        <li><span class="w">Purposeful</span></li>
+        <li><span class="w">Trustworthy</span></li>
+        <li><span class="w">Excellence</span></li>
+        <li><span class="w">Innovative</span></li>
+        <li><span class="w">Collaborative</span></li>
+        <li><span class="w">Generous</span></li>
+      </ul>
+    </section>
+
+  </div>
+</main>
+
+<script>
+(function () {
+  "use strict";
+
+  /* River video — crossfade loop.
+     hero.mp4 is a single ~15s one-directional pan, so it can't loop seamlessly.
+     Two stacked layers play the same clip; ~1.2s before the active layer reaches
+     the end, the other starts from the in-point and we cross-dissolve, hiding the
+     pan's hard reset. The idle layer stays paused except during the dissolve. */
+  var IN = 1.4;         /* skip the brief opening angle */
+  var XF = 1.2;         /* crossfade seconds — matches the CSS opacity transition */
+  var vids = [].slice.call(document.querySelectorAll(".lobby__video"));
+  if (vids.length >= 2) {
+    var active = 0, transitioning = false;
+    var seekIn = function (el) { try { el.currentTime = IN; } catch (e) {} };
+    vids.forEach(function (el) {
+      el.addEventListener("loadedmetadata", function () { seekIn(el); });
+      if (el.readyState >= 1) seekIn(el);
+      el.addEventListener("timeupdate", function () {
+        if (transitioning || el !== vids[active]) return;
+        if (el.duration && el.currentTime >= el.duration - XF) crossfade();
+      });
+    });
+    function crossfade() {
+      transitioning = true;
+      var cur = vids[active], nxt = vids[1 - active];
+      seekIn(nxt);
+      var p = nxt.play(); if (p && p.catch) p.catch(function () {});
+      nxt.style.opacity = "1";
+      cur.style.opacity = "0";
+      setTimeout(function () {
+        cur.pause(); seekIn(cur);
+        active = 1 - active;
+        transitioning = false;
+      }, XF * 1000 + 80);
+    }
+    var pr = vids[0].play(); if (pr && pr.catch) pr.catch(function () {});
+  }
+
+  /* Cross-fade the panels forever. */
+  var panels = [].slice.call(document.querySelectorAll(".lobby__panel"));
+  var HOLD_MS = 6000;
+
+  /* Replay the per-segment reveals (eyebrow letters, values composition) each
+     time a segment appears. */
+  function restart(el) { if (el) { el.classList.remove("reveal"); void el.offsetWidth; el.classList.add("reveal"); } }
+  function animateIn(panel) {
+    restart(panel.querySelector(".lobby__eyebrow"));
+    restart(panel.querySelector(".lobby__values"));
+  }
+
+  if (panels.length > 1) {
+    var i = 0;
+    animateIn(panels[0]);
+    setInterval(function () {
+      panels[i].classList.remove("is-active");
+      i = (i + 1) % panels.length;
+      panels[i].classList.add("is-active");
+      animateIn(panels[i]);
+    }, HOLD_MS);
+  }
+})();
+</script>
+</body>
+</html>
