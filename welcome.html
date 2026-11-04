@@ -61,7 +61,7 @@
     will-change: opacity, transform; }
   .lobby__panel.is-active { opacity: 1; transform: none; }
   /* Mission sits a little higher over the greenery. */
-  .lobby__panel--up { padding-top: clamp(80px, 11vh, 150px); padding-bottom: clamp(170px, 24vh, 320px); }
+  .lobby__panel--up { padding-top: clamp(110px, 15vh, 190px); padding-bottom: clamp(150px, 21vh, 290px); }
 
   /* ---- Shared accent: one terracotta for every italic emphasis, with a slow,
      almost-subliminal warm "breathing" glow to quietly draw the eye. ---- */
@@ -118,7 +118,12 @@
     --px: 0px; --py: 0px;
     transform: translate(calc(-50% + var(--px)), calc(-50% + var(--py)));
     transition: transform 0.5s cubic-bezier(0.22,0.61,0.36,1);
-    text-shadow: 0 2px 26px rgba(0,0,0,0.55), 0 1px 3px rgba(0,0,0,0.5), 0 0 40px var(--g, transparent); }
+    /* Dense dark halo hugging each glyph keeps the colour bold and legible over
+       any video frame (bright foam included), topped by the word's own glow. */
+    text-shadow:
+      0 1px 2px rgba(0,0,0,0.80), 0 2px 12px rgba(0,0,0,0.70),
+      0 4px 34px rgba(0,0,0,0.62), 0 0 24px rgba(0,0,0,0.52),
+      0 0 50px var(--g, transparent); }
   .lobby__values .w { display: inline-block; transition: opacity 0.5s var(--ease-editorial); }
   .lobby__values .f { display: inline-block; will-change: transform;
     animation: val-float var(--fd, 8s) ease-in-out infinite; }
@@ -133,8 +138,8 @@
     font-size: clamp(34px, min(4.4vw, 7.8vh), 82px);
     left: 78%; top: 31%; --depth: 5px; --fa: 4.5px; --fd: 7.6s; }
   .lobby__values li:nth-child(3) {                      /* Trustworthy — accent */
-    font-family: var(--font-sans); font-weight: 600; text-transform: uppercase;
-    letter-spacing: 0.3em; color: #B4C3A2; --g: rgba(180,195,162,0.16);
+    font-family: var(--font-sans); font-weight: 700; text-transform: uppercase;
+    letter-spacing: 0.28em; color: #CBD8B2; --g: rgba(203,216,178,0.24);
     font-size: clamp(18px, min(2.4vw, 4vh), 40px);
     left: 14.5%; top: 63%; --depth: 3px; --fa: 3px; --fd: 7.2s; }
   .lobby__values li:nth-child(4) {                      /* Excellence — anchor */
@@ -146,8 +151,8 @@
     font-size: clamp(34px, min(4.4vw, 7.8vh), 82px);
     left: 81.5%; top: 62%; --depth: 5px; --fa: 4.5px; --fd: 8.8s; }
   .lobby__values li:nth-child(6) {                      /* Collaborative — accent */
-    font-family: var(--font-sans); font-weight: 600; text-transform: uppercase;
-    letter-spacing: 0.3em; color: #C2A9D6; --g: rgba(194,169,214,0.16);
+    font-family: var(--font-sans); font-weight: 700; text-transform: uppercase;
+    letter-spacing: 0.28em; color: #D6C3E6; --g: rgba(214,195,230,0.24);
     font-size: clamp(18px, min(2.4vw, 4vh), 40px);
     left: 32%; top: 85%; --depth: 3px; --fa: 3px; --fd: 9.2s; }
   .lobby__values li:nth-child(7) {                      /* Generous — hero */
@@ -311,9 +316,11 @@
     var pr = vids[0].play(); if (pr && pr.catch) pr.catch(function () {});
   }
 
-  /* Cross-fade the panels forever. */
+  /* Cross-fade the panels forever. The dense values composition holds longer so
+     it stays bold and readable well past its staggered entrance. */
   var panels = [].slice.call(document.querySelectorAll(".lobby__panel"));
-  var HOLD_MS = 6000;
+  var HOLD_MS = 6000, HOLD_VALUES = 9500;
+  function holdFor(panel) { return panel.querySelector(".lobby__values") ? HOLD_VALUES : HOLD_MS; }
 
   /* Replay the per-segment reveals (eyebrow letters, values composition) each
      time a segment appears. */
@@ -326,12 +333,15 @@
   if (panels.length > 1) {
     var i = 0;
     animateIn(panels[0]);
-    setInterval(function () {
-      panels[i].classList.remove("is-active");
-      i = (i + 1) % panels.length;
-      panels[i].classList.add("is-active");
-      animateIn(panels[i]);
-    }, HOLD_MS);
+    (function schedule() {
+      setTimeout(function () {
+        panels[i].classList.remove("is-active");
+        i = (i + 1) % panels.length;
+        panels[i].classList.add("is-active");
+        animateIn(panels[i]);
+        schedule();
+      }, holdFor(panels[i]));
+    })();
   }
 
   /* Very restrained cursor parallax on the values — each word shifts by its own
