@@ -310,6 +310,15 @@
         transitioning = false;
       }, XF * 1000 + 80);
     }
+    /* Fade the first frame up from black once it is genuinely playing, so the
+       initial load + seek-to-in-point never shows as a hard pop. */
+    vids[0].style.opacity = "0";
+    var faded0 = false;
+    function fadeInFirst() { if (faded0) return; faded0 = true; vids[0].style.opacity = "1"; }
+    vids[0].addEventListener("playing", fadeInFirst);
+    vids[0].addEventListener("timeupdate", function tu() {
+      if (vids[0].currentTime > IN + 0.05) { fadeInFirst(); vids[0].removeEventListener("timeupdate", tu); }
+    });
     var pr = vids[0].play(); if (pr && pr.catch) pr.catch(function () {});
 
     /* Watchdog — keep the river moving for hours. Resume the active layer if it
