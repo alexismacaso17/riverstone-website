@@ -1,0 +1,169 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>The Riverstone Group</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- Internal conference-room display. Deliberately unlisted and not indexed —
+     reachable only by typing the URL. Open full-screen on the room's screen.
+     Loops project films back-to-back, forever, and self-heals so it can run for
+     hours unattended. -->
+<meta name="robots" content="noindex, nofollow">
+<meta name="description" content="The Riverstone Group — project reel.">
+<link rel="icon" href="assets/favicon.png">
+<style>
+  * { box-sizing: border-box; }
+  html, body { margin: 0; height: 100%; background: #000; overflow: hidden; }
+  body { cursor: none; }                       /* kiosk: hide the pointer */
+
+  .reel { position: fixed; inset: 0; overflow: hidden; background: #000; }
+
+  /* Two stacked layers cross-dissolve between clips. */
+  .reel__v { position: absolute; inset: 0; width: 100%; height: 100%;
+    object-fit: cover; object-position: 50% 50%; background: #000;
+    opacity: 0; transition: opacity 0.8s ease-in-out; will-change: opacity; }
+  .reel__v.is-on { opacity: 1; }
+
+  @media (prefers-reduced-motion: reduce) {
+    .reel__v { transition: opacity 0.25s linear; }
+  }
+</style>
+</head>
+<body>
+<main class="reel" aria-label="The Riverstone Group — project reel">
+  <video class="reel__v" data-layer="0" muted playsinline preload="auto" autoplay aria-hidden="true"></video>
+  <video class="reel__v" data-layer="1" muted playsinline preload="auto" aria-hidden="true"></video>
+</main>
+
+<script>
+(function () {
+  "use strict";
+
+  /* ---- Playlist -------------------------------------------------------- */
+  var CLIPS = [
+    "assets/loop/tbch.mp4",
+    "assets/loop/12south.mp4"
+  ];
+  var XF = 0.8;   /* crossfade seconds — matches the CSS opacity transition */
+
+  var layers = [].slice.call(document.querySelectorAll(".reel__v"));
+  var active = 0;   /* which layer is visible + playing */
+  var idx = 0;      /* current clip index */
+
+  function tryPlay(v) { var p = v.play(); if (p && p.catch) p.catch(function () {}); }
+
+  /* Point a layer at a clip (reloading only if it changed) and play from the top. */
+  function startClip(layerIndex, clipIndex) {
+    var v = layers[layerIndex];
+    v._xf = false;
+    if (v.getAttribute("data-clip") !== CLIPS[clipIndex]) {
+      v.src = CLIPS[clipIndex];
+      v.setAttribute("data-clip", CLIPS[clipIndex]);
+      v.load();
+    } else {
+      try { v.currentTime = 0; } catch (e) {}
+    }
+    tryPlay(v);
+  }
+
+  /* Quietly preload a clip onto a layer without playing it. */
+  function preload(layerIndex, clipIndex) {
+    var v = layers[layerIndex];
+    if (v.getAttribute("data-clip") !== CLIPS[clipIndex]) {
+      v.src = CLIPS[clipIndex];
+      v.setAttribute("data-clip", CLIPS[clipIndex]);
+      v.load();
+    }
+  }
+
+  /* Cross-dissolve from the active layer to the next clip. A short cooldown
+     makes advancing idempotent, so overlapping triggers (timeupdate + ended, or
+     a burst after the tab was backgrounded) can never skip a clip. */
+  var lastAdvance = 0;
+  function advance() {
+    if (Date.now() - lastAdvance < 1500) return;
+    lastAdvance = Date.now();
+    var cur = active, nxt = 1 - active;
+    var nextIdx = (idx + 1) % CLIPS.length;
+
+    startClip(nxt, nextIdx);
+    layers[nxt].classList.add("is-on");
+    layers[cur].classList.remove("is-on");
+    active = nxt; idx = nextIdx;
+
+    setTimeout(function () {
+      try { layers[cur].pause(); } catch (e) {}
+      /* preload the clip that comes after this one onto the now-idle layer */
+      preload(cur, (idx + 1) % CLIPS.length);
+    }, XF * 1000 + 120);
+  }
+
+  layers.forEach(function (v, i) {
+    /* Trigger the crossfade a beat before the clip ends… */
+    v.addEventListener("timeupdate", function () {
+      if (i !== active || v._xf) return;
+      if (v.duration && v.currentTime >= v.duration - XF) { v._xf = true; advance(); }
+    });
+    /* …and fall back to a hard cut if 'ended' ever beats us there. */
+    v.addEventListener("ended", function () {
+      if (i === active && !v._xf) { v._xf = true; advance(); }
+    });
+    /* On a real media error, reload this layer (and resume if it's on screen). */
+    v.addEventListener("error", function () {
+      try { v.load(); } catch (e) {}
+      if (i === active) tryPlay(v);
+    });
+  });
+
+  /* ---- Boot ------------------------------------------------------------ */
+  startClip(0, 0);
+  layers[0].classList.add("is-on");
+  preload(1, CLIPS.length > 1 ? 1 : 0);
+
+  /* ---- Watchdog: keep it alive for hours ------------------------------- *
+   * Every 2s: resume if the active clip paused unexpectedly, and if its
+   * playhead hasn't advanced for a while (a stall), reload and replay it.   */
+  var wActive = -1, wTime = 0, wSince = Date.now();
+  setInterval(function () {
+    var v = layers[active];
+    if (active !== wActive) { wActive = active; wTime = v.currentTime; wSince = Date.now(); }
+
+    if (v.paused && !v.ended) tryPlay(v);
+
+    if (!v.paused) {
+      if (v.currentTime > wTime + 0.02) {
+        wTime = v.currentTime; wSince = Date.now();
+      } else if (Date.now() - wSince > 6000) {
+        try { v.load(); } catch (e) {}
+        tryPlay(v);
+        wSince = Date.now();
+      }
+    }
+  }, 2000);
+
+  /* ---- Screen Wake Lock: stop the display from sleeping ----------------- *
+   * Re-acquired whenever the page becomes visible again (the lock is dropped
+   * automatically when a tab is hidden or the device sleeps).               */
+  var wakeLock = null;
+  function requestWakeLock() {
+    if (!("wakeLock" in navigator)) return;
+    navigator.wakeLock.request("screen").then(function (lock) {
+      wakeLock = lock;
+      lock.addEventListener("release", function () { wakeLock = null; });
+    }).catch(function () {});
+  }
+  requestWakeLock();
+
+  document.addEventListener("visibilitychange", function () {
+    if (document.visibilityState === "visible") {
+      requestWakeLock();
+      tryPlay(layers[active]);
+    }
+  });
+  /* A couple of extra nudges in case autoplay was deferred at load. */
+  window.addEventListener("pageshow", function () { tryPlay(layers[active]); });
+  window.addEventListener("focus", function () { tryPlay(layers[active]); });
+})();
+</script>
+</body>
+</html>

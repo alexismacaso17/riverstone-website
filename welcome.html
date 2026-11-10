@@ -311,6 +311,30 @@
       }, XF * 1000 + 80);
     }
     var pr = vids[0].play(); if (pr && pr.catch) pr.catch(function () {});
+
+    /* Watchdog — keep the river moving for hours. Resume the active layer if it
+       ever pauses unexpectedly, and if its playhead stalls (no progress for a
+       few seconds), reload and replay from the in-point. */
+    var wActive = -1, wTime = 0, wSince = Date.now();
+    setInterval(function () {
+      var v = vids[active];
+      if (active !== wActive) { wActive = active; wTime = v.currentTime; wSince = Date.now(); }
+      if (!transitioning && v.paused && !v.ended) { var q = v.play(); if (q && q.catch) q.catch(function () {}); }
+      if (!v.paused) {
+        if (v.currentTime > wTime + 0.02) { wTime = v.currentTime; wSince = Date.now(); }
+        else if (Date.now() - wSince > 6000) {
+          try { v.load(); seekIn(v); } catch (e) {}
+          var r = v.play(); if (r && r.catch) r.catch(function () {});
+          wSince = Date.now();
+        }
+      }
+    }, 2000);
+    vids.forEach(function (el) {
+      el.addEventListener("error", function () {
+        try { el.load(); seekIn(el); } catch (e) {}
+        if (el === vids[active]) { var p2 = el.play(); if (p2 && p2.catch) p2.catch(function () {}); }
+      });
+    });
   }
 
   /* Cross-fade the panels forever. The dense values composition holds longer so
@@ -364,6 +388,24 @@
       if (!raf) raf = requestAnimationFrame(apply);
     }, { passive: true });
   }
+
+  /* Screen Wake Lock — keep the lobby display from sleeping during long runs;
+     re-acquire it whenever the page becomes visible again (the lock is dropped
+     automatically when the tab is hidden or the device sleeps). */
+  var wakeLock = null;
+  function requestWakeLock() {
+    if (!("wakeLock" in navigator)) return;
+    navigator.wakeLock.request("screen").then(function (lock) {
+      wakeLock = lock; lock.addEventListener("release", function () { wakeLock = null; });
+    }).catch(function () {});
+  }
+  requestWakeLock();
+  function resumeVideo() { if (vids.length >= 2) { var p = vids[active].play(); if (p && p.catch) p.catch(function () {}); } }
+  document.addEventListener("visibilitychange", function () {
+    if (document.visibilityState === "visible") { requestWakeLock(); resumeVideo(); }
+  });
+  window.addEventListener("pageshow", resumeVideo);
+  window.addEventListener("focus", resumeVideo);
 })();
 </script>
 </body>
