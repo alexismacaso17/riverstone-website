@@ -278,6 +278,19 @@
 (function () {
   "use strict";
 
+  /* Kiosk fullscreen — on a TV browser, one click / remote-OK / key press puts
+     the page into true fullscreen, hiding the address + bookmark bar. Re-enters
+     automatically if fullscreen is ever exited. */
+  function goFullscreen() {
+    if (document.fullscreenElement || document.webkitFullscreenElement) return;
+    var el = document.documentElement;
+    var fn = el.requestFullscreen || el.webkitRequestFullscreen || el.msRequestFullscreen;
+    if (fn) { try { fn.call(el); } catch (e) {} }
+  }
+  ["click", "keydown", "touchstart"].forEach(function (ev) {
+    document.addEventListener(ev, goFullscreen);
+  });
+
   /* River video — crossfade loop.
      hero.mp4 is a single ~15s one-directional pan, so it can't loop seamlessly.
      Two stacked layers play the same clip; ~1.2s before the active layer reaches
