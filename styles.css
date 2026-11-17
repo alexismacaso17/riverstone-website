@@ -471,10 +471,17 @@ img { max-width: 100%; }
 /* Cursive "What is your vision?" prompt over the message field — breathes gently,
    clears on focus or once text is entered. */
 .rs-vision-wrap { position: relative; display: block; }
-.rs-vision { position: absolute; left: 1px; top: 7px; pointer-events: none; font-family: "Parisienne", cursive; font-size: clamp(22px,2.3vw,29px); line-height: 1; color: var(--emphasis-italic); opacity: 0.5; transition: opacity 320ms var(--ease-out); animation: rs-vision-breathe 5s ease-in-out infinite; will-change: opacity; }
-@keyframes rs-vision-breathe { 0%,100% { opacity: 0.3; } 50% { opacity: 0.62; } }
+.rs-vision { position: absolute; left: 1px; top: 7px; pointer-events: none; white-space: nowrap; font-family: "Parisienne", cursive; font-size: clamp(22px,2.3vw,29px); line-height: 1; color: var(--emphasis-italic); opacity: 0.6; transition: opacity 320ms var(--ease-out); -webkit-mask-image: linear-gradient(90deg, #000 0 46%, rgba(0,0,0,0) 54% 100%); mask-image: linear-gradient(90deg, #000 0 46%, rgba(0,0,0,0) 54% 100%); -webkit-mask-size: 240% 100%; mask-size: 240% 100%; -webkit-mask-repeat: no-repeat; mask-repeat: no-repeat; animation: rs-vision-write 8.5s linear infinite; will-change: -webkit-mask-position, mask-position, opacity; }
+/* Writes left-to-right like a hand, holds, fades away, pauses, writes again. */
+@keyframes rs-vision-write {
+  0%   { -webkit-mask-position: 100% 0; mask-position: 100% 0; opacity: 0.6; }
+  28%  { -webkit-mask-position: 0% 0;   mask-position: 0% 0;   opacity: 0.6; }
+  56%  { -webkit-mask-position: 0% 0;   mask-position: 0% 0;   opacity: 0.6; }
+  64%  { -webkit-mask-position: 0% 0;   mask-position: 0% 0;   opacity: 0;   }
+  100% { -webkit-mask-position: 0% 0;   mask-position: 0% 0;   opacity: 0;   }
+}
 .rs-vision-wrap:focus-within .rs-vision, .rs-field--vision.has-value .rs-vision { opacity: 0; animation: none; }
-@media (prefers-reduced-motion: reduce) { .rs-vision { animation: none; opacity: 0.5; } }
+@media (prefers-reduced-motion: reduce) { .rs-vision { animation: none; opacity: 0.5; -webkit-mask-image: none; mask-image: none; } }
 .rs-choice { display: flex; gap: 30px; flex-wrap: wrap; padding-top: 2px; }
 .rs-choice label { display: inline-flex; align-items: center; gap: 10px; font-size: 15px; color: var(--fg-1); cursor: pointer; }
 .rs-choice input { accent-color: var(--emphasis); }
