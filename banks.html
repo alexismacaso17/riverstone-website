@@ -160,11 +160,10 @@
   @media (max-width: 600px) {
     .bp-num--hide-mobile { display: none; }
     .bp-partners .dot { display: none; }
-    /* Sports partners on phones: spell out "Nashville Soccer Club" and give it
-       its own top line, with Predators + Titans together on the line below. */
-    .bp-partners { gap: 10px 20px; }
-    .bp-partners li { font-size: 17px; }
-    .bp-partners .pk-sc { order: -1; flex-basis: 100%; }
+    /* Sports partners on phones: spell out "Nashville Soccer Club" and stack all
+       three on their own centred lines so they read as a balanced list. */
+    .bp-partners { flex-direction: column; gap: clamp(8px,2vw,14px); }
+    .bp-partners li { font-size: 19px; text-align: center; }
     .bp-partners .pk-full { display: inline; }
     .bp-partners .pk-abbr { display: none; }
   }
@@ -245,14 +244,6 @@
         <img src="assets/projects/banks-at-brownland.jpg" alt="The Banks at Brownland conceptual master plan">
       </div>
     </div>
-  </section>
-
-  <!-- ==================================================== DETAILED SITE PLAN -->
-  <section class="bp-sec" style="padding-top:clamp(28px,4vw,56px);">
-    <div class="bp-figure rs-reveal" style="max-width:1080px;padding:0;">
-      <img src="assets/projects/banks-siteplan.jpg" alt="The Banks at Brownland detailed site plan — ice facility, food hall, public golf, pickleball, specialty grocery, multi-sport fields, retail blocks, and structured parking along Monticello Road">
-    </div>
-    <p class="bp-cap rs-reveal" data-delay="1">The detailed site plan</p>
   </section>
 
   <!-- ========================================== PROGRAMMING PARTNERS -->
