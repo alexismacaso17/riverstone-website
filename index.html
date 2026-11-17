@@ -10,8 +10,8 @@
 <meta property="og:type" content="website">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="colors_and_type.css?v=13">
-<link rel="stylesheet" href="styles.css?v=13">
+<link rel="stylesheet" href="colors_and_type.css?v=15">
+<link rel="stylesheet" href="styles.css?v=15">
 <link rel="icon" href="assets/favicon.png">
 <!-- Plausible Analytics (privacy-friendly). Create the site at plausible.io, then this starts recording. -->
 <script defer data-domain="theriverstonegroup.com" src="https://plausible.io/js/script.js"></script>
@@ -200,9 +200,12 @@
           <label class="rs-seg"><input type="radio" name="agent" value="No" checked><span>No</span></label>
         </div>
       </div>
-      <label class="rs-field rs-field--full">
+      <label class="rs-field rs-field--full rs-field--vision">
         <span class="rs-field__label">Tell us what you have in mind</span>
-        <textarea class="rs-input rs-input--area" name="message"></textarea>
+        <span class="rs-vision-wrap">
+          <textarea class="rs-input rs-input--area" name="message"></textarea>
+          <span class="rs-vision" aria-hidden="true">What is your vision?</span>
+        </span>
       </label>
       <button type="submit" class="rs-btn rs-btn--primary rs-field--full rs-contact__submit">Begin the conversation <span class="rs-btn__arrow" aria-hidden="true">&#8599;</span></button>
     </form>
@@ -212,7 +215,7 @@
 <!-- ============================================================ FOOTER -->
 <footer class="rs-footer">
   <p class="rs-footer__statement rs-reveal">Every place is <em>shaped over time.</em></p>
-  <img class="rs-footer__mark rs-reveal" src="assets/logo-charcoal-wordmark.svg" alt="The Riverstone Group">
+  <span class="rs-footer__mark-wrap rs-reveal"><img class="rs-footer__mark" src="assets/logo-charcoal-wordmark.svg" alt="The Riverstone Group"></span>
 </footer>
 
 <div class="rs-toast" id="toast" role="status" aria-live="polite"></div>
@@ -245,6 +248,13 @@
   });
   em.textContent = '';
   em.appendChild(frag);
+})();
+/* Clear the cursive "What is your vision?" prompt once the person types. */
+(function () {
+  var ta = document.querySelector('.rs-field--vision textarea');
+  if (!ta) return;
+  var field = ta.closest('.rs-field--vision');
+  ta.addEventListener('input', function () { field.classList.toggle('has-value', ta.value.length > 0); });
 })();
 </script>
 </body>

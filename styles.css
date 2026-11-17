@@ -460,12 +460,19 @@ img { max-width: 100%; }
 .rs-input::placeholder { color: var(--fg-3); }
 .rs-input:focus { border-bottom-color: var(--emphasis); }
 .rs-input--area { resize: vertical; min-height: 62px; line-height: 1.6; }
+/* Cursive "What is your vision?" prompt over the message field — breathes gently,
+   clears on focus or once text is entered. */
+.rs-vision-wrap { position: relative; display: block; }
+.rs-vision { position: absolute; left: 1px; top: 7px; pointer-events: none; font-family: "Parisienne", cursive; font-size: clamp(22px,2.3vw,29px); line-height: 1; color: var(--emphasis-italic); opacity: 0.5; transition: opacity 320ms var(--ease-out); animation: rs-vision-breathe 5s ease-in-out infinite; will-change: opacity; }
+@keyframes rs-vision-breathe { 0%,100% { opacity: 0.3; } 50% { opacity: 0.62; } }
+.rs-vision-wrap:focus-within .rs-vision, .rs-field--vision.has-value .rs-vision { opacity: 0; animation: none; }
+@media (prefers-reduced-motion: reduce) { .rs-vision { animation: none; opacity: 0.5; } }
 .rs-choice { display: flex; gap: 30px; flex-wrap: wrap; padding-top: 2px; }
 .rs-choice label { display: inline-flex; align-items: center; gap: 10px; font-size: 15px; color: var(--fg-1); cursor: pointer; }
 .rs-choice input { accent-color: var(--emphasis); }
 /* Match the nav CONNECT pill proportions (0.18em, full radius, primary fill),
    scaled from its 12px to the form's 13px text. */
-.rs-contact__form .rs-btn { align-self: start; justify-self: start; margin-top: 4px; padding: 13px 40px; font-size: 13px; }
+.rs-contact__form .rs-btn { align-self: start; justify-self: start; margin-top: 4px; padding: 13px 24px; font-size: 13px; gap: 8px; }
 
 /* ---- Contact: editorial intro ------------------------------------ */
 .rs-contact__intro { transform: translateY(-85px); }
@@ -490,13 +497,14 @@ img { max-width: 100%; }
 
 @media (max-width: 640px) {
   .rs-contact__form { grid-template-columns: 1fr; }
-  .rs-field__label { text-align: center; }
+  /* Name / Email / Phone / Message stay left; only the choice groups centre. */
+  .rs-field:has(.rs-choice--seg) .rs-field__label { text-align: center; }
   .rs-choice--seg { justify-content: center; }
-  .rs-contact__submit { justify-self: center; }
+  .rs-contact__form .rs-contact__submit { justify-self: center; }
 }
 
 /* ---- "Shaped over time" signature label (beneath the river video) - */
-.rs-chapter--signature { display: inline-flex; align-items: center; justify-content: center; gap: clamp(14px,2.2vw,24px); }
+.rs-chapter--signature { display: inline-flex; align-items: center; justify-content: center; gap: clamp(14px,2.2vw,24px); --reveal-shift: 12px; transition: opacity 0.8s var(--ease-out) 0.2s, transform 0.8s var(--ease-out) 0.2s; }
 .rs-chapter--signature .rs-chapter__txt { font-size: clamp(15px,1.7vw,19px); letter-spacing: 0.3em; color: var(--emphasis-italic); }
 .rs-chapter__wave { flex: 0 0 auto; width: clamp(46px,8vw,78px); height: 10px; opacity: 0.5;
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='48' height='10' viewBox='0 0 48 10'%3E%3Cpath d='M0 5 Q6 1.8 12 5 T24 5 T36 5 T48 5' fill='none' stroke='%239c563a' stroke-width='1.3' stroke-linecap='round'/%3E%3C/svg%3E");
@@ -571,10 +579,22 @@ img { max-width: 100%; }
 .rs-footer__statement {
   font-family: var(--font-display); font-weight: 400; font-style: normal;
   font-size: clamp(27px, 3.75vw, 46px); line-height: 1.3; color: var(--fg-1);
-  margin: 0 auto clamp(48px, 8vw, 100px); max-width: 18ch; text-wrap: balance;
+  margin: 0 auto clamp(72px, 11vw, 150px); max-width: 18ch; text-wrap: balance;
 }
 .rs-footer__statement em { font-style: italic; color: var(--emphasis-italic); }
 .rs-footer__mark { display: block; height: clamp(107px, 10.4vw, 139px); width: auto; margin: 0 auto; }
+/* Subtle shimmer — a slow light sweep clipped to the wordmark's shape. */
+.rs-footer__mark-wrap { position: relative; display: inline-block; line-height: 0; }
+.rs-footer__mark-wrap::after {
+  content: ""; position: absolute; inset: 0; pointer-events: none;
+  background: linear-gradient(100deg, transparent 43%, rgba(255,250,236,0.9) 50%, transparent 57%);
+  background-repeat: no-repeat; background-size: 230% 100%; background-position: 170% 0;
+  -webkit-mask: url("assets/logo-charcoal-wordmark.svg") center / contain no-repeat;
+          mask: url("assets/logo-charcoal-wordmark.svg") center / contain no-repeat;
+  mix-blend-mode: screen; animation: rs-shimmer 6.5s ease-in-out 1.2s infinite;
+}
+@keyframes rs-shimmer { 0% { background-position: 170% 0; } 42%, 100% { background-position: -70% 0; } }
+@media (prefers-reduced-motion: reduce) { .rs-footer__mark-wrap::after { display: none; } }
 
 /* ============================================================
    TOAST
