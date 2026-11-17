@@ -38,7 +38,7 @@
       linear-gradient(0deg, rgba(20,14,9,0.74) 0%, rgba(20,14,9,0.12) 42%, rgba(20,14,9,0) 64%); }
   .sp-hero__inner { position: absolute; inset: 0; z-index: 2; display: flex; flex-direction: column; justify-content: flex-end;
     max-width: 1320px; margin: 0 auto; padding: 0 clamp(24px,6vw,96px) clamp(44px,7vw,92px); }
-  .sp-hero__eyebrow { font-family: var(--font-sans); font-weight: 600; font-size: clamp(11px,1.1vw,13px); letter-spacing: 0.26em; text-transform: uppercase; color: var(--rs-cream); opacity: 0.86; margin: 0 0 clamp(16px,2vw,24px); }
+  .sp-hero__place { font-family: var(--font-sans); font-weight: 600; font-size: clamp(12px,1.2vw,15px); letter-spacing: 0.24em; text-transform: uppercase; color: var(--rs-cream); opacity: 0.9; margin: clamp(14px,1.9vw,24px) 0 0; padding-left: 0.14em; }
   .sp-hero__title { font-family: var(--font-display); font-weight: 400; font-size: clamp(58px,12vw,164px); line-height: 0.92; letter-spacing: 0.005em; color: var(--rs-cream); margin: 0; text-shadow: 0 2px 40px rgba(20,14,9,0.4); }
   .sp-hero__tag { font-family: var(--font-display); font-style: italic; font-size: clamp(19px,2.6vw,34px); line-height: 1.22; letter-spacing: 0.05em; text-transform: uppercase; color: var(--rs-cream); margin: clamp(14px,1.8vw,22px) 0 0; opacity: 0.95; text-wrap: balance; }
   .sp-hero__tenants { font-family: var(--font-sans); font-weight: 600; font-size: clamp(11px,1.15vw,13.5px); letter-spacing: 0.2em; text-transform: uppercase; color: var(--rs-cream); opacity: 0.9; margin: clamp(22px,2.8vw,34px) 0 0; display: flex; flex-wrap: wrap; gap: 10px 18px; }
@@ -166,9 +166,8 @@
     </video>
     <div class="sp-hero__scrim"></div>
     <div class="sp-hero__inner">
-      <p class="sp-hero__eyebrow">Nashville, Tennessee</p>
       <h1 class="sp-hero__title">12 South</h1>
-      <p class="sp-hero__tag">A new address on 12th Avenue South.</p>
+      <p class="sp-hero__place">Nashville, Tennessee</p>
     </div>
     <div class="sp-hero__cue" aria-hidden="true"><i data-lucide="chevron-down"></i></div>
   </section>
@@ -177,11 +176,11 @@
   <section class="sp-intro rs-reveal">
     <p class="rs-chapter">2318 12th Avenue South</p>
     <h2 class="sp-intro__h">A new building for one of Nashville&rsquo;s <em>most-walked</em> streets.</h2>
-    <p class="sp-intro__p">A new home for <em>Polo Ralph Lauren</em>, with <em>Ralph&rsquo;s Coffee</em> and <em>Alo</em> alongside.</p>
+    <p class="sp-intro__p">A new home for <em>Polo Ralph Lauren</em>, with <em>Ralph&rsquo;s Coffee</em> and <em>ALO</em> alongside.</p>
   </section>
 
   <!-- ==================================================== 3 · FACADE -->
-  <figure class="sp-figure rs-reveal" data-delay="1" style="margin:0;">
+  <figure class="sp-figure rs-reveal" data-delay="1" style="margin:0 auto;">
     <img src="assets/projects/12th-south-facade.jpg" alt="Rendering of the 12 South street facade — reclaimed red brick, factory windows, hand-painted Polo by Ralph Lauren branding, and a Ralph's Coffee cup sign">
   </figure>
 
@@ -194,22 +193,11 @@
     <ul class="sp-tenants rs-reveal" data-delay="1">
       <li>Ralph Lauren<span class="dot" aria-hidden="true">&#9679;</span></li>
       <li class="is-accent">Ralph&rsquo;s Coffee<span class="dot" aria-hidden="true">&#9679;</span></li>
-      <li>Alo<span class="dot" aria-hidden="true">&#9679;</span></li>
+      <li>ALO<span class="dot" aria-hidden="true">&#9679;</span></li>
     </ul>
     <figure class="sp-figure rs-reveal" data-delay="1" style="padding-left:clamp(24px,6vw,96px);padding-right:clamp(24px,6vw,96px);">
       <img src="assets/projects/12th-south-brands.jpg" alt="Brand mood board — Ralph Lauren tennis and Wimbledon imagery, the Ralph's Coffee cup, and Alo activewear">
     </figure>
-  </section>
-
-  <!-- ==================================================== 5 · FACTS -->
-  <section class="sp-sec sp-sec--tight">
-    <ul class="sp-strip rs-reveal">
-      <li><span class="v">2318 12th Ave S</span><span class="l">Address</span></li>
-      <li><span class="v"><em>Polo</em> Ralph Lauren</span><span class="l">Anchor</span></li>
-      <li><span class="v">Ralph&rsquo;s Coffee</span><span class="l">Caf&eacute;</span></li>
-      <li><span class="v">Alo</span><span class="l">Apparel</span></li>
-      <li><span class="v">Under construction</span><span class="l">Status</span></li>
-    </ul>
   </section>
 
   <!-- ==================================================== 7 · SITE PLAN (full bleed) -->
