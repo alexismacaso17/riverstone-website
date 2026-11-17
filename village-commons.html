@@ -131,6 +131,18 @@
     .bp-market { grid-template-columns: 1fr; }
   }
 
+  /* Phones: let the plans and renderings run edge-to-edge so they read as
+     large as possible and lose the side white space. */
+  @media (max-width: 640px) {
+    .bp-figure, .bp-plan {
+      max-width: none !important; width: 100vw;
+      position: relative; left: 50%; right: 50%;
+      margin-left: -50vw !important; margin-right: -50vw !important;
+      padding-left: 0 !important; padding-right: 0 !important;
+    }
+    .bp-plan__frame img, .bp-figure img { box-shadow: none; }
+  }
+
   /* ---- Print / PDF: show everything, drop web chrome ---------------- */
   @media print {
     html, body { -webkit-print-color-adjust: exact; print-color-adjust: exact; }

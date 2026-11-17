@@ -389,6 +389,14 @@ img { max-width: 100%; }
 }
 @media (max-width: 980px) { .rs-projects__grid { grid-template-columns: repeat(2, 1fr); } }
 @media (max-width: 520px) { .rs-projects__grid { grid-template-columns: 1fr; } }
+/* Mobile only: surface 12th South (Ralph Lauren) ahead of Village Commons. Desktop order unchanged. */
+@media (max-width: 640px) {
+  .rs-projects__grid > a[href="banks.html"] { order: 1; }
+  .rs-projects__grid > a[href="12th-south.html"] { order: 2; }
+  .rs-projects__grid > a[href="village-commons.html"] { order: 3; }
+  .rs-projects__grid > a[href="tbch.html"] { order: 4; }
+  .rs-projects__grid > .rs-project--more { order: 5; }
+}
 
 /* Show four projects; the rest are held back behind a quiet "See more" until asked. */
 .rs-project--more { display: none; }
