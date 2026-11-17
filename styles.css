@@ -421,7 +421,7 @@ img { max-width: 100%; }
 /* ============================================================
    CONTACT
    ============================================================ */
-.rs-contact { display: grid; grid-template-columns: 0.9fr 1.1fr; gap: clamp(44px, 6vw, 80px); max-width: 1180px; margin: 0 auto; padding: var(--section-y) var(--gutter) clamp(60px, 7vw, 116px); align-items: center; }
+.rs-contact { display: grid; grid-template-columns: 0.9fr 1.1fr; gap: clamp(36px, 5vw, 66px); max-width: 1180px; margin: 0 auto; padding: var(--section-y) var(--gutter) clamp(60px, 7vw, 116px); align-items: center; }
 /* Optical: lift the headline so its top converses with the upper portion of the
    form rather than sitting centred and noticeably lower. Purely visual. */
 .rs-contact__intro { transform: translateY(-35px); }
@@ -451,7 +451,7 @@ img { max-width: 100%; }
 }
 /* Form directly on the parchment — no card. Understated underline fields, an
    architect's notebook rather than an app. Burnt clay only on focus. */
-.rs-contact__form { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(26px,3vw,34px) clamp(26px,3vw,44px); align-items: start; }
+.rs-contact__form { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(20px,2.4vw,29px) clamp(26px,3vw,44px); align-items: start; }
 .rs-field--full { grid-column: 1 / -1; }
 .rs-field:focus-within .rs-field__label { color: var(--fg-1); }
 .rs-field { display: flex; flex-direction: column; gap: 16px; }
@@ -459,16 +459,16 @@ img { max-width: 100%; }
 .rs-input { font-family: var(--font-sans); font-size: 16px; padding: 8px 0; background: transparent; border: 0; border-bottom: 1px solid var(--border); border-radius: 0; color: var(--fg-1); outline: none; width: 100%; transition: border-color var(--dur-base) var(--ease-out); }
 .rs-input::placeholder { color: var(--fg-3); }
 .rs-input:focus { border-bottom-color: var(--emphasis); }
-.rs-input--area { resize: vertical; min-height: 118px; line-height: 1.6; }
+.rs-input--area { resize: vertical; min-height: 62px; line-height: 1.6; }
 .rs-choice { display: flex; gap: 30px; flex-wrap: wrap; padding-top: 2px; }
 .rs-choice label { display: inline-flex; align-items: center; gap: 10px; font-size: 15px; color: var(--fg-1); cursor: pointer; }
 .rs-choice input { accent-color: var(--emphasis); }
 /* Match the nav CONNECT pill proportions (0.18em, full radius, primary fill),
    scaled from its 12px to the form's 13px text. */
-.rs-contact__form .rs-btn { align-self: start; margin-top: 20px; padding: 12px 22px; font-size: 13px; }
+.rs-contact__form .rs-btn { align-self: start; justify-self: start; margin-top: 4px; padding: 13px 40px; font-size: 13px; }
 
 /* ---- Contact: editorial intro ------------------------------------ */
-.rs-contact__intro { transform: none; }
+.rs-contact__intro { transform: translateY(-85px); }
 .rs-contact__heading { font-family: var(--font-display); font-weight: 400; font-size: clamp(36px, 4.6vw, 58px); line-height: 1.06; letter-spacing: -0.01em; color: var(--fg-1); margin: 0; max-width: 15ch; text-wrap: balance; }
 .rs-contact__heading em { font-style: italic; color: var(--emphasis); }
 .rs-contact__sub { font-family: var(--font-sans); font-size: clamp(15px, 1.4vw, 17px); line-height: 1.68; color: var(--fg-2); margin: clamp(18px, 2vw, 26px) 0 0; max-width: 34ch; }
@@ -478,7 +478,8 @@ img { max-width: 100%; }
 .rs-seg { position: relative; display: inline-flex; }
 .rs-seg input { position: absolute; opacity: 0; width: 1px; height: 1px; margin: 0; pointer-events: none; }
 .rs-seg span { display: inline-block; padding: 9px 20px; border: 1px solid var(--border); border-radius: 7px; font-size: 13px; letter-spacing: 0.04em; color: var(--fg-2); cursor: pointer; user-select: none; transition: background 220ms var(--ease-out), color 220ms var(--ease-out), border-color 220ms var(--ease-out); }
-.rs-seg span:hover { border-color: var(--fg-2); color: var(--fg-1); }
+.rs-seg span:hover,
+.rs-seg input:checked + span:hover { background: var(--emphasis); color: var(--rs-cream); border-color: var(--emphasis); }
 .rs-seg input:checked + span { background: var(--rs-charcoal); color: var(--rs-cream); border-color: var(--rs-charcoal); }
 .rs-seg input:focus-visible + span { outline: 2px solid var(--emphasis); outline-offset: 2px; }
 
@@ -501,6 +502,7 @@ img { max-width: 100%; }
 @keyframes rs-current { from { background-position-x: 0; } to { background-position-x: 48px; } }
 
 /* ---- Footer: gentle water ripple through "shaped over time." ------ */
+.rs-wave__w { display: inline-block; white-space: nowrap; }
 .rs-wave__l { display: inline-block; animation: rs-ripple 7s linear infinite; animation-delay: calc(var(--i) * -0.13s); will-change: transform; }
 @keyframes rs-ripple {
   0%   { transform: translateY(0); }
