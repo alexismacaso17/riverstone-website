@@ -77,7 +77,7 @@ img { max-width: 100%; }
   background: var(--action); color: var(--action-fg); border-color: var(--action);
   transition: background 220ms var(--ease-out), color 220ms var(--ease-out), border-color 220ms var(--ease-out), transform var(--dur-fast) var(--ease-out);
 }
-.rs-btn--primary:hover { background: var(--action-fg); color: var(--action); border-color: var(--action); }
+.rs-btn--primary:hover { background: var(--emphasis); color: var(--rs-cream); border-color: var(--emphasis); }
 .rs-btn--outline { background: transparent; color: var(--action-line); border-color: var(--action-line); }
 .rs-btn--outline:hover { background: var(--action-line); color: var(--action-fg); }
 .rs-btn--on-warm { background: var(--rs-cream); color: var(--emphasis); border-color: var(--rs-cream); }
