@@ -10,8 +10,8 @@
 <meta property="og:type" content="website">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="colors_and_type.css?v=6">
-<link rel="stylesheet" href="styles.css?v=6">
+<link rel="stylesheet" href="colors_and_type.css?v=7">
+<link rel="stylesheet" href="styles.css?v=7">
 <link rel="icon" href="assets/favicon.png">
 <!-- Plausible Analytics (privacy-friendly). Create the site at plausible.io, then this starts recording. -->
 <script defer data-domain="theriverstonegroup.com" src="https://plausible.io/js/script.js"></script>
@@ -68,7 +68,11 @@
   <!-- ============================================================ PURPOSE -->
   <section class="rs-purpose" id="our-purpose">
     <div class="rs-purpose__inner">
-      <p class="rs-chapter rs-reveal">Shaped over time</p>
+      <p class="rs-chapter rs-chapter--signature rs-reveal">
+        <span class="rs-chapter__wave" aria-hidden="true"></span>
+        <span class="rs-chapter__txt">Shaped over time</span>
+        <span class="rs-chapter__wave" aria-hidden="true"></span>
+      </p>
       <blockquote class="rs-purpose__quote rs-reveal" data-delay="1">
         Places where businesses, communities,<br>and individuals <em>thrive.</em>
       </blockquote>
@@ -127,7 +131,7 @@
       </a>
       <a class="rs-project rs-reveal" data-delay="2" href="tbch.html">
         <div class="rs-project__cover"><img class="rs-project__photo" src="assets/projects/eastmans-preserve-tbch.jpg" alt="" loading="lazy" onerror="this.remove()"></div>
-        <div class="rs-project__body"><h3 class="rs-project__name" style="white-space:nowrap;font-size:clamp(13px,1.35vw,16px);letter-spacing:0.03em;">TBCH &times; Eastman&rsquo;s Preserve</h3><span class="rs-project__location">Brentwood, Tennessee</span></div>
+        <div class="rs-project__body"><h3 class="rs-project__name" style="white-space:nowrap;font-size:clamp(12px,3.6vw,16px);letter-spacing:0.03em;">TBCH &times; Eastman&rsquo;s Preserve</h3><span class="rs-project__location">Brentwood, Tennessee</span></div>
       </a>
       <a class="rs-project rs-reveal" data-delay="3" href="12th-south.html">
         <div class="rs-project__cover"><img class="rs-project__photo" src="assets/projects/12th-south-card.jpg" alt="" loading="lazy" onerror="this.remove()"></div>
@@ -164,7 +168,8 @@
   <!-- ============================================================ CONTACT -->
   <section class="rs-contact" id="contact">
     <div class="rs-contact__intro">
-      <p class="rs-contact__statement"><span class="rs-cs__w">Let&rsquo;s build</span> <span class="rs-cs__w">something</span> <span class="rs-cs__w">that</span> <em class="rs-cs__w rs-cs__w--last">endures</em></p>
+      <h2 class="rs-contact__heading">Good things start with a <em>conversation.</em></h2>
+      <p class="rs-contact__sub">Tell us a little about what you&rsquo;re working on. We&rsquo;d love to hear from you.</p>
     </div>
     <form class="rs-contact__form rs-reveal" data-delay="1" id="inquiryForm" novalidate>
       <!-- Honeypot: hidden from people, tempting to bots. Leave it empty. -->
@@ -172,36 +177,36 @@
              style="position:absolute;left:-9999px;top:-9999px;width:1px;height:1px;opacity:0;pointer-events:none">
       <label class="rs-field">
         <span class="rs-field__label">Name</span>
-        <input class="rs-input" name="name" type="text" placeholder="Your name" required>
+        <input class="rs-input" name="name" type="text" autocomplete="name" required>
       </label>
       <label class="rs-field">
         <span class="rs-field__label">Email</span>
-        <input class="rs-input" name="email" type="email" placeholder="you@example.com" required>
+        <input class="rs-input" name="email" type="email" autocomplete="email" required>
       </label>
-      <label class="rs-field">
+      <label class="rs-field rs-field--full">
         <span class="rs-field__label">Phone</span>
-        <input class="rs-input" name="phone" type="tel" placeholder="(000) 000-0000">
+        <input class="rs-input" name="phone" type="tel" autocomplete="tel">
       </label>
       <div class="rs-field">
-        <span class="rs-field__label">Preferred method of contact</span>
-        <div class="rs-choice">
-          <label><input type="radio" name="method" value="Email" checked><span>Email</span></label>
-          <label><input type="radio" name="method" value="Call"><span>Call</span></label>
-          <label><input type="radio" name="method" value="Text"><span>Text</span></label>
+        <span class="rs-field__label" id="methodLabel">Preferred method of contact</span>
+        <div class="rs-choice rs-choice--seg" role="radiogroup" aria-labelledby="methodLabel">
+          <label class="rs-seg"><input type="radio" name="method" value="Email" checked><span>Email</span></label>
+          <label class="rs-seg"><input type="radio" name="method" value="Call"><span>Call</span></label>
+          <label class="rs-seg"><input type="radio" name="method" value="Text"><span>Text</span></label>
         </div>
       </div>
       <div class="rs-field">
-        <span class="rs-field__label">Are you currently represented?</span>
-        <div class="rs-choice">
-          <label><input type="radio" name="agent" value="Yes"><span>Yes</span></label>
-          <label><input type="radio" name="agent" value="No" checked><span>No</span></label>
+        <span class="rs-field__label" id="agentLabel">Are you currently represented?</span>
+        <div class="rs-choice rs-choice--seg" role="radiogroup" aria-labelledby="agentLabel">
+          <label class="rs-seg"><input type="radio" name="agent" value="Yes"><span>Yes</span></label>
+          <label class="rs-seg"><input type="radio" name="agent" value="No" checked><span>No</span></label>
         </div>
       </div>
-      <label class="rs-field">
-        <span class="rs-field__label">Message</span>
-        <textarea class="rs-input rs-input--area" name="message" placeholder="Tell us about your project"></textarea>
+      <label class="rs-field rs-field--full">
+        <span class="rs-field__label">Tell us what you have in mind</span>
+        <textarea class="rs-input rs-input--area" name="message"></textarea>
       </label>
-      <button type="submit" class="rs-btn rs-btn--primary">Begin the conversation</button>
+      <button type="submit" class="rs-btn rs-btn--primary rs-field--full rs-contact__submit">Begin the conversation <span class="rs-btn__arrow" aria-hidden="true">&#8599;</span></button>
     </form>
   </section>
 </main>
@@ -216,5 +221,27 @@
 
 <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
 <script src="main.js"></script>
+<script>
+/* Footer signature — split "shaped over time." into letters so a gentle
+   left-to-right ripple can travel through them (CSS handles the motion).
+   Original text is preserved in the spans; skipped entirely under
+   reduced-motion, leaving the phrase as plain static text. */
+(function () {
+  var em = document.querySelector('.rs-footer__statement em');
+  if (!em) return;
+  if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  var text = em.textContent, frag = document.createDocumentFragment();
+  for (var i = 0; i < text.length; i++) {
+    var s = document.createElement('span');
+    s.className = 'rs-wave__l';
+    s.style.setProperty('--i', i);
+    s.textContent = text[i];
+    if (text[i] === ' ') s.style.whiteSpace = 'pre';
+    frag.appendChild(s);
+  }
+  em.textContent = '';
+  em.appendChild(frag);
+})();
+</script>
 </body>
 </html>
