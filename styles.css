@@ -317,7 +317,7 @@ img { max-width: 100%; }
    continuous move rather than a fresh section. */
 /* No heading — the animated values bridge straight into the work. Tight top so
    the columns sit just beneath the values, with no gap where a title once was. */
-.rs-services { padding: clamp(12px, 1.4vw, 24px) var(--gutter) clamp(64px, 8vw, 120px); max-width: 1240px; margin: 0 auto; }
+.rs-services { padding: clamp(12px, 1.4vw, 24px) var(--gutter) clamp(40px, 5vw, 72px); max-width: 1240px; margin: 0 auto; }
 .rs-services__cols { display: grid; grid-template-columns: repeat(3, 1fr); gap: clamp(48px, 6.5vw, 104px); }
 /* Each discipline is a quiet editorial column — clickable, but never a button. */
 .rs-discipline {
@@ -348,7 +348,7 @@ img { max-width: 100%; }
 /* No band and no label — the same continuous cream, the gallery introducing
    itself. A generous, deliberate breath of whitespace separates the services
    from the work, so the projects read as the proof of what came before. */
-.rs-projects { padding: clamp(64px, 7.5vw, 112px) var(--gutter) clamp(64px, 8vw, 128px); }
+.rs-projects { padding: clamp(40px, 5vw, 72px) var(--gutter) clamp(40px, 5vw, 76px); }
 .rs-projects__grid { max-width: calc(1240px - 2 * var(--gutter)); margin: 0 auto; display: grid; grid-template-columns: repeat(4, 1fr); column-gap: clamp(20px, 2vw, 28px); row-gap: clamp(14px, 1.6vw, 22px); }
 .rs-project { position: relative; display: flex; flex-direction: column; text-decoration: none; border: 0; cursor: pointer; }
 /* No frame — the image floats on the cream, lifted by only the faintest shadow.
@@ -421,7 +421,7 @@ img { max-width: 100%; }
 /* ============================================================
    CONTACT
    ============================================================ */
-.rs-contact { display: grid; grid-template-columns: 0.9fr 1.1fr; gap: clamp(36px, 5vw, 66px); max-width: 1180px; margin: 0 auto; padding: var(--section-y) var(--gutter) clamp(60px, 7vw, 116px); align-items: center; }
+.rs-contact { display: grid; grid-template-columns: 0.9fr 1.1fr; gap: clamp(36px, 5vw, 66px); max-width: 1180px; margin: 0 auto; padding: clamp(48px, 6vw, 96px) var(--gutter) clamp(60px, 7vw, 116px); align-items: center; }
 /* Optical: lift the headline so its top converses with the upper portion of the
    form rather than sitting centred and noticeably lower. Purely visual. */
 .rs-contact__intro { transform: translateY(-35px); }
