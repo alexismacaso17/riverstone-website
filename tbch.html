@@ -8,30 +8,46 @@
 <meta property="og:title" content="A Place That Feels Like Home — Tennessee Baptist Children's Homes">
 <meta property="og:description" content="Honoring a century of history while creating a place worthy of the work happening inside. Brentwood, Tennessee.">
 <meta property="og:type" content="website">
-<meta property="og:image" content="assets/projects/eastmans-preserve-tbch.jpg">
+<meta property="og:image" content="assets/projects/tbch-poster.jpg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="colors_and_type.css?v=2">
-<link rel="stylesheet" href="styles.css?v=2">
+<link rel="stylesheet" href="colors_and_type.css?v=6">
+<link rel="stylesheet" href="styles.css?v=6">
 <link rel="icon" href="assets/favicon.png">
 <!-- Plausible Analytics (privacy-friendly). -->
 <script defer data-domain="theriverstonegroup.com" src="https://plausible.io/js/script.js"></script>
 <style>
   /* ============================================================
      TENNESSEE BAPTIST CHILDREN'S HOMES — a story page (scoped).
-     Cream ground, editorial rhythm; a single quiet reading column.
+     Cream ground, editorial rhythm; a single quiet reading column,
+     opening on a full-bleed campus film and punctuated by printed
+     boards that carry their own headings.
      ============================================================ */
   body.tp { background: var(--bg); }
 
-  /* ---- Masthead ---------------------------------------------------- */
-  .tp-masthead { max-width: 1000px; margin: 0 auto; padding: clamp(64px,9vw,150px) clamp(24px,6vw,96px) 0; text-align: center; }
-  .tp-masthead .rs-chapter { margin: 0 0 clamp(22px,3vw,38px); color: var(--fg-2); }
-  .tp-masthead__title { font-family: var(--font-display); font-weight: 400; font-size: clamp(40px,6.6vw,96px); line-height: 1.0; letter-spacing: -0.015em; color: var(--fg-1); margin: 0; text-wrap: balance; }
-  .tp-masthead__title em { font-style: italic; color: var(--emphasis-italic); }
-  .tp-masthead__sub { font-family: var(--font-sans); font-weight: 600; font-size: clamp(12px,1.15vw,14px); letter-spacing: 0.24em; text-transform: uppercase; color: var(--fg-2); margin: clamp(26px,3.2vw,42px) auto 0; max-width: none; text-align: center; }
+  /* ---- Video hero (full-bleed, tucked under the sticky header) ---- */
+  .tp-hero { --hdr-h: 80px; position: relative; height: min(92vh, 880px); min-height: 520px;
+    margin-top: calc(-1 * var(--hdr-h)); overflow: hidden; background: #2b2824; }
+  .tp-hero__video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+  .tp-hero__scrim { position: absolute; inset: 0; pointer-events: none;
+    background:
+      linear-gradient(to top, rgba(26,22,18,0.74) 0%, rgba(26,22,18,0.14) 44%, rgba(26,22,18,0) 70%),
+      linear-gradient(to bottom, rgba(26,22,18,0.40) 0%, rgba(26,22,18,0) 32%); }
+  .tp-hero__inner { position: absolute; left: 0; right: 0; bottom: 0; max-width: 1240px;
+    padding: clamp(28px,6vw,72px) clamp(24px,6vw,96px) clamp(36px,6vw,80px); }
+  .tp-hero__eyebrow { font-family: var(--font-sans); font-weight: 600; font-size: clamp(11px,1.1vw,13px);
+    letter-spacing: 0.24em; text-transform: uppercase; color: rgba(248,241,222,0.82);
+    margin: 0 0 clamp(14px,1.7vw,22px); }
+  .tp-hero__title { font-family: var(--font-display); font-weight: 400; font-size: clamp(44px,7.6vw,108px);
+    line-height: 0.97; letter-spacing: -0.015em; color: var(--rs-cream); margin: 0; text-wrap: balance; }
+  .tp-hero__title em { font-style: italic; }
+  .tp-hero__tag { font-family: var(--font-sans); font-weight: 600; font-size: clamp(12px,1.2vw,15px);
+    letter-spacing: 0.2em; text-transform: uppercase; color: rgba(248,241,222,0.9);
+    margin: clamp(18px,2.1vw,28px) 0 0; }
 
   /* ---- Reading sections -------------------------------------------- */
   .tp-sec { max-width: 700px; margin: 0 auto; padding: clamp(38px,5.5vw,80px) clamp(24px,6vw,96px) 0; }
+  .tp-sec--first { padding-top: clamp(54px,7vw,104px); }
   .tp-p { font-family: var(--font-sans); font-weight: 400; font-size: clamp(18px,1.5vw,21px); line-height: 1.85; color: var(--fg-1); margin: 0; max-width: none; text-wrap: pretty; }
   .tp-p + .tp-p { margin-top: clamp(20px,2.2vw,30px); }
   .tp-p--lede { font-size: clamp(20px,1.85vw,25px); line-height: 1.72; }
@@ -48,14 +64,23 @@
   .tp-values__words em { font-style: italic; color: var(--emphasis-italic); }
   .tp-values__note { font-family: var(--font-display); font-style: italic; font-size: clamp(20px,2.2vw,29px); line-height: 1.4; letter-spacing: 0; color: var(--fg-2); margin: clamp(30px,4vw,50px) auto 0; max-width: none; text-align: center; }
 
-  /* ---- Master plan figure ------------------------------------------ */
-  .tp-figure { max-width: 1080px; margin: clamp(52px,7vw,110px) auto 0; padding: 0 clamp(24px,6vw,96px); text-align: center; }
+  /* ---- Master plan figure (illustrated overview) ------------------- */
+  .tp-figure { max-width: 1080px; margin: clamp(56px,7.5vw,118px) auto 0; padding: 0 clamp(24px,6vw,96px); text-align: center; }
   .tp-figure img { display: block; width: 100%; height: auto; box-shadow: 0 26px 64px rgba(56,40,28,0.16); }
   .tp-figure__cap { font-family: var(--font-sans); font-size: 12px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--fg-3); margin: clamp(16px,2vw,22px) 0 0; text-align: left; }
 
+  /* ---- Printed boards (self-titled collages, mounted on the cream) -
+     Each board carries its own eyebrow + heading, so no page heading
+     sits above it — a subtle shadow lifts it off the page like a print. */
+  .tp-board { max-width: 1140px; margin: clamp(60px,9vw,132px) auto 0; padding: 0 clamp(24px,6vw,96px); }
+  .tp-board img { display: block; width: 100%; height: auto; box-shadow: 0 22px 56px rgba(56,40,28,0.14); }
+  .tp-board--wide   { max-width: 1300px; }
+  .tp-board--narrow { max-width: 940px; }
+  .tp-board--tall   { max-width: 760px; }
+
   /* ---- Closing ----------------------------------------------------- */
   .tp-closing { text-align: center; margin-top: clamp(56px,8vw,120px); padding: clamp(56px,8vw,120px) clamp(24px,6vw,96px) clamp(80px,11vw,150px); }
-  .tp-back { display: inline-block; margin-top: clamp(26px,3.4vw,40px); font-family: var(--font-sans); font-weight: 500; font-size: 12px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--fg-2); text-decoration: none; border: 0; }
+  .tp-back { display: inline-block; font-family: var(--font-sans); font-weight: 500; font-size: 12px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--fg-2); text-decoration: none; border: 0; }
   .tp-back:hover { color: var(--emphasis); }
 
   /* ---- Mobile: left-align the display headers ---------------------
@@ -63,9 +88,9 @@
      reads as uneven indents. Aligning everything to one left margin (the
      same edge as the body copy) makes it a clean, deliberate column. */
   @media (max-width: 640px) {
-    .tp-masthead, .tp-statement, .tp-values { text-align: left; }
+    .tp-hero { --hdr-h: 72px; height: min(86vh, 680px); min-height: 440px; }
+    .tp-statement, .tp-values { text-align: left; }
     .tp-lead-in, .tp-values__note { text-align: left; margin-left: 0; margin-right: 0; }
-    .tp-masthead__title { font-size: clamp(38px, 10.5vw, 56px); line-height: 1.04; }
     .tp-statement__line { font-size: clamp(28px, 8vw, 44px); }
     .tp-values__words { font-size: clamp(34px, 10vw, 60px); }
   }
@@ -104,15 +129,24 @@
 
 <main id="main">
 
-  <!-- ==================================================== MASTHEAD -->
-  <section class="tp-masthead rs-reveal">
-    <p class="rs-chapter">Tennessee Baptist Children&rsquo;s Homes</p>
-    <h1 class="tp-masthead__title">A Place That Feels Like <em>Home</em></h1>
+  <!-- ==================================================== HERO (video) -->
+  <section class="tp-hero">
+    <video class="tp-hero__video" autoplay muted loop playsinline preload="auto"
+           poster="assets/projects/tbch-poster.jpg"
+           aria-label="Aerial and ground views of the Tennessee Baptist Children's Homes campus in Brentwood">
+      <source src="assets/projects/tbch.mp4" type="video/mp4">
+    </video>
+    <div class="tp-hero__scrim" aria-hidden="true"></div>
+    <div class="tp-hero__inner">
+      <p class="tp-hero__eyebrow">Tennessee Baptist Children&rsquo;s Homes</p>
+      <h1 class="tp-hero__title">A Place That Feels Like <em>Home</em></h1>
+      <p class="tp-hero__tag">Brentwood, Tennessee</p>
+    </div>
   </section>
 
   <!-- ==================================================== CONTEXT -->
-  <section class="tp-sec rs-reveal">
-    <p class="tp-p">Tennessee Baptist Children&rsquo;s Homes had called its Brentwood campus home for more than a century. Redeveloping it came with a responsibility to honor that history while creating a place that could serve its mission for generations to come.</p>
+  <section class="tp-sec tp-sec--first rs-reveal">
+    <p class="tp-p tp-p--lede">Tennessee Baptist Children&rsquo;s Homes had called its Brentwood campus home for more than a century. Redeveloping it came with a responsibility to honor that history while creating a place that could serve its mission for generations to come.</p>
   </section>
 
   <!-- ==================================================== THE QUESTION -->
@@ -142,16 +176,26 @@
     <p class="tp-statement__line">Five years later, that vision became a <em>reality.</em></p>
   </section>
 
-  <!-- ==================================================== REFLECTION -->
-  <section class="tp-sec rs-reveal">
-    <p class="tp-p">And in many ways, the completion of the campus wasn&rsquo;t the end of the project. It was the beginning of what the place could make possible.</p>
-  </section>
-
   <!-- ==================================================== MASTER PLAN -->
   <div class="tp-figure rs-reveal">
     <img src="assets/projects/eastmans-preserve-tbch.jpg" alt="Illustrated master plan of the redeveloped Tennessee Baptist Children's Homes campus in Brentwood, Tennessee">
     <p class="tp-figure__cap">The realized campus master plan</p>
   </div>
+
+  <!-- ==================================================== REFLECTION -->
+  <section class="tp-sec rs-reveal">
+    <p class="tp-p">And in many ways, the completion of the campus wasn&rsquo;t the end of the project. It was the beginning of what the place could make possible.</p>
+  </section>
+
+  <!-- ==================================================== BOILER, REBORN -->
+  <figure class="tp-board rs-reveal">
+    <img src="assets/projects/tbch-boiler.jpg" alt="The Boiler Room, reborn — an 1888 Casey-Hedges boiler preserved and remade as a fountain on campus">
+  </figure>
+
+  <!-- ==================================================== IN THE PRESS -->
+  <figure class="tp-board tp-board--tall rs-reveal">
+    <img src="assets/projects/tbch-press.jpg" alt="Press coverage of the Tennessee Baptist Children's Homes and Eastman's Preserve grand opening">
+  </figure>
 
   <!-- ==================================================== CLOSING -->
   <section class="tp-closing rs-reveal">
@@ -164,5 +208,17 @@
 
 <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
 <script src="main.js"></script>
+<script>
+  /* Keep the hero reel playing through tab/visibility changes and mobile
+     autoplay quirks — muted + playsinline so it never blocks. */
+  (function () {
+    var v = document.querySelector('.tp-hero__video');
+    if (!v) return;
+    var play = function () { var p = v.play(); if (p && p.catch) p.catch(function(){}); };
+    ['loadeddata','canplay'].forEach(function(e){ v.addEventListener(e, play); });
+    document.addEventListener('visibilitychange', function(){ if (!document.hidden) play(); });
+    play();
+  })();
+</script>
 </body>
 </html>
