@@ -377,16 +377,16 @@ main :where(h1, h2, h3, h4, p, li, blockquote),
    Flex centering can't drift with letter-spacing or content width. */
 .rs-coords--footer { position: relative; z-index: 1; display: flex; justify-content: center; align-items: baseline; flex-wrap: wrap; width: 100%; margin: clamp(26px,4vw,44px) auto 0; padding: 0; text-align: center; font-size: 12px; font-weight: 700; letter-spacing: 0.3em; color: var(--emphasis-italic); opacity: 0.72; }
 .rs-coords--footer .rs-coords__dot { margin: 0 0.35em; }
-/* Per-project coordinate stamp under the "Open in Google Maps" button. */
-.rs-geo { margin: 14px 0 0; font-family: var(--font-sans); font-size: 10.5px; font-weight: 600; letter-spacing: 0.28em; text-transform: uppercase; color: #a2917c; }
+/* Per-project coordinate stamp under the "Open in Google Maps" button —
+   full width + centered so it always sits centered beneath the button. */
+.rs-geo { max-width: none; width: 100%; margin: 14px 0 0; padding-left: 0.28em; text-align: center; font-family: var(--font-sans); font-size: 10.5px; font-weight: 600; letter-spacing: 0.28em; text-transform: uppercase; color: #a2917c; }
 .rs-geo .d { margin: 0 0.5em; color: var(--emphasis-italic); opacity: 0.7; }
-/* Cartographic survey signature — a slim gridline, a few ticks and one coordinate
-   in the far-left margin by the contact headline. A quiet nod to the War Room poster. */
-.rs-survey { position: absolute; z-index: 2; left: clamp(10px, 2.4vw, 44px); top: clamp(2px, 1.4vw, 30px);
-  display: flex; align-items: flex-start; gap: 9px; pointer-events: none; }
-.rs-survey__marks { flex: 0 0 auto; color: #a2917c; opacity: 0.85; }
-.rs-survey__coord { writing-mode: vertical-rl; margin-top: 3px; font-family: var(--font-sans); font-size: 9.5px;
-  font-weight: 600; letter-spacing: 0.3em; text-transform: uppercase; color: var(--emphasis-italic); opacity: 0.62; }
+/* Cartographic coordinate — a single quiet survey mark, centered under the
+   left column (Humboldt card / "Good things"), up in the band above the form. */
+.rs-survey { position: absolute; z-index: 2; left: var(--gutter); width: min(46%, 520px);
+  top: clamp(-104px, -7vw, -58px); text-align: center; pointer-events: none; }
+.rs-survey__coord { display: inline-block; font-family: var(--font-sans); font-size: 10.5px;
+  font-weight: 600; letter-spacing: 0.3em; text-transform: uppercase; color: var(--emphasis-italic); opacity: 0.6; }
 @media (max-width: 1100px) { .rs-survey { display: none; } }
 .rs-coords--footer .rs-coords__dot { color: var(--emphasis-italic); opacity: 0.6; }
 
