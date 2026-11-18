@@ -381,13 +381,6 @@ main :where(h1, h2, h3, h4, p, li, blockquote),
    full width + centered so it always sits centered beneath the button. */
 .rs-geo { max-width: none; width: 100%; margin: 14px 0 0; padding-left: 0.28em; text-align: center; font-family: var(--font-sans); font-size: 10.5px; font-weight: 600; letter-spacing: 0.28em; text-transform: uppercase; color: #a2917c; }
 .rs-geo .d { margin: 0 0.5em; color: var(--emphasis-italic); opacity: 0.7; }
-/* Cartographic coordinate — a single quiet survey mark, centered under the
-   left column (Humboldt card / "Good things"), up in the band above the form. */
-.rs-survey { position: absolute; z-index: 2; left: var(--gutter); width: min(46%, 520px);
-  top: clamp(-104px, -7vw, -58px); text-align: center; pointer-events: none; }
-.rs-survey__coord { display: inline-block; font-family: var(--font-sans); font-size: 10.5px;
-  font-weight: 600; letter-spacing: 0.3em; text-transform: uppercase; color: var(--emphasis-italic); opacity: 0.6; }
-@media (max-width: 1100px) { .rs-survey { display: none; } }
 .rs-coords--footer .rs-coords__dot { color: var(--emphasis-italic); opacity: 0.6; }
 
 /* Contact: topo rises from the bottom (continuing the footer) up toward
