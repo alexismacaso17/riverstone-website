@@ -564,7 +564,7 @@ img { max-width: 100%; }
    destination. Each word emerges from a soft blur, holds, and dissolves again —
    like a river stone revealed by moving water. Atmospheric, never announced. */
 .rs-values { padding: clamp(8px, 1vw, 18px) var(--gutter) clamp(26px, 2.8vw, 44px); }
-.rs-values__track { position: relative; height: 2em; font-size: clamp(21px, 2.75vw, 32px); }
+.rs-values__track { position: relative; height: 2em; font-size: clamp(24px, 3.1vw, 38px); }
 .rs-values__word {
   position: absolute; inset: 0;
   display: flex; align-items: center; justify-content: center;
