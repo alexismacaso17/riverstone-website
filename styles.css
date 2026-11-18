@@ -330,7 +330,7 @@ img { max-width: 100%; }
 /* Roman display serif, Title Case — editorial headings that carry the section
    on their own; no numerals, dividers, or icons. */
 .rs-discipline__title {
-  font-family: var(--font-display); font-weight: 500; font-style: normal;
+  font-family: var(--font-display); font-weight: 400; font-style: normal;
   font-size: clamp(28px, 2.95vw, 39px); letter-spacing: 0; text-transform: none;
   line-height: 1.16; color: var(--fg-1); margin: 0 0 16px;
   transition: color var(--dur-base) var(--ease-out);
