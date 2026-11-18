@@ -137,6 +137,10 @@ img { max-width: 100%; }
   transition: box-shadow var(--dur-base) var(--ease-out), background var(--dur-base);
 }
 .rs-header.is-scrolled { box-shadow: 0 1px 0 var(--hairline); background: rgba(248, 241, 222, 0.92); }
+/* Tie the nav bar into the motif — a faint, crisp topo across the bar. */
+.rs-header::before { content: ""; position: absolute; inset: 0; z-index: -1; pointer-events: none;
+  background: url("assets/topo-field.svg") center 30% / 140% auto no-repeat; opacity: 0.08; }
+.rs-header__brand, .rs-header__nav, .rs-header__cta, .rs-header__toggle { position: relative; z-index: 1; }
 .rs-header__brand { justify-self: start; display: flex; border: 0; }
 /* High-res source (5499×1585) rendered on whole-pixel dimensions to avoid the
    fractional-width blur; contain preserves the native aspect ratio, no stretch. */
