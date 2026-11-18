@@ -475,10 +475,10 @@ img { max-width: 100%; }
    (Snell Roundhand outline → solid ink fills in behind the nib), holds, fades,
    pauses, then writes again. Snippet nib position measured in main inline JS. */
 .rs-vision { position: absolute; left: 1px; right: 1px; bottom: 6px; height: 34px; pointer-events: none; opacity: 0.74; }
-.rs-vision__ink { position: absolute; left: 0; bottom: 0; height: 34px; width: auto; max-width: 100%; overflow: visible; clip-path: inset(0 100% 0 0); animation: rs-vwrite 8.5s ease-in-out infinite; }
+.rs-vision__ink { position: absolute; left: 0; bottom: 0; height: 34px; width: auto; max-width: 100%; overflow: visible; clip-path: inset(0 100% 0 0); animation: rs-vwrite 6.5s ease-in-out infinite; }
 .rs-vision__solid { fill: var(--emphasis-italic); }
-.rs-vision__trace { fill: none; stroke: #8c4327; stroke-width: 2px; stroke-linecap: round; stroke-linejoin: round; vector-effect: non-scaling-stroke; stroke-dasharray: 1; stroke-dashoffset: 1; animation: rs-vtrace 8.5s ease-in-out infinite; }
-.rs-vision__nib { position: absolute; left: 0; bottom: 7px; width: 6px; height: 6px; border-radius: 50%; background: #6f3620; opacity: 0; transform: translateX(0); animation: rs-vnib 8.5s ease-in-out infinite; }
+.rs-vision__trace { fill: none; stroke: #8c4327; stroke-width: 2px; stroke-linecap: round; stroke-linejoin: round; vector-effect: non-scaling-stroke; stroke-dasharray: 1; stroke-dashoffset: 1; animation: rs-vtrace 6.5s ease-in-out infinite; }
+.rs-vision__nib { position: absolute; left: 0; bottom: 7px; width: 6px; height: 6px; border-radius: 50%; background: #6f3620; opacity: 0; transform: translateX(0); animation: rs-vnib 6.5s ease-in-out infinite; }
 @keyframes rs-vwrite { 0% { clip-path: inset(0 100% 0 0); opacity: 1; } 42% { clip-path: inset(0 0 0 0); } 66% { clip-path: inset(0 0 0 0); opacity: 1; } 74% { opacity: 0; } 100% { clip-path: inset(0 0 0 0); opacity: 0; } }
 @keyframes rs-vtrace { 0% { stroke-dashoffset: 1; opacity: 1; } 42% { stroke-dashoffset: 0; opacity: 1; } 52% { opacity: 0; } 100% { opacity: 0; } }
 @keyframes rs-vnib { 0% { transform: translateX(0); opacity: 0; } 3% { opacity: 1; } 42% { transform: translateX(var(--nib-end, 250px)); opacity: 1; } 47% { transform: translateX(var(--nib-end, 250px)); opacity: 0; } 100% { opacity: 0; } }
