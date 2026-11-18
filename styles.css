@@ -337,6 +337,12 @@ img { max-width: 100%; }
 .rs-site-topo { position: fixed; inset: 0; z-index: -1; pointer-events: none;
   background: url("assets/topo-field.svg") center center / 125% auto no-repeat;
   opacity: 0.088; animation: rs-topo-fade 2s var(--ease-out); }
+/* The project pages without a video hero (Banks, Village Commons) would
+   otherwise paint the body's cream straight over the fixed topo, leaving a
+   blank band where no opaque content sits. Carry the cream on the canvas
+   instead and let the body stay clear, so the wallpaper is continuous. */
+html:has(body.bp) { background: var(--bg); }
+body.bp { background: transparent; }
 /* A touch more restraint on phones, especially around the denser mobile type. */
 @media (max-width: 640px) { .rs-site-topo { opacity: 0.062; } }
 @media (prefers-reduced-motion: reduce) { .rs-site-topo { animation: none; } }
