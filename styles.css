@@ -187,7 +187,7 @@ img { max-width: 100%; }
      and the brand coordinates pinned to the foot of the panel. */
   .rs-mobile-nav { overflow: hidden; }
   .rs-mobile-nav::before { content: ""; position: absolute; inset: 0; z-index: 0; pointer-events: none;
-    background: url("assets/topo-field.svg") center / 150% auto no-repeat; opacity: 0.16; }
+    background: url("assets/topo-field.svg") center center / cover no-repeat; opacity: 0.16; }
   .rs-mobile-nav > * { position: relative; z-index: 1; }
   .rs-mobile-nav a:not(.rs-btn) { text-shadow: 0 0 6px var(--bg), 0 0 6px var(--bg); }
   .rs-mobile-nav .rs-btn--primary { color: var(--bg); }
