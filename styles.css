@@ -182,6 +182,19 @@ img { max-width: 100%; }
   .rs-mobile-nav a { border: 0; text-decoration: none; padding: 16px 0; font-size: 15px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--fg-1); border-bottom: 1px solid var(--border-soft); }
   .rs-mobile-nav a:last-of-type { border-bottom: 0; }
   .rs-mobile-nav .rs-btn { margin-top: 24px; justify-content: center; }
+  /* The drawer carries the motif properly: a defined topo in the open
+     panel, links kept crisp with a cream halo, the Connect pill legible,
+     and the brand coordinates pinned to the foot of the panel. */
+  .rs-mobile-nav { overflow: hidden; }
+  .rs-mobile-nav::before { content: ""; position: absolute; inset: 0; z-index: 0; pointer-events: none;
+    background: url("assets/topo-field.svg") center / 150% auto no-repeat; opacity: 0.16; }
+  .rs-mobile-nav > * { position: relative; z-index: 1; }
+  .rs-mobile-nav a:not(.rs-btn) { text-shadow: 0 0 6px var(--bg), 0 0 6px var(--bg); }
+  .rs-mobile-nav .rs-btn--primary { color: var(--bg); }
+  .rs-mobile-nav__coords { margin: auto 0 0; padding-top: 32px; text-align: center;
+    font-family: var(--font-sans); font-size: 10.5px; font-weight: 600; letter-spacing: 0.28em;
+    text-transform: uppercase; color: #a2917c; }
+  .rs-mobile-nav__coords .d { margin: 0 0.5em; color: var(--emphasis-italic); opacity: 0.7; }
   .rs-scrim { display: none; position: fixed; inset: 0; z-index: 50; background: rgba(40,28,20,0.4); backdrop-filter: blur(3px); }
   .rs-scrim.is-open { display: block; }
 }
