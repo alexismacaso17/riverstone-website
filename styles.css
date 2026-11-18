@@ -292,7 +292,7 @@ img { max-width: 100%; }
    measure, hairline rules and generous air, not a field of colour. */
 /* Act I: mission sits close under the hero (small top pad); the full bottom
    rhythm becomes the deliberate chapter break into Act II (Three Ways We Serve). */
-.rs-purpose { background: var(--bg); color: var(--fg-1); padding: clamp(4px, 0.9vw, 18px) var(--gutter) clamp(40px, 5vw, 84px); }
+.rs-purpose { color: var(--fg-1); padding: clamp(4px, 0.9vw, 18px) var(--gutter) clamp(40px, 5vw, 84px); }
 .rs-purpose__inner { position: relative; z-index: 1; max-width: 1000px; margin: 0 auto; text-align: center; display: flex; flex-direction: column; align-items: center; }
 
 /* ---- Topographic motif — warm-taupe architectural contour linework
@@ -312,6 +312,13 @@ img { max-width: 100%; }
   background: url("assets/topo-field.svg") center center / 125% auto no-repeat;
   opacity: 0.1; animation: rs-topo-fade 2s var(--ease-out); }
 @media (prefers-reduced-motion: reduce) { .rs-site-topo { animation: none; } }
+/* So the continuous lines recede gracefully around the words: a soft cream halo
+   on the type clears the faint topo right at the glyphs, leaving it in the open
+   space. (Cream-on-cream — invisible except where it hides a line.) */
+.rs-chapter__txt, .rs-purpose__quote, .rs-purpose__essay p, .rs-values__word,
+.rs-discipline__title, .rs-discipline__body, .rs-project__name, .rs-project__location,
+.rs-contact__heading, .rs-contact__sub, .rs-field__label, .rs-footer__statement {
+  text-shadow: 0 0 9px var(--bg), 0 0 9px var(--bg), 0 0 15px var(--bg); }
 
 /* Hero: bold contours fill the parchment all around the video; the video/mat
    sits opaque on top, so lines never cross it. Fades only at the far edges. (~20%) */
@@ -431,7 +438,7 @@ img { max-width: 100%; }
    itself. A generous, deliberate breath of whitespace separates the services
    from the work, so the projects read as the proof of what came before. */
 .rs-projects { padding: clamp(40px, 5vw, 72px) var(--gutter) clamp(40px, 5vw, 76px); }
-.rs-projects__grid { max-width: calc(1240px - 2 * var(--gutter)); margin: 0 auto; display: grid; grid-template-columns: repeat(4, 1fr); column-gap: clamp(20px, 2vw, 28px); row-gap: clamp(14px, 1.6vw, 22px); }
+.rs-projects__grid { max-width: calc(1240px - 2 * var(--gutter)); margin: 0 auto; display: grid; grid-template-columns: repeat(4, 1fr); column-gap: clamp(20px, 2vw, 28px); row-gap: clamp(14px, 1.6vw, 22px); background: var(--bg); }
 .rs-project { position: relative; display: flex; flex-direction: column; text-decoration: none; border: 0; cursor: pointer; }
 /* No frame — the image floats on the cream, lifted by only the faintest shadow.
    The shadow deepens a touch on hover, like a print being drawn forward. */
@@ -549,7 +556,7 @@ img { max-width: 100%; }
 .rs-input { font-family: var(--font-sans); font-size: 16px; padding: 8px 0; background: transparent; border: 0; border-bottom: 1px solid var(--border); border-radius: 0; color: var(--fg-1); outline: none; width: 100%; transition: border-color var(--dur-base) var(--ease-out); }
 .rs-input::placeholder { color: var(--fg-3); }
 .rs-input:focus { border-bottom-color: var(--emphasis); }
-.rs-input--area { resize: vertical; min-height: 62px; line-height: 1.6; }
+.rs-input--area { resize: vertical; min-height: 30px; line-height: 1.6; }
 /* Cursive "What is your vision?" prompt over the message field — breathes gently,
    clears on focus or once text is entered. */
 .rs-vision-wrap { position: relative; display: block; }
