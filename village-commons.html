@@ -64,6 +64,24 @@
   /* ---- full-width floating rendering ------------------------------ */
   .bp-figure { max-width: 1320px; margin: clamp(40px,5vw,72px) auto 0; padding: 0 clamp(24px,6vw,96px); }
   .bp-figure img { display: block; width: 100%; height: auto; box-shadow: 0 16px 44px rgba(56,40,28,0.08); }
+  /* Regional map: on desktop, keep it small and let it settle into the cream +
+     topo — no card shadow, edges feathered away, a touch of the wallpaper
+     showing through. Mobile is left as-is. */
+  @media (min-width: 861px) {
+    .bp-figure--map { max-width: 560px; }
+    .bp-figure--map img {
+      box-shadow: none;
+      opacity: 0.9;
+      -webkit-mask-image:
+        linear-gradient(to right, transparent 0, #000 8%, #000 92%, transparent 100%),
+        linear-gradient(to bottom, transparent 0, #000 11%, #000 89%, transparent 100%);
+      -webkit-mask-composite: source-in;
+      mask-image:
+        linear-gradient(to right, transparent 0, #000 8%, #000 92%, transparent 100%),
+        linear-gradient(to bottom, transparent 0, #000 11%, #000 89%, transparent 100%);
+      mask-composite: intersect;
+    }
+  }
   .bp-download { display: inline-flex; align-items: center; gap: 0.5em; margin-top: clamp(18px,2.4vw,28px); font-family: var(--font-sans); font-weight: 600; font-size: 13px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--fg-1); text-decoration: none; }
   .bp-download:hover { color: var(--emphasis); }
   .bp-download i { width: 16px; height: 16px; stroke-width: 2; }
@@ -277,7 +295,7 @@
     <div class="bp-head rs-reveal">
       <h2 class="bp-h2">West Tennessee.</h2>
     </div>
-    <div class="bp-figure rs-reveal" data-delay="1" style="max-width:1180px;padding:0;">
+    <div class="bp-figure bp-figure--map rs-reveal" data-delay="1" style="max-width:560px;padding:0;">
       <img src="assets/projects/vc-map.jpg" alt="Illustrated regional map — Humboldt at the heart of West Tennessee, anchored by I-40 to Nashville and Memphis and US-45 to Jackson">
     </div>
     <ul class="bp-loc__drive rs-reveal" data-delay="1" style="max-width:440px;margin-left:auto;margin-right:auto;">
