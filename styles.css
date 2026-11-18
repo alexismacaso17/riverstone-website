@@ -479,7 +479,7 @@ img { max-width: 100%; }
    Width (--tw) measured in the inline JS so the caret lands on the last letter. */
 .rs-vision { position: absolute; left: 1px; right: 1px; bottom: 7px; pointer-events: none; }
 .rs-vision__type { display: inline-block; overflow: hidden; white-space: nowrap; vertical-align: bottom; width: 0; max-width: 100%; font-family: var(--font-sans); font-size: clamp(13px,2.4vw,16px); letter-spacing: 0.18em; text-transform: uppercase; color: var(--emphasis-italic); opacity: 0.72; border-right: 2px solid transparent; }
-.rs-vision.is-typing .rs-vision__type { animation: rs-type 1.6s steps(20, end) forwards, rs-type-caret 0.5s step-end 5 forwards; }
+.rs-vision.is-typing .rs-vision__type { animation: rs-type 1.36s steps(20, end) forwards, rs-type-caret 0.5s step-end 5 forwards; }
 .rs-vision-wrap:focus-within .rs-vision, .rs-field--vision.has-value .rs-vision { opacity: 0; }
 .rs-vision-wrap:focus-within .rs-vision__type, .rs-field--vision.has-value .rs-vision__type { animation: none !important; }
 @media (prefers-reduced-motion: reduce) { .rs-vision__type { width: auto; border-right: 0; animation: none; } }
