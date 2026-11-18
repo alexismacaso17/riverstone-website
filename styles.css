@@ -617,13 +617,13 @@ img { max-width: 100%; }
 .rs-footer__mark-wrap { position: relative; display: inline-block; line-height: 0; }
 .rs-footer__mark-wrap::after {
   content: ""; position: absolute; inset: 0; pointer-events: none;
-  background: linear-gradient(100deg, transparent 43%, rgba(255,250,236,0.9) 50%, transparent 57%);
+  background: linear-gradient(100deg, transparent 34%, rgba(255,250,236,0.42) 50%, transparent 66%);
   background-repeat: no-repeat; background-size: 230% 100%; background-position: 170% 0;
   -webkit-mask: url("assets/logo-charcoal-wordmark.svg") center / contain no-repeat;
           mask: url("assets/logo-charcoal-wordmark.svg") center / contain no-repeat;
-  mix-blend-mode: screen; animation: rs-shimmer 3s ease-in-out 1.2s infinite;
+  mix-blend-mode: screen; animation: rs-shimmer 4.2s ease-in-out 1.2s infinite;
 }
-@keyframes rs-shimmer { 0% { background-position: 170% 0; } 42%, 100% { background-position: -70% 0; } }
+@keyframes rs-shimmer { 0% { background-position: 170% 0; } 62%, 100% { background-position: -70% 0; } }
 @media (prefers-reduced-motion: reduce) { .rs-footer__mark-wrap::after { display: none; } }
 
 /* ============================================================
