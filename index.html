@@ -11,7 +11,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="colors_and_type.css?v=17">
-<link rel="stylesheet" href="styles.css?v=29">
+<link rel="stylesheet" href="styles.css?v=31">
 <link rel="icon" href="assets/favicon.png">
 <!-- Plausible Analytics (privacy-friendly). Create the site at plausible.io, then this starts recording. -->
 <script defer data-domain="theriverstonegroup.com" src="https://plausible.io/js/script.js"></script>
@@ -251,10 +251,30 @@
   measure();
   window.addEventListener('resize', measure);
   var started = false;
-  function start() { if (started) return; started = true; vision.classList.add('is-typing'); window.removeEventListener('scroll', check); }
+  function start() {
+    if (started) return; started = true;
+    vision.classList.add('is-typing');
+    window.removeEventListener('scroll', check);
+    /* Once the sentence has typed (1.36s) + a small beat, release the footer signature. */
+    setTimeout(function () { if (window.__rsVisionDone) window.__rsVisionDone(); }, 1600);
+  }
   function check() { var r = vision.getBoundingClientRect(); if (r.top < window.innerHeight * 0.82 && r.bottom > 0) start(); }
   check();
   window.addEventListener('scroll', check, { passive: true });
+})();
+/* Footer "Every place is shaped over time." draws on only once it is in view
+   AND the vision prompt has finished typing, so the two never move at once. */
+(function () {
+  var stmt = document.querySelector('.rs-footer__statement');
+  if (!stmt) return;
+  var inView = false, visionDone = false, drawn = false;
+  function draw() { if (inView && visionDone && !drawn) { drawn = true; stmt.classList.add('rs-draw'); window.removeEventListener('scroll', check); } }
+  window.__rsVisionDone = function () { visionDone = true; draw(); };
+  function check() { var r = stmt.getBoundingClientRect(); if (r.top < window.innerHeight * 0.9 && r.bottom > 0) { inView = true; draw(); } }
+  check();
+  window.addEventListener('scroll', check, { passive: true });
+  /* Fallback: if the vision prompt never ran, still draw the signature after a beat. */
+  setTimeout(function () { visionDone = true; draw(); }, 6000);
 })();
 </script>
 </body>
