@@ -307,6 +307,9 @@ img { max-width: 100%; }
    only visual climax. One column, one entry point. */
 .rs-purpose__essay { max-width: 680px; margin: clamp(24px, 3vw, 44px) auto 0; text-align: left; display: flex; flex-direction: column; gap: 28px; }
 .rs-purpose__essay p { color: var(--fg-2); font-size: 20px; line-height: 1.8; margin: 0; max-width: none; }
+/* Desktop: force "yet every stone carries a longer history" onto its own line. */
+.rs-essay-br { display: none; }
+@media (min-width: 760px) { .rs-essay-br { display: inline; } }
 
 /* ============================================================
    CAPABILITIES — an editorial table of contents, not feature cards.
