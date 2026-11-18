@@ -139,7 +139,7 @@ img { max-width: 100%; }
 .rs-header.is-scrolled { box-shadow: 0 1px 0 var(--hairline); background: rgba(248, 241, 222, 0.92); }
 /* Tie the nav bar into the motif — a faint, crisp topo across the bar. */
 .rs-header::before { content: ""; position: absolute; inset: 0; z-index: -1; pointer-events: none;
-  background: url("assets/topo-field.svg") center 30% / 140% auto no-repeat; opacity: 0.08; }
+  background: url("assets/topo-field.svg") center 30% / 140% auto no-repeat; opacity: 0.06; }
 .rs-header__brand, .rs-header__nav, .rs-header__cta, .rs-header__toggle { position: relative; z-index: 1; }
 .rs-header__brand { justify-self: start; display: flex; border: 0; }
 /* High-res source (5499×1585) rendered on whole-pixel dimensions to avoid the
@@ -314,15 +314,30 @@ img { max-width: 100%; }
    never cross imagery or controls; over text they stay faint. */
 .rs-site-topo { position: fixed; inset: 0; z-index: -1; pointer-events: none;
   background: url("assets/topo-field.svg") center center / 125% auto no-repeat;
-  opacity: 0.1; animation: rs-topo-fade 2s var(--ease-out); }
+  opacity: 0.088; animation: rs-topo-fade 2s var(--ease-out); }
+/* A touch more restraint on phones, especially around the denser mobile type. */
+@media (max-width: 640px) { .rs-site-topo { opacity: 0.062; } }
 @media (prefers-reduced-motion: reduce) { .rs-site-topo { animation: none; } }
+/* Contact: a hair quieter than the rest, as a gentle cream haze that dissolves
+   into the surrounding wallpaper at the edges — no patch, still continuous. */
+.rs-contact::before { content: ""; position: absolute; inset: 0; z-index: 0; pointer-events: none;
+  background: radial-gradient(ellipse 82% 92% at 50% 50%, rgba(248,241,222,0.22) 0%, rgba(248,241,222,0.12) 48%, transparent 76%); }
 /* So the continuous lines recede gracefully around the words: a soft cream halo
    on the type clears the faint topo right at the glyphs, leaving it in the open
    space. (Cream-on-cream — invisible except where it hides a line.) */
 .rs-chapter__txt, .rs-purpose__quote, .rs-purpose__essay p, .rs-values__word,
 .rs-discipline__title, .rs-discipline__body, .rs-project__name, .rs-project__location,
 .rs-contact__heading, .rs-contact__sub, .rs-field__label, .rs-footer__statement {
-  text-shadow: 0 0 9px var(--bg), 0 0 9px var(--bg), 0 0 15px var(--bg); }
+  text-shadow: 0 0 6px var(--bg), 0 0 6px var(--bg); }
+/* Same halo across the interior landing pages (headings, body, labels, numbers). */
+main :where(h1, h2, h3, h4, p, li, blockquote),
+[class*="masthead__"], [class*="-eyebrow"], [class$="__tag"], [class$="__sub"],
+[class*="num__"], [class*="closing__line"], [class*="loc__"], .rs-coord-tick {
+  text-shadow: 0 0 6px var(--bg), 0 0 6px var(--bg); }
+/* …never over dark hero media or on the buttons themselves. */
+.rs-hero__inner *, .sp-hero *, .tp-hero *,
+.rs-btn, .rs-btn *, .rs-seg span, .bp-maplink a, .sp-maplink a, .tp-maplink a,
+.bp-back, .sp-back, .tp-back, .rs-projects__more-btn { text-shadow: none; }
 
 /* Hero: bold contours fill the parchment all around the video; the video/mat
    sits opaque on top, so lines never cross it. Fades only at the far edges. (~20%) */
@@ -362,6 +377,9 @@ img { max-width: 100%; }
    Flex centering can't drift with letter-spacing or content width. */
 .rs-coords--footer { position: relative; z-index: 1; display: flex; justify-content: center; align-items: baseline; flex-wrap: wrap; width: 100%; margin: clamp(26px,4vw,44px) auto 0; padding: 0; text-align: center; font-size: 12px; font-weight: 700; letter-spacing: 0.3em; color: var(--emphasis-italic); opacity: 0.72; }
 .rs-coords--footer .rs-coords__dot { margin: 0 0.35em; }
+/* Per-project coordinate stamp under the "Open in Google Maps" button. */
+.rs-geo { margin: 14px 0 0; font-family: var(--font-sans); font-size: 10.5px; font-weight: 600; letter-spacing: 0.28em; text-transform: uppercase; color: #a2917c; }
+.rs-geo .d { margin: 0 0.5em; color: var(--emphasis-italic); opacity: 0.7; }
 .rs-coords--footer .rs-coords__dot { color: var(--emphasis-italic); opacity: 0.6; }
 
 /* Contact: topo rises from the bottom (continuing the footer) up toward
