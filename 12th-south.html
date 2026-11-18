@@ -58,10 +58,23 @@
   .sp-lede em { font-style: italic; color: var(--emphasis-italic); }
 
   /* ---- intro masthead (on cream) ---------------------------------- */
-  .sp-intro { max-width: 940px; margin: 0 auto; padding: clamp(56px,9vw,128px) clamp(24px,6vw,96px) 0; text-align: center; }
-  .sp-intro .rs-chapter { margin: 0 0 clamp(20px,2.6vw,32px); }
-  .sp-intro__h { font-family: var(--font-display); font-weight: 400; font-size: clamp(34px,5.4vw,70px); line-height: 1.06; letter-spacing: -0.012em; color: var(--fg-1); margin: 0; text-wrap: balance; }
+  .sp-intro { max-width: 1040px; margin: 0 auto; padding: clamp(56px,9vw,128px) clamp(24px,6vw,96px) 0; text-align: center; }
+  .sp-intro .rs-chapter { margin: 0 0 clamp(26px,3.4vw,44px); }
+  /* Art-directed hierarchy: an elegant lead-in, a dominant primary brand, and
+     two clearly subordinate supporting lines. Same serif, same palette. */
+  .sp-intro__h { font-family: var(--font-display); font-weight: 400; color: var(--fg-1); margin: 0; }
+  .sp-intro__h > span { display: block; text-wrap: balance; }
   .sp-intro__h em { font-style: italic; color: var(--emphasis-italic); }
+  .sp-intro__lead { font-size: clamp(16px,1.9vw,23px); font-weight: 400; letter-spacing: 0.015em; color: var(--fg-2); margin: 0 0 clamp(18px,2.4vw,34px); }
+  .sp-intro__primary { font-size: clamp(44px,7.8vw,90px); line-height: 0.95; letter-spacing: -0.022em; margin: 0 0 clamp(18px,2.3vw,30px); }
+  .sp-intro__with { font-size: clamp(27px,4.4vw,53px); line-height: 1.0; letter-spacing: -0.013em; color: var(--fg-2); margin: 0 0 clamp(6px,0.8vw,12px); }
+  .sp-intro__close { font-size: clamp(22px,3.3vw,41px); line-height: 1.04; letter-spacing: -0.008em; color: var(--fg-2); }
+  @media (max-width: 600px) {
+    .sp-intro__primary { font-size: clamp(34px,10.4vw,46px); letter-spacing: -0.018em; }
+    .sp-intro__with { font-size: clamp(23px,6.6vw,30px); }
+    .sp-intro__close { font-size: clamp(19px,5.2vw,25px); }
+    .sp-intro__lead { font-size: clamp(14px,3.6vw,17px); }
+  }
   .sp-intro__p { font-family: var(--font-sans); font-size: clamp(18px,1.6vw,21px); line-height: 1.74; color: var(--fg-2); margin: clamp(26px,3vw,40px) auto 0; max-width: 60ch; }
   .sp-intro__p em { font-style: italic; color: var(--emphasis-italic); }
 
@@ -176,7 +189,12 @@
   <!-- ==================================================== 2 · INTRO -->
   <section class="sp-intro rs-reveal">
     <p class="rs-chapter">2318 12th Avenue South</p>
-    <h2 class="sp-intro__h">A new home for <em>Polo</em> Ralph Lauren, with <em>Ralph&rsquo;s Coffee</em> and <em style="text-transform:none;">alo</em> alongside.</h2>
+    <h2 class="sp-intro__h">
+      <span class="sp-intro__lead">A new home for</span>
+      <span class="sp-intro__primary"><em>Polo</em> Ralph Lauren,</span>
+      <span class="sp-intro__with">with <em>Ralph&rsquo;s Coffee</em></span>
+      <span class="sp-intro__close">and <em style="text-transform:none;">alo</em> alongside.</span>
+    </h2>
   </section>
 
   <!-- ==================================================== 3 · FACADE -->
@@ -191,12 +209,9 @@
     </figure>
   </section>
 
-  <!-- ==================================================== 7 · PLANS (floor + grading, full bleed) -->
+  <!-- ==================================================== 7 · PLAN (floor, full bleed) -->
   <figure class="sp-figure sp-figure--bleed rs-reveal" style="margin-top:clamp(60px,9vw,130px);">
     <img src="assets/projects/12th-south-plan.jpg" alt="Floor plan — the 12th Avenue Retail building with Tenant 01 and Tenant 02, storefront systems, and wall details">
-  </figure>
-  <figure class="sp-figure sp-figure--bleed rs-reveal" data-delay="1" style="margin-top:clamp(18px,2.6vw,36px);">
-    <img src="assets/projects/12th-south-grading.jpg" alt="Grading plan — building footprint on 12th Avenue South with tenant finished-floor elevations, drainage, and forebay">
   </figure>
 
   <!-- ==================================================== 9 · LOCATION -->
