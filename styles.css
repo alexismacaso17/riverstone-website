@@ -134,12 +134,21 @@ img { max-width: 100%; }
   padding: 16px max(var(--gutter), calc(50% - 660px + var(--gutter)));
   background: rgba(248, 241, 222, 0.72);
   backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
-  transition: box-shadow var(--dur-base) var(--ease-out), background var(--dur-base);
+  transition: background var(--dur-base);
 }
-.rs-header.is-scrolled { box-shadow: 0 1px 0 var(--hairline); background: rgba(248, 241, 222, 0.92); }
+.rs-header.is-scrolled { background: rgba(248, 241, 222, 0.92); }
 /* Tie the nav bar into the motif — a faint, crisp topo across the bar. */
 .rs-header::before { content: ""; position: absolute; inset: 0; z-index: -1; pointer-events: none;
   background: url("assets/topo-field.svg") center 30% / 140% auto no-repeat; opacity: 0.06; }
+/* Divider: a soft keyline that fades to nothing at both edges, so the bar
+   never reads as a hard rectangular panel over the topo wallpaper. It is
+   invisible at the top of the page and eases in gently only once the nav
+   overlaps content, keeping it barely noticeable when it isn't needed. */
+.rs-header::after { content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 1px;
+  pointer-events: none; z-index: 0;
+  background: linear-gradient(to right, transparent 0%, var(--hairline) 24%, var(--hairline) 76%, transparent 100%);
+  opacity: 0; transition: opacity 420ms var(--ease-out); }
+.rs-header.is-scrolled::after { opacity: 0.6; }
 .rs-header__brand, .rs-header__nav, .rs-header__cta, .rs-header__toggle { position: relative; z-index: 1; }
 .rs-header__brand { justify-self: start; display: flex; border: 0; }
 /* High-res source (5499×1585) rendered on whole-pixel dimensions to avoid the

@@ -65,6 +65,24 @@
     topos.forEach(function (el) { el.classList.add("is-in"); });
   }
 
+  /* ---- Footer signature: reveal on pages without the vision/contact
+         coordination (interior pages). The homepage defines
+         window.__rsVisionDone and draws it in sync with the hero. ----- */
+  (function () {
+    var stmt = document.querySelector(".rs-footer__statement");
+    if (!stmt) return;
+    function check() {
+      if (typeof window.__rsVisionDone === "function") return; // homepage handles it
+      var r = stmt.getBoundingClientRect();
+      if (r.top < window.innerHeight * 0.95 && r.bottom > 0) {
+        stmt.classList.add("rs-draw");
+        window.removeEventListener("scroll", check);
+      }
+    }
+    check();
+    window.addEventListener("scroll", check, { passive: true });
+  })();
+
   /* ---- Contact headline: compose the words once on entry ----------- */
   var statement = document.querySelector(".rs-contact__statement");
   if (statement) {
