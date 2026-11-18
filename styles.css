@@ -712,18 +712,18 @@ main :where(h1, h2, h3, h4, p, li, blockquote),
   padding-left: 0.28em; /* balance the trailing tracking so the word stays optically centred */
   color: var(--emphasis); /* full burnt clay — a confident declaration, not washed out */
   opacity: 0; will-change: opacity;
-  animation: rs-value-cycle 32.2s linear infinite;
+  animation: rs-value-cycle 24.5s linear infinite;
 }
 .rs-values__word:nth-child(1) { animation-delay:  0s; }
-.rs-values__word:nth-child(2) { animation-delay:  4.6s; }
-.rs-values__word:nth-child(3) { animation-delay:  9.2s; }
-.rs-values__word:nth-child(4) { animation-delay: 13.8s; }
-.rs-values__word:nth-child(5) { animation-delay: 18.4s; }
-.rs-values__word:nth-child(6) { animation-delay: 23s; }
-.rs-values__word:nth-child(7) { animation-delay: 27.6s; }
+.rs-values__word:nth-child(2) { animation-delay:  3.5s; }
+.rs-values__word:nth-child(3) { animation-delay:  7s; }
+.rs-values__word:nth-child(4) { animation-delay: 10.5s; }
+.rs-values__word:nth-child(5) { animation-delay: 14s; }
+.rs-values__word:nth-child(6) { animation-delay: 17.5s; }
+.rs-values__word:nth-child(7) { animation-delay: 21s; }
 /* Gallery-title timing: each word fades in (~0.9s), holds fully opaque (~2.8s),
    then fades completely out (~0.9s) — and stays gone for a short beat before the
-   next word begins. No two words are ever on screen at once. 5s per word. */
+   next word begins. No two words are ever on screen at once. 3.5s per word. */
 @keyframes rs-value-cycle {
   0%    { opacity: 0; }
   2.5%  { opacity: 1; }   /* fade in ~0.9s */
