@@ -304,6 +304,15 @@ img { max-width: 100%; }
 .rs-topo-field { position: absolute; inset: 0; z-index: 0;
   background: url("assets/topo-field.svg") center center / cover no-repeat; }
 
+/* Consistent site-wide topo background: one continuous layer behind everything,
+   so the white space is never empty and sections connect seamlessly. Opaque
+   content (the hero mat, project images, buttons) sits on top, so the lines
+   never cross imagery or controls; over text they stay faint. */
+.rs-site-topo { position: fixed; inset: 0; z-index: -1; pointer-events: none;
+  background: url("assets/topo-field.svg") center center / 125% auto no-repeat;
+  opacity: 0.1; animation: rs-topo-fade 2s var(--ease-out); }
+@media (prefers-reduced-motion: reduce) { .rs-site-topo { animation: none; } }
+
 /* Hero: bold contours fill the parchment all around the video; the video/mat
    sits opaque on top, so lines never cross it. Fades only at the far edges. (~20%) */
 .rs-hero__topo { --topo-o: 0.22;
@@ -338,7 +347,10 @@ img { max-width: 100%; }
 .rs-coords { margin: clamp(30px, 4vw, 52px) 0 0; font-family: var(--font-sans); font-size: 11px; font-weight: 500; letter-spacing: 0.34em; text-transform: uppercase; color: #a99a88; opacity: 0.5; }
 .rs-coords .rs-coords__dot { margin: 0 0.5em; opacity: 0.6; }
 /* Footer coordinate stamp — terracotta survey mark, centered under the wordmark. */
-.rs-coords--footer { position: relative; z-index: 1; display: block; width: 100%; margin: clamp(26px,4vw,44px) 0 0; padding: 0 0 0 0.3em; text-align: center; font-size: 12px; font-weight: 700; letter-spacing: 0.3em; color: var(--emphasis-italic); opacity: 0.72; }
+/* Hard rule: the footer coordinates are always centered under the wordmark.
+   Flex centering can't drift with letter-spacing or content width. */
+.rs-coords--footer { position: relative; z-index: 1; display: flex; justify-content: center; align-items: baseline; flex-wrap: wrap; width: 100%; margin: clamp(26px,4vw,44px) auto 0; padding: 0; text-align: center; font-size: 12px; font-weight: 700; letter-spacing: 0.3em; color: var(--emphasis-italic); opacity: 0.72; }
+.rs-coords--footer .rs-coords__dot { margin: 0 0.35em; }
 .rs-coords--footer .rs-coords__dot { color: var(--emphasis-italic); opacity: 0.6; }
 
 /* Contact: topo rises from the bottom (continuing the footer) up toward
@@ -355,10 +367,10 @@ img { max-width: 100%; }
 /* Footer: a more defined topo rising from the bottom edge, under "begin the
    conversation" / the signature; faded up before it reaches the statement. (~14%) */
 .rs-footer { position: relative; }
-.rs-footer__topo { --topo-o: 0.14;
-  background-position: center bottom;
-  -webkit-mask-image: linear-gradient(to top, #000 0%, rgba(0,0,0,0.68) 46%, rgba(0,0,0,0.36) 74%, transparent 99%);
-          mask-image: linear-gradient(to top, #000 0%, rgba(0,0,0,0.68) 46%, rgba(0,0,0,0.36) 74%, transparent 99%); }
+.rs-footer__topo { --topo-o: 0.15;
+  background-position: center top;
+  -webkit-mask-image: linear-gradient(to top, #000 0%, rgba(0,0,0,0.92) 60%, rgba(0,0,0,0.74) 86%, transparent 100%);
+          mask-image: linear-gradient(to top, #000 0%, rgba(0,0,0,0.92) 60%, rgba(0,0,0,0.74) 86%, transparent 100%); }
 .rs-footer__statement, .rs-footer__mark-wrap { position: relative; z-index: 1; }
 @media (prefers-reduced-motion: reduce) { .rs-topo { animation: none; } }
 /* Roman (upright) mission for a timeless, architectural read; "thrive" stays
@@ -567,7 +579,7 @@ img { max-width: 100%; }
 .rs-choice--seg { gap: 10px; }
 .rs-seg { position: relative; display: inline-flex; }
 .rs-seg input { position: absolute; opacity: 0; width: 1px; height: 1px; margin: 0; pointer-events: none; }
-.rs-seg span { display: inline-block; padding: 9px 20px; border: 1px solid var(--border); border-radius: 7px; font-size: 13px; letter-spacing: 0.04em; color: var(--fg-2); cursor: pointer; user-select: none; transition: background 220ms var(--ease-out), color 220ms var(--ease-out), border-color 220ms var(--ease-out); }
+.rs-seg span { display: inline-block; padding: 9px 20px; background: var(--bg); border: 1px solid var(--border); border-radius: 7px; font-size: 13px; letter-spacing: 0.04em; color: var(--fg-2); cursor: pointer; user-select: none; transition: background 220ms var(--ease-out), color 220ms var(--ease-out), border-color 220ms var(--ease-out); }
 .rs-seg span:hover,
 .rs-seg input:checked + span:hover { background: var(--emphasis); color: var(--rs-cream); border-color: var(--emphasis); }
 .rs-seg input:checked + span { background: var(--rs-charcoal); color: var(--rs-cream); border-color: var(--rs-charcoal); }
