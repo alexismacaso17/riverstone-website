@@ -10,8 +10,8 @@
 <meta property="og:type" content="website">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="colors_and_type.css?v=15">
-<link rel="stylesheet" href="styles.css?v=17">
+<link rel="stylesheet" href="colors_and_type.css?v=16">
+<link rel="stylesheet" href="styles.css?v=18">
 <link rel="icon" href="assets/favicon.png">
 <!-- Plausible Analytics (privacy-friendly). Create the site at plausible.io, then this starts recording. -->
 <script defer data-domain="theriverstonegroup.com" src="https://plausible.io/js/script.js"></script>
@@ -223,31 +223,15 @@
 <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
 <script src="main.js"></script>
 <script>
-/* Footer signature — split "shaped over time." into letters so a gentle
-   left-to-right ripple can travel through them (CSS handles the motion).
-   Original text is preserved in the spans; skipped entirely under
-   reduced-motion, leaving the phrase as plain static text. */
+/* Top signature types out like a typewriter: measure the finished text width
+   so the steps() reveal lands exactly on the last character. Re-measured on
+   resize; CSS holds the final width once typed. */
 (function () {
-  var em = document.querySelector('.rs-footer__statement em');
-  if (!em) return;
-  if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-  var parts = em.textContent.split(/(\s+)/), frag = document.createDocumentFragment(), idx = 0;
-  parts.forEach(function (part) {
-    if (part === '') return;
-    if (/^\s+$/.test(part)) { frag.appendChild(document.createTextNode(part)); return; }
-    var w = document.createElement('span');
-    w.className = 'rs-wave__w';          /* keep each word unbroken */
-    for (var i = 0; i < part.length; i++) {
-      var s = document.createElement('span');
-      s.className = 'rs-wave__l';
-      s.style.setProperty('--i', idx++);
-      s.textContent = part[i];
-      w.appendChild(s);
-    }
-    frag.appendChild(w);
-  });
-  em.textContent = '';
-  em.appendChild(frag);
+  var el = document.querySelector('.rs-chapter--signature .rs-chapter__txt');
+  if (!el) return;
+  function setW() { el.style.setProperty('--tw', (el.scrollWidth + 3) + 'px'); }
+  if (document.fonts && document.fonts.ready) { document.fonts.ready.then(setW); } else { setW(); }
+  window.addEventListener('resize', setW);
 })();
 /* Clear the cursive "What is your vision?" prompt once the person types. */
 (function () {
