@@ -52,6 +52,19 @@
     reveals.forEach(function (el) { el.classList.add("is-in"); });
   }
 
+  /* ---- Topographic watermarks: fade in gently on entry ------------- */
+  var topos = document.querySelectorAll(".rs-topo");
+  if ("IntersectionObserver" in window && topos.length) {
+    var tio = new IntersectionObserver(function (entries) {
+      entries.forEach(function (en) {
+        if (en.isIntersecting) { en.target.classList.add("is-in"); tio.unobserve(en.target); }
+      });
+    }, { threshold: 0.08 });
+    topos.forEach(function (el) { tio.observe(el); });
+  } else {
+    topos.forEach(function (el) { el.classList.add("is-in"); });
+  }
+
   /* ---- Contact headline: compose the words once on entry ----------- */
   var statement = document.querySelector(".rs-contact__statement");
   if (statement) {

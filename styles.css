@@ -293,7 +293,74 @@ img { max-width: 100%; }
 /* Act I: mission sits close under the hero (small top pad); the full bottom
    rhythm becomes the deliberate chapter break into Act II (Three Ways We Serve). */
 .rs-purpose { background: var(--bg); color: var(--fg-1); padding: clamp(4px, 0.9vw, 18px) var(--gutter) clamp(40px, 5vw, 84px); }
-.rs-purpose__inner { max-width: 1000px; margin: 0 auto; text-align: center; display: flex; flex-direction: column; align-items: center; }
+.rs-purpose__inner { position: relative; z-index: 1; max-width: 1000px; margin: 0 auto; text-align: center; display: flex; flex-direction: column; align-items: center; }
+
+/* ---- Topographic motif — warm-taupe architectural contour linework
+   (assets/topo-field.svg). It frames the negative space around imagery and
+   dissolves softly (never a hard/rectangular edge) with a radial gradient mask.
+   Fades in once on scroll; still under prefers-reduced-motion. ---- */
+.rs-topo { opacity: var(--topo-o, 0.1); animation: rs-topo-fade 1.8s var(--ease-out); will-change: opacity; pointer-events: none; }
+@keyframes rs-topo-fade { from { opacity: 0; } }
+.rs-topo-field { position: absolute; inset: 0; z-index: 0;
+  background: url("assets/topo-field.svg") center center / cover no-repeat; }
+
+/* Hero: bold contours fill the parchment all around the video; the video/mat
+   sits opaque on top, so lines never cross it. Fades only at the far edges. (~20%) */
+.rs-hero__topo { --topo-o: 0.22;
+  -webkit-mask-image: radial-gradient(120% 118% at 50% 50%, #000 0 74%, rgba(0,0,0,0.55) 90%, transparent 100%);
+          mask-image: radial-gradient(120% 118% at 50% 50%, #000 0 74%, rgba(0,0,0,0.55) 90%, transparent 100%); }
+.rs-hero__stage { position: relative; z-index: 1; }
+
+/* Purpose: a whisper-faint fill in the band under the hero and around the mission —
+   nearly invisible over the words. Appears only after "Shaped over time" fades. */
+.rs-purpose { position: relative; }
+.rs-purpose__topo { --topo-o: 0.04; animation-delay: 3.2s;
+  -webkit-mask-image: radial-gradient(120% 88% at 50% 8%, #000 0 30%, rgba(0,0,0,0.3) 62%, transparent 92%);
+          mask-image: radial-gradient(120% 88% at 50% 8%, #000 0 30%, rgba(0,0,0,0.3) 62%, transparent 92%); }
+.rs-purpose__inner { position: relative; z-index: 1; }
+
+/* Services + values: faint lines above the disciplines and flanking the values,
+   receding over the text. */
+.rs-services { position: relative; }
+.rs-services__topo { --topo-o: 0.045;
+  -webkit-mask-image: radial-gradient(118% 92% at 50% 14%, #000 0 26%, rgba(0,0,0,0.28) 60%, transparent 92%);
+          mask-image: radial-gradient(118% 92% at 50% 14%, #000 0 26%, rgba(0,0,0,0.28) 60%, transparent 92%); }
+.rs-services__cols { position: relative; z-index: 1; }
+
+/* Projects: contours sit behind the boxes, reading in the grid's negative space. */
+.rs-projects { position: relative; }
+.rs-projects__topo { --topo-o: 0.08;
+  -webkit-mask-image: radial-gradient(86% 86% at 50% 48%, #000 0 30%, rgba(0,0,0,0.22) 60%, transparent 92%);
+          mask-image: radial-gradient(86% 86% at 50% 48%, #000 0 30%, rgba(0,0,0,0.22) 60%, transparent 92%); }
+.rs-projects__grid, .rs-projects__more { position: relative; z-index: 1; }
+
+/* Coordinate stamp — faint warm-taupe survey mark (200 Powell Place). */
+.rs-coords { margin: clamp(30px, 4vw, 52px) 0 0; font-family: var(--font-sans); font-size: 11px; font-weight: 500; letter-spacing: 0.34em; text-transform: uppercase; color: #a99a88; opacity: 0.5; }
+.rs-coords .rs-coords__dot { margin: 0 0.5em; opacity: 0.6; }
+/* Footer coordinate stamp — terracotta survey mark, centered under the wordmark. */
+.rs-coords--footer { position: relative; z-index: 1; display: block; width: 100%; margin: clamp(26px,4vw,44px) 0 0; padding: 0 0 0 0.3em; text-align: center; font-size: 12px; font-weight: 700; letter-spacing: 0.3em; color: var(--emphasis-italic); opacity: 0.72; }
+.rs-coords--footer .rs-coords__dot { color: var(--emphasis-italic); opacity: 0.6; }
+
+/* Contact: topo rises from the bottom (continuing the footer) up toward
+   "Begin the conversation", softening over the words; it clears on focus. */
+.rs-contact { position: relative; }
+.rs-contact__topo { --topo-o: 0.14; background-position: center bottom;
+  -webkit-mask-image: linear-gradient(to top, #000 0%, rgba(0,0,0,0.82) 44%, rgba(0,0,0,0.56) 76%, transparent 100%);
+          mask-image: linear-gradient(to top, #000 0%, rgba(0,0,0,0.82) 44%, rgba(0,0,0,0.56) 76%, transparent 100%); }
+.rs-contact__intro, .rs-contact__form { position: relative; z-index: 1; }
+/* Focusing a field clears the topo just around that field (a soft cream halo),
+   so the writing area is plain while the lines stay everywhere else. */
+.rs-field:focus-within, .rs-choice:focus-within { background: var(--bg); box-shadow: 0 0 26px 20px var(--bg); border-radius: 4px; transition: box-shadow 0.35s var(--ease-out), background 0.35s var(--ease-out); }
+
+/* Footer: a more defined topo rising from the bottom edge, under "begin the
+   conversation" / the signature; faded up before it reaches the statement. (~14%) */
+.rs-footer { position: relative; }
+.rs-footer__topo { --topo-o: 0.14;
+  background-position: center bottom;
+  -webkit-mask-image: linear-gradient(to top, #000 0%, rgba(0,0,0,0.68) 46%, rgba(0,0,0,0.36) 74%, transparent 99%);
+          mask-image: linear-gradient(to top, #000 0%, rgba(0,0,0,0.68) 46%, rgba(0,0,0,0.36) 74%, transparent 99%); }
+.rs-footer__statement, .rs-footer__mark-wrap { position: relative; z-index: 1; }
+@media (prefers-reduced-motion: reduce) { .rs-topo { animation: none; } }
 /* Roman (upright) mission for a timeless, architectural read; "thrive" stays
    italic so the single expressive gesture — the accent word — lands harder. */
 .rs-purpose__quote {
