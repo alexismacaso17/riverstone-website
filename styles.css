@@ -513,8 +513,10 @@ img { max-width: 100%; }
 
 @media (max-width: 640px) {
   .rs-contact__form { grid-template-columns: 1fr; }
-  /* Name / Email / Phone / Message stay left; only the choice groups centre. */
-  .rs-field:has(.rs-choice--seg) .rs-field__label { text-align: center; }
+  /* Name / Email / Phone stay left; the choice groups and the vision field centre. */
+  .rs-field:has(.rs-choice--seg) .rs-field__label,
+  .rs-field--vision .rs-field__label { text-align: center; }
+  .rs-field--vision .rs-vision { text-align: center; }
   .rs-choice--seg { justify-content: center; }
   .rs-contact__form .rs-contact__submit { justify-self: center; }
 }
