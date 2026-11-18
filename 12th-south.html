@@ -65,15 +65,21 @@
   .sp-intro__h { font-family: var(--font-display); font-weight: 400; color: var(--fg-1); margin: 0; }
   .sp-intro__h > span { display: block; text-wrap: balance; }
   .sp-intro__h em { font-style: italic; color: var(--emphasis-italic); }
-  .sp-intro__lead { font-size: clamp(16px,1.9vw,23px); font-weight: 400; letter-spacing: 0.015em; color: var(--fg-2); margin: 0 0 clamp(18px,2.4vw,34px); }
-  .sp-intro__primary { font-size: clamp(44px,7.8vw,90px); line-height: 0.95; letter-spacing: -0.022em; margin: 0 0 clamp(18px,2.3vw,30px); }
-  .sp-intro__with { font-size: clamp(27px,4.4vw,53px); line-height: 1.0; letter-spacing: -0.013em; color: var(--fg-2); margin: 0 0 clamp(6px,0.8vw,12px); }
-  .sp-intro__close { font-size: clamp(22px,3.3vw,41px); line-height: 1.04; letter-spacing: -0.008em; color: var(--fg-2); }
+  .sp-intro__lead { font-size: clamp(16px,1.9vw,23px); font-weight: 400; letter-spacing: 0.015em; color: var(--fg-2); margin: 0 0 clamp(14px,1.8vw,26px); }
+  .sp-intro__primary { font-size: clamp(44px,7.8vw,90px); line-height: 0.95; letter-spacing: -0.022em; margin: 0 0 clamp(14px,1.8vw,24px); }
+  .sp-intro__with { font-size: clamp(27px,4.4vw,53px); line-height: 1.0; letter-spacing: -0.013em; color: var(--fg-2); margin: 0; }
+  /* Second brand moment: alo stands alone, dramatically scaled, with AND /
+     ALONGSIDE. reduced to supporting type set around it. */
+  .sp-intro__h .sp-intro__close { display: flex; flex-wrap: wrap; align-items: center; justify-content: center;
+    column-gap: clamp(12px,1.7vw,28px); margin: clamp(18px,2.4vw,38px) 0 0; }
+  .sp-intro__word { font-size: clamp(21px,3vw,38px); line-height: 1; letter-spacing: 0.01em; color: var(--fg-2); }
+  .sp-intro__alo { font-size: clamp(84px,14.5vw,166px); line-height: 0.9; letter-spacing: -0.012em; }
   @media (max-width: 600px) {
     .sp-intro__primary { font-size: clamp(34px,10.4vw,46px); letter-spacing: -0.018em; }
     .sp-intro__with { font-size: clamp(23px,6.6vw,30px); }
-    .sp-intro__close { font-size: clamp(19px,5.2vw,25px); }
     .sp-intro__lead { font-size: clamp(14px,3.6vw,17px); }
+    .sp-intro__word { font-size: clamp(18px,5vw,24px); }
+    .sp-intro__alo { font-size: clamp(66px,22vw,98px); line-height: 0.92; }
   }
   .sp-intro__p { font-family: var(--font-sans); font-size: clamp(18px,1.6vw,21px); line-height: 1.74; color: var(--fg-2); margin: clamp(26px,3vw,40px) auto 0; max-width: 60ch; }
   .sp-intro__p em { font-style: italic; color: var(--emphasis-italic); }
@@ -193,7 +199,11 @@
       <span class="sp-intro__lead">A new home for</span>
       <span class="sp-intro__primary"><em>Polo</em> Ralph Lauren,</span>
       <span class="sp-intro__with">with <em>Ralph&rsquo;s Coffee</em></span>
-      <span class="sp-intro__close">and <em style="text-transform:none;">alo</em> alongside.</span>
+      <span class="sp-intro__close">
+        <span class="sp-intro__word">and</span>
+        <em class="sp-intro__alo" style="text-transform:none;">alo</em>
+        <span class="sp-intro__word">alongside.</span>
+      </span>
     </h2>
   </section>
 
