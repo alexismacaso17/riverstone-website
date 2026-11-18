@@ -471,20 +471,15 @@ img { max-width: 100%; }
 /* Cursive "What is your vision?" prompt over the message field — breathes gently,
    clears on focus or once text is entered. */
 .rs-vision-wrap { position: relative; display: block; }
-/* "What is your vision?" written by hand: a pen traces the script left-to-right
-   (Snell Roundhand outline → solid ink fills in behind the nib), holds, fades,
-   pauses, then writes again. Snippet nib position measured in main inline JS. */
-.rs-vision { position: absolute; left: 1px; right: 1px; bottom: 6px; height: 34px; pointer-events: none; opacity: 0.74; }
-.rs-vision__ink { position: absolute; left: 0; bottom: 0; height: 34px; width: auto; max-width: 100%; overflow: visible; clip-path: inset(0 100% 0 0); animation: rs-vwrite 6.5s ease-in-out infinite; }
-.rs-vision__solid { fill: var(--emphasis-italic); }
-.rs-vision__trace { fill: none; stroke: #8c4327; stroke-width: 2px; stroke-linecap: round; stroke-linejoin: round; vector-effect: non-scaling-stroke; stroke-dasharray: 1; stroke-dashoffset: 1; animation: rs-vtrace 6.5s ease-in-out infinite; }
-.rs-vision__nib { position: absolute; left: 0; bottom: 7px; width: 6px; height: 6px; border-radius: 50%; background: #6f3620; opacity: 0; transform: translateX(0); animation: rs-vnib 6.5s ease-in-out infinite; }
-@keyframes rs-vwrite { 0% { clip-path: inset(0 100% 0 0); opacity: 1; } 42% { clip-path: inset(0 0 0 0); } 66% { clip-path: inset(0 0 0 0); opacity: 1; } 74% { opacity: 0; } 100% { clip-path: inset(0 0 0 0); opacity: 0; } }
-@keyframes rs-vtrace { 0% { stroke-dashoffset: 1; opacity: 1; } 42% { stroke-dashoffset: 0; opacity: 1; } 52% { opacity: 0; } 100% { opacity: 0; } }
-@keyframes rs-vnib { 0% { transform: translateX(0); opacity: 0; } 3% { opacity: 1; } 42% { transform: translateX(var(--nib-end, 250px)); opacity: 1; } 47% { transform: translateX(var(--nib-end, 250px)); opacity: 0; } 100% { opacity: 0; } }
+/* "What is your vision?" typed out like the "Shaped over time" signature: a
+   typewriter reveal with a caret, once the field scrolls into view, then holds.
+   Width (--tw) measured in the inline JS so the caret lands on the last letter. */
+.rs-vision { position: absolute; left: 1px; right: 1px; bottom: 7px; pointer-events: none; }
+.rs-vision__type { display: inline-block; overflow: hidden; white-space: nowrap; vertical-align: bottom; width: 0; max-width: 100%; font-family: var(--font-sans); font-size: clamp(13px,2.4vw,16px); letter-spacing: 0.18em; text-transform: uppercase; color: var(--emphasis-italic); opacity: 0.72; border-right: 2px solid transparent; }
+.rs-vision.is-typing .rs-vision__type { animation: rs-type 1.6s steps(20, end) forwards, rs-type-caret 0.5s step-end 5 forwards; }
 .rs-vision-wrap:focus-within .rs-vision, .rs-field--vision.has-value .rs-vision { opacity: 0; }
-.rs-vision-wrap:focus-within .rs-vision *, .rs-field--vision.has-value .rs-vision * { animation: none !important; }
-@media (prefers-reduced-motion: reduce) { .rs-vision__ink { clip-path: none; animation: none; } .rs-vision__trace, .rs-vision__nib { display: none; } }
+.rs-vision-wrap:focus-within .rs-vision__type, .rs-field--vision.has-value .rs-vision__type { animation: none !important; }
+@media (prefers-reduced-motion: reduce) { .rs-vision__type { width: auto; border-right: 0; animation: none; } }
 .rs-choice { display: flex; gap: 30px; flex-wrap: wrap; padding-top: 2px; }
 .rs-choice label { display: inline-flex; align-items: center; gap: 10px; font-size: 15px; color: var(--fg-1); cursor: pointer; }
 .rs-choice input { accent-color: var(--emphasis); }
@@ -525,7 +520,7 @@ img { max-width: 100%; }
 .rs-chapter--signature { display: inline-flex; align-items: center; justify-content: center; gap: clamp(14px,2.2vw,24px); --reveal-shift: 0px; transition: opacity 0.8s var(--ease-out) 0.2s, transform 0.8s var(--ease-out) 0.2s; }
 /* Top signature typed out like a typewriter (not cursive, not sans), once, then holds. */
 .rs-chapter--signature .rs-chapter__txt { display: inline-block; overflow: hidden; white-space: nowrap; vertical-align: bottom; width: 0; max-width: 100%; font-size: clamp(15px,1.7vw,19px); letter-spacing: 0.3em; color: var(--emphasis-italic); border-right: 2px solid transparent; }
-.rs-chapter--signature.is-in .rs-chapter__txt { animation: rs-type 1.7s steps(18, end) forwards, rs-type-caret 0.5s step-end 4 forwards; }
+.rs-chapter--signature.is-in .rs-chapter__txt { animation: rs-type 1.45s steps(18, end) forwards, rs-type-caret 0.5s step-end 4 forwards; }
 @keyframes rs-type { to { width: var(--tw, 15ch); } }
 @keyframes rs-type-caret { 0%, 100% { border-right-color: transparent; } 50% { border-right-color: var(--emphasis-italic); } }
 @media (prefers-reduced-motion: reduce) { .rs-chapter--signature .rs-chapter__txt { width: auto; border-right: 0; animation: none; } }
