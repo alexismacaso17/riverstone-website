@@ -139,7 +139,7 @@ img { max-width: 100%; }
 .rs-header.is-scrolled { background: rgba(248, 241, 222, 0.92); }
 /* Tie the nav bar into the motif — a faint, crisp topo across the bar. */
 .rs-header::before { content: ""; position: absolute; inset: 0; z-index: -1; pointer-events: none;
-  background: url("assets/topo-field.svg") center 30% / 140% auto no-repeat; opacity: 0.072; }
+  background: url("assets/topo-field.svg?t=2") center 30% / 140% auto no-repeat; opacity: 0.072; }
 /* Divider: a soft keyline that fades to nothing at both edges, so the bar
    never reads as a hard rectangular panel over the topo wallpaper. It is
    invisible at the top of the page and eases in gently only once the nav
@@ -187,7 +187,7 @@ img { max-width: 100%; }
      and the brand coordinates pinned to the foot of the panel. */
   .rs-mobile-nav { overflow: hidden; }
   .rs-mobile-nav::before { content: ""; position: absolute; inset: 0; z-index: 0; pointer-events: none;
-    background: url("assets/topo-field.svg") center center / cover no-repeat; opacity: 0.16; }
+    background: url("assets/topo-field.svg?t=2") center center / cover no-repeat; opacity: 0.16; }
   .rs-mobile-nav > * { position: relative; z-index: 1; }
   .rs-mobile-nav a:not(.rs-btn) { text-shadow: 0 0 6px var(--bg), 0 0 6px var(--bg); }
   .rs-mobile-nav .rs-btn--primary { color: var(--bg); }
@@ -221,8 +221,9 @@ img { max-width: 100%; }
   --hero-h: clamp(580px, 62vh, 600px);
   position: relative;
   max-width: 1100px; margin: 0 auto;
+  /* No cream mat — let the topo wallpaper run through the frame around the video. */
   padding: 14px;
-  background: var(--bg);
+  background: transparent;
   animation: rs-hero-fade var(--dur-reveal) var(--ease-editorial) 120ms both;
 }
 /* A clean rectangular window — no transform, no mask, no clip tricks. object-fit
@@ -328,14 +329,14 @@ img { max-width: 100%; }
 .rs-topo { opacity: var(--topo-o, 0.1); animation: rs-topo-fade 1.8s var(--ease-out); will-change: opacity; pointer-events: none; }
 @keyframes rs-topo-fade { from { opacity: 0; } }
 .rs-topo-field { position: absolute; inset: 0; z-index: 0;
-  background: url("assets/topo-field.svg") center center / cover no-repeat; }
+  background: url("assets/topo-field.svg?t=2") center center / cover no-repeat; }
 
 /* Consistent site-wide topo background: one continuous layer behind everything,
    so the white space is never empty and sections connect seamlessly. Opaque
    content (the hero mat, project images, buttons) sits on top, so the lines
    never cross imagery or controls; over text they stay faint. */
 .rs-site-topo { position: fixed; inset: 0; z-index: -1; pointer-events: none;
-  background: url("assets/topo-field.svg") center center / 125% auto no-repeat;
+  background: url("assets/topo-field.svg?t=2") center center / 125% auto no-repeat;
   opacity: 0.106; animation: rs-topo-fade 2s var(--ease-out); }
 /* The project pages without a video hero (Banks, Village Commons) would
    otherwise paint the body's cream straight over the fixed topo, leaving a
@@ -489,7 +490,7 @@ main :where(h1, h2, h3, h4, p, li, blockquote),
    itself. A generous, deliberate breath of whitespace separates the services
    from the work, so the projects read as the proof of what came before. */
 .rs-projects { padding: clamp(40px, 5vw, 72px) var(--gutter) clamp(40px, 5vw, 76px); }
-.rs-projects__grid { max-width: calc(1240px - 2 * var(--gutter)); margin: 0 auto; display: grid; grid-template-columns: repeat(4, 1fr); column-gap: clamp(20px, 2vw, 28px); row-gap: clamp(14px, 1.6vw, 22px); background: var(--bg); }
+.rs-projects__grid { max-width: calc(1240px - 2 * var(--gutter)); margin: 0 auto; display: grid; grid-template-columns: repeat(4, 1fr); column-gap: clamp(20px, 2vw, 28px); row-gap: clamp(14px, 1.6vw, 22px); }
 .rs-project { position: relative; display: flex; flex-direction: column; text-decoration: none; border: 0; cursor: pointer; }
 /* No frame — the image floats on the cream, lifted by only the faintest shadow.
    The shadow deepens a touch on hover, like a print being drawn forward. */
