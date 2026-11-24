@@ -337,7 +337,7 @@ img { max-width: 100%; }
    never cross imagery or controls; over text they stay faint. */
 .rs-site-topo { position: fixed; inset: 0; z-index: -1; pointer-events: none;
   background: url("assets/topo-field.svg?t=2") center center / 125% auto no-repeat;
-  opacity: 0.106; animation: rs-topo-fade 2s var(--ease-out); }
+  opacity: 0.15; animation: rs-topo-fade 2s var(--ease-out); }
 /* The project pages without a video hero (Banks, Village Commons) would
    otherwise paint the body's cream straight over the fixed topo, leaving a
    blank band where no opaque content sits. Carry the cream on the canvas
@@ -345,7 +345,7 @@ img { max-width: 100%; }
 html:has(body.bp) { background: var(--bg); }
 body.bp { background: transparent; }
 /* A touch more restraint on phones, especially around the denser mobile type. */
-@media (max-width: 640px) { .rs-site-topo { opacity: 0.074; } }
+@media (max-width: 640px) { .rs-site-topo { opacity: 0.10; } }
 @media (prefers-reduced-motion: reduce) { .rs-site-topo { animation: none; } }
 /* Contact: a hair quieter than the rest, as a gentle cream haze that dissolves
    into the surrounding wallpaper at the edges — no patch, still continuous. */
@@ -357,12 +357,12 @@ body.bp { background: transparent; }
 .rs-chapter__txt, .rs-purpose__quote, .rs-purpose__essay p, .rs-values__word,
 .rs-discipline__title, .rs-discipline__body, .rs-project__name, .rs-project__location,
 .rs-contact__heading, .rs-contact__sub, .rs-field__label, .rs-footer__statement {
-  text-shadow: 0 0 6px var(--bg), 0 0 6px var(--bg); }
+  text-shadow: 0 0 8px var(--bg), 0 0 8px var(--bg), 0 0 16px var(--bg); }
 /* Same halo across the interior landing pages (headings, body, labels, numbers). */
 main :where(h1, h2, h3, h4, p, li, blockquote),
 [class*="masthead__"], [class*="-eyebrow"], [class$="__tag"], [class$="__sub"],
 [class*="num__"], [class*="closing__line"], [class*="loc__"], .rs-coord-tick {
-  text-shadow: 0 0 6px var(--bg), 0 0 6px var(--bg); }
+  text-shadow: 0 0 8px var(--bg), 0 0 8px var(--bg), 0 0 16px var(--bg); }
 /* …never over dark hero media or on the buttons themselves. */
 .rs-hero__inner *, .sp-hero *, .tp-hero *,
 .rs-btn, .rs-btn *, .rs-seg span, .bp-maplink a, .sp-maplink a, .tp-maplink a,
