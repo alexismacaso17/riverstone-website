@@ -22,6 +22,14 @@
   .rs-people__head .rs-chapter { margin: 0 0 clamp(18px,2vw,26px); }
   .rs-people__title { font-family: var(--font-display); font-weight: 400; font-size: clamp(30px,4.6vw,58px); line-height: 1.1; letter-spacing: -0.01em; color: var(--fg-1); margin: 0; text-wrap: balance; }
   .rs-people__title em { font-style: italic; color: var(--emphasis-italic); }
+  /* Staggered entrance — people first, then places; THE / BEHIND stay put.
+     Space is held (inline-block + opacity/transform only), so nothing reflows. */
+  .rs-people__title .rs-tw { display: inline-block; opacity: 0; transform: translateY(13px);
+    transition: opacity 700ms var(--ease-out), transform 700ms var(--ease-out); will-change: opacity, transform; }
+  .rs-people__head.is-anim .rs-tw--people { opacity: 1; transform: none; transition-delay: 200ms; }
+  .rs-people__head.is-anim .rs-tw--places { opacity: 1; transform: none; transition-delay: 600ms; }
+  @media (prefers-reduced-motion: reduce) {
+    .rs-people__title .rs-tw { opacity: 1; transform: none; transition: none; } }
 
   .rs-roster { max-width: 940px; margin: 0 auto; display: flex; flex-direction: column; gap: clamp(60px,7.5vw,100px); }
   /* Portrait enlarged ~9% (232 → 254); a touch more gap to the text column. */
@@ -85,8 +93,8 @@
 <main id="main">
   <!-- ============================================================ PEOPLE -->
   <section class="rs-people" id="our-people">
-    <div class="rs-people__head rs-reveal">
-      <h1 class="rs-people__title">The <em>people</em> behind the <em>places.</em></h1>
+    <div class="rs-people__head">
+      <h1 class="rs-people__title">The <em class="rs-tw rs-tw--people">people</em> behind the <em class="rs-tw rs-tw--places">places.</em></h1>
     </div>
 
     <div class="rs-roster">
@@ -211,5 +219,25 @@
 
 <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
 <script src="main.js?v=1"></script>
+<script>
+/* Headline: reveal "people" then "places" once, when it enters the viewport. */
+(function () {
+  var head = document.querySelector('.rs-people__head');
+  if (!head) return;
+  var done = false;
+  var go = function () { if (!done) { done = true; head.classList.add('is-anim'); } };
+  var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (reduce || !('IntersectionObserver' in window)) { go(); return; }
+  var io = new IntersectionObserver(function (entries) {
+    entries.forEach(function (e) { if (e.isIntersecting) { go(); io.disconnect(); } });
+  }, { threshold: 0.25 });
+  io.observe(head);
+  /* If it's already on screen at load (above the fold), start without waiting. */
+  requestAnimationFrame(function () {
+    var r = head.getBoundingClientRect();
+    if (r.top < (window.innerHeight || 0) * 0.9 && r.bottom > 0) { go(); io.disconnect(); }
+  });
+})();
+</script>
 </body>
 </html>
