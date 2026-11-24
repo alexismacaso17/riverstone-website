@@ -137,9 +137,11 @@ img { max-width: 100%; }
   transition: background var(--dur-base);
 }
 .rs-header.is-scrolled { background: rgba(248, 241, 222, 0.92); }
-/* Tie the nav bar into the motif — a faint, crisp topo across the bar. */
+/* Tie the nav bar into the motif — a window onto the SAME fixed wallpaper
+   (identical size/position/attachment as .rs-site-topo) so the contour lines
+   run continuously across the header's edge instead of as a separate pattern. */
 .rs-header::before { content: ""; position: absolute; inset: 0; z-index: -1; pointer-events: none;
-  background: url("assets/topo-field.svg?t=2") center 30% / 140% auto no-repeat; opacity: 0.072; }
+  background: url("assets/topo-field.svg?t=2") center center / 125% auto no-repeat fixed; opacity: 0.15; }
 /* Divider: a soft keyline that fades to nothing at both edges, so the bar
    never reads as a hard rectangular panel over the topo wallpaper. It is
    invisible at the top of the page and eases in gently only once the nav
